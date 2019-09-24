@@ -1,0 +1,72 @@
+[
+{
+  "directory": "/home/ensea/plt/extern/dia2code",
+  "command": "/usr/bin/gcc  -I/usr/include/libxml2     -Wall -std=c11   -pthread -g  -std=c99   -pthread -g -Wno-unused-variable -Wno-unused-function -Wno-pointer-sign -Wno-unused-but-set-variable -Wno-stringop-truncation -Wno-maybe-uninitialized -O3 -DNDEBUG   -std=gnu99 -o CMakeFiles/dia2code.dir/src/comment_helper.c.o   -c /home/ensea/plt/extern/dia2code/src/comment_helper.c",
+  "file": "/home/ensea/plt/extern/dia2code/src/comment_helper.c"
+},
+{
+  "directory": "/home/ensea/plt/extern/dia2code",
+  "command": "/usr/bin/gcc  -I/usr/include/libxml2     -Wall -std=c11   -pthread -g  -std=c99   -pthread -g -Wno-unused-variable -Wno-unused-function -Wno-pointer-sign -Wno-unused-but-set-variable -Wno-stringop-truncation -Wno-maybe-uninitialized -O3 -DNDEBUG   -std=gnu99 -o CMakeFiles/dia2code.dir/src/decls.c.o   -c /home/ensea/plt/extern/dia2code/src/decls.c",
+  "file": "/home/ensea/plt/extern/dia2code/src/decls.c"
+},
+{
+  "directory": "/home/ensea/plt/extern/dia2code",
+  "command": "/usr/bin/gcc  -I/usr/include/libxml2     -Wall -std=c11   -pthread -g  -std=c99   -pthread -g -Wno-unused-variable -Wno-unused-function -Wno-pointer-sign -Wno-unused-but-set-variable -Wno-stringop-truncation -Wno-maybe-uninitialized -O3 -DNDEBUG   -std=gnu99 -o CMakeFiles/dia2code.dir/src/dia2code.c.o   -c /home/ensea/plt/extern/dia2code/src/dia2code.c",
+  "file": "/home/ensea/plt/extern/dia2code/src/dia2code.c"
+},
+{
+  "directory": "/home/ensea/plt/extern/dia2code",
+  "command": "/usr/bin/gcc  -I/usr/include/libxml2     -Wall -std=c11   -pthread -g  -std=c99   -pthread -g -Wno-unused-variable -Wno-unused-function -Wno-pointer-sign -Wno-unused-but-set-variable -Wno-stringop-truncation -Wno-maybe-uninitialized -O3 -DNDEBUG   -std=gnu99 -o CMakeFiles/dia2code.dir/src/generate_code_cpp.c.o   -c /home/ensea/plt/extern/dia2code/src/generate_code_cpp.c",
+  "file": "/home/ensea/plt/extern/dia2code/src/generate_code_cpp.c"
+},
+{
+  "directory": "/home/ensea/plt/extern/dia2code",
+  "command": "/usr/bin/gcc  -I/usr/include/libxml2     -Wall -std=c11   -pthread -g  -std=c99   -pthread -g -Wno-unused-variable -Wno-unused-function -Wno-pointer-sign -Wno-unused-but-set-variable -Wno-stringop-truncation -Wno-maybe-uninitialized -O3 -DNDEBUG   -std=gnu99 -o CMakeFiles/dia2code.dir/src/includes.c.o   -c /home/ensea/plt/extern/dia2code/src/includes.c",
+  "file": "/home/ensea/plt/extern/dia2code/src/includes.c"
+},
+{
+  "directory": "/home/ensea/plt/extern/dia2code",
+  "command": "/usr/bin/gcc  -I/usr/include/libxml2     -Wall -std=c11   -pthread -g  -std=c99   -pthread -g -Wno-unused-variable -Wno-unused-function -Wno-pointer-sign -Wno-unused-but-set-variable -Wno-stringop-truncation -Wno-maybe-uninitialized -O3 -DNDEBUG   -std=gnu99 -o CMakeFiles/dia2code.dir/src/main.c.o   -c /home/ensea/plt/extern/dia2code/src/main.c",
+  "file": "/home/ensea/plt/extern/dia2code/src/main.c"
+},
+{
+  "directory": "/home/ensea/plt/extern/dia2code",
+  "command": "/usr/bin/gcc  -I/usr/include/libxml2     -Wall -std=c11   -pthread -g  -std=c99   -pthread -g -Wno-unused-variable -Wno-unused-function -Wno-pointer-sign -Wno-unused-but-set-variable -Wno-stringop-truncation -Wno-maybe-uninitialized -O3 -DNDEBUG   -std=gnu99 -o CMakeFiles/dia2code.dir/src/parse_diagram.c.o   -c /home/ensea/plt/extern/dia2code/src/parse_diagram.c",
+  "file": "/home/ensea/plt/extern/dia2code/src/parse_diagram.c"
+},
+{
+  "directory": "/home/ensea/plt/extern/dia2code",
+  "command": "/usr/bin/gcc  -I/usr/include/libxml2     -Wall -std=c11   -pthread -g  -std=c99   -pthread -g -Wno-unused-variable -Wno-unused-function -Wno-pointer-sign -Wno-unused-but-set-variable -Wno-stringop-truncation -Wno-maybe-uninitialized -O3 -DNDEBUG   -std=gnu99 -o CMakeFiles/dia2code.dir/src/scan_tree.c.o   -c /home/ensea/plt/extern/dia2code/src/scan_tree.c",
+  "file": "/home/ensea/plt/extern/dia2code/src/scan_tree.c"
+},
+{
+  "directory": "/home/ensea/plt/extern/dia2code",
+  "command": "/usr/bin/gcc  -I/usr/include/libxml2     -Wall -std=c11   -pthread -g  -std=c99   -pthread -g -Wno-unused-variable -Wno-unused-function -Wno-pointer-sign -Wno-unused-but-set-variable -Wno-stringop-truncation -Wno-maybe-uninitialized -O3 -DNDEBUG   -std=gnu99 -o CMakeFiles/dia2code.dir/src/source_parser.c.o   -c /home/ensea/plt/extern/dia2code/src/source_parser.c",
+  "file": "/home/ensea/plt/extern/dia2code/src/source_parser.c"
+},
+{
+  "directory": "/home/ensea/plt/src/shared",
+  "command": "/usr/bin/g++     -Wall -std=c++11 -pthread -g -g3 -gdwarf-2   -std=gnu++11 -o CMakeFiles/shared_static.dir/state/Exemple.cpp.o -c /home/ensea/plt/src/shared/state/Exemple.cpp",
+  "file": "/home/ensea/plt/src/shared/state/Exemple.cpp"
+},
+{
+  "directory": "/home/ensea/plt/src/client",
+  "command": "/usr/bin/g++   -I/home/ensea/plt/src/shared   -Wall -std=c++11 -pthread -g -g3 -gdwarf-2   -std=gnu++11 -o CMakeFiles/client.dir/main.cpp.o -c /home/ensea/plt/src/client/main.cpp",
+  "file": "/home/ensea/plt/src/client/main.cpp"
+},
+{
+  "directory": "/home/ensea/plt/src/client",
+  "command": "/usr/bin/g++   -I/home/ensea/plt/src/shared   -Wall -std=c++11 -pthread -g -g3 -gdwarf-2   -std=gnu++11 -o CMakeFiles/client_static.dir/client/Exemple.cpp.o -c /home/ensea/plt/src/client/client/Exemple.cpp",
+  "file": "/home/ensea/plt/src/client/client/Exemple.cpp"
+},
+{
+  "directory": "/home/ensea/plt/test/shared",
+  "command": "/usr/bin/g++  -DBOOST_TEST_DYN_LINK -DBOOST_TEST_MAIN -DBOOST_TEST_MODULE=shared_dummy -I/home/ensea/plt/src/shared   -Wall -std=c++11 -pthread -g -g3 -gdwarf-2   -std=gnu++11 -o CMakeFiles/test_shared_dummy.dir/test_shared_dummy.cpp.o -c /home/ensea/plt/test/shared/test_shared_dummy.cpp",
+  "file": "/home/ensea/plt/test/shared/test_shared_dummy.cpp"
+},
+{
+  "directory": "/home/ensea/plt/test/client",
+  "command": "/usr/bin/g++  -DBOOST_TEST_DYN_LINK -DBOOST_TEST_MAIN -DBOOST_TEST_MODULE=client_dummy -I/home/ensea/plt/src/shared   -Wall -std=c++11 -pthread -g -g3 -gdwarf-2   -std=gnu++11 -o CMakeFiles/test_client_dummy.dir/test_client_dummy.cpp.o -c /home/ensea/plt/test/client/test_client_dummy.cpp",
+  "file": "/home/ensea/plt/test/client/test_client_dummy.cpp"
+}
+]

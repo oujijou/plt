@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/ensea/plt/src/shared/state/Exemple.h
+
+/home/ensea/plt/test/shared/test_shared_dummy.cpp
+boost/test/unit_test.hpp
+-
+../../src/shared/state/Exemple.h
+/home/ensea/plt/src/shared/state/Exemple.h
+
