@@ -12,6 +12,16 @@ display errors.
 The next step is to execute the executable file named client inside the folder bin.
 ----> "./client anyword " displays "Bonjour anyword".
 
+## Testing code-coverage
+In order to test the code-coverage you may process as following:
+1) In the folder "build" execute the command "cmake .." to compile the project
+2) command "make" to execute the project
+3) Then "make unittest" to execute the unit tests
+4) "make code-coverage"
+5) To finish execute the command "firefox code-coverage/index.html"
+
+A web page will be open showing the code-coverage based on the functions and the lines of code.
+
 
 
 
