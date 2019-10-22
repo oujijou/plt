@@ -1,19 +1,36 @@
 #include <iostream>
+using namespace std;
+
+
 
 // Les lignes suivantes ne servent qu'à vérifier que la compilation avec SFML fonctionne
 #include <SFML/Graphics.hpp>
 
 void testSFML() {
     
+    int frame = 0;
+    int row = 0;   
+    int frameCounter = 0;
+
     sf::Texture texture;
-    if (!texture.loadFromFile("/home/ensea/plt/res/5.png"))
+    sf::Sprite texSprite;
+    if (!texture.loadFromFile("/home/ensea/plt/res/arena1.jpg"))
     {
         std::cout<<"Load Failed" << std::endl;
         system("Pause");
     }
+    texSprite.setTexture(texture);
+
+    sf::Texture spriteSheet;
+    if (!spriteSheet.loadFromFile("/home/ensea/plt/res/ken.png",sf::IntRect(7,7,100,120)))
+    {
+        std::cout<<"Load Failed" << std::endl;
+        system("Pause");
+    }
+    sf::Sprite playerSprite;
+    playerSprite.setTexture(spriteSheet,true);
+    //playerSprite.setScale(0.5,0.5);
     
-    sf::Sprite sprite;
-    sprite.setTexture(texture);
 
     sf::RenderWindow window(sf::VideoMode(1000, 1000), "SFML works!",sf::Style::Default);
     // sf::CircleShape shape(100.f);
@@ -28,8 +45,11 @@ void testSFML() {
                 window.close();
         }
 
+        //playerSprite.setTextureRect(sf::IntRect(32*frame, row, 32,48));
+
         window.clear();
-        window.draw(sprite);
+        window.draw(texSprite);
+        window.draw(playerSprite);
         window.display();
     }
 }
