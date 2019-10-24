@@ -32,24 +32,24 @@ void testSFML() {
         system("Pause");
     }
     sf::Sprite playerSprite;
-    playerSprite.setTexture(spriteSheet,true);
+    playerSprite.setTexture(spriteSheet);
     // put fighter on the right of the arena
     playerSprite.setPosition(sf::Vector2f(500.f, 210.f)); 
     
 
     //display fighter2
-    // sf::Texture spriteSheet2;
-    // //sf:: IntRect rectSourceSprite1(0,0,100,120);
-    // if (!spriteSheet.loadFromFile("/home/ensea/plt/res/billylee.png"))
-    // {
-    //     std::cout<<"Load Failed" << std::endl;
-    //     system("Pause");
-    // }
-    // sf::Sprite playerSprite2;
+    sf::Texture spriteSheet2;
+    sf:: IntRect rectSourceSprite1(0,0,80,125);
+    if (!spriteSheet2.loadFromFile("/home/ensea/plt/res/thork.png",rectSourceSprite1))
+    {
+        std::cout<<"Load Failed" << std::endl;
+        system("Pause");
+    }
+    sf::Sprite playerSprite2;
     // playerSprite2.setOrigin(10.f, 20.f);
-    // playerSprite2.setTexture(spriteSheet2,true);
+    playerSprite2.setTexture(spriteSheet2);
     // // put fighter on the left of the arena
-    // playerSprite2.setPosition(sf::Vector2f(100.f, 210.f)); 
+    playerSprite2.setPosition(sf::Vector2f(10.f, 210.f)); 
 
     //size of image as input of VideoMode
     sf::RenderWindow window(sf::VideoMode(640, 384), "SFML works!",sf::Style::Default);
@@ -81,7 +81,7 @@ void testSFML() {
         window.clear();
         window.draw(arenaSprite);
         window.draw(playerSprite);
-        // window.draw(playerSprite2);
+        window.draw(playerSprite2);
         window.display();
     }
 }
