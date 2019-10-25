@@ -2,7 +2,6 @@
 using namespace std;
 
 
-
 // Les lignes suivantes ne servent qu'à vérifier que la compilation avec SFML fonctionne
 #include <SFML/Graphics.hpp>
 
@@ -16,11 +15,13 @@ void testSFML() {
     sf::Texture arena;
     sf::Sprite arenaSprite;
     sf:: Vector2u arenaSize = arena.getSize();
-    if (!arena.loadFromFile("/home/ensea/plt/res/arena3.png"))
+    
+    if (!arena.loadFromFile("/home/ensea/plt/res/arena1.png"))
     {
         std::cout<<"Load Failed" << std::endl;
         system("Pause");
     }
+    arenaSprite.setScale(0.5,0.5);
     arenaSprite.setTexture(arena);
     
     //display fighter1
@@ -52,7 +53,9 @@ void testSFML() {
     playerSprite2.setPosition(sf::Vector2f(10.f, 210.f)); 
 
     //size of image as input of VideoMode
-    sf::RenderWindow window(sf::VideoMode(1300, 800), "SFML works!",sf::Style::Default);
+    sf::VideoMode resolution;
+
+    sf::RenderWindow window(sf::VideoMode(640, 384), "SFML works!",sf::Style::Default);
     
     sf::Clock clock;
 
