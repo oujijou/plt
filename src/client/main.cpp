@@ -16,7 +16,7 @@ void testSFML() {
     sf::Texture arena;
     sf::Sprite arenaSprite;
     sf:: Vector2u arenaSize = arena.getSize();
-    if (!arena.loadFromFile("/home/ensea/plt/res/arena1.png"))
+    if (!arena.loadFromFile("/home/ensea/plt/res/arena3.png"))
     {
         std::cout<<"Load Failed" << std::endl;
         system("Pause");
@@ -26,7 +26,7 @@ void testSFML() {
     //display fighter1
     sf::Texture spriteSheet;
     sf:: IntRect rectSourceSprite(0,0,100,120);
-    if (!spriteSheet.loadFromFile("/home/ensea/plt/res/ken.png",rectSourceSprite));
+    if (!spriteSheet.loadFromFile("/home/ensea/plt/res/kuro.png",rectSourceSprite));
     {
         std::cout<<"Load Failed" << std::endl;
         system("Pause");
@@ -52,7 +52,7 @@ void testSFML() {
     playerSprite2.setPosition(sf::Vector2f(10.f, 210.f)); 
 
     //size of image as input of VideoMode
-    sf::RenderWindow window(sf::VideoMode(640, 384), "SFML works!",sf::Style::Default);
+    sf::RenderWindow window(sf::VideoMode(1300, 800), "SFML works!",sf::Style::Default);
     
     sf::Clock clock;
 
