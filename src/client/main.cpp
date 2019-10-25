@@ -16,7 +16,7 @@ void testSFML() {
     sf::Sprite arenaSprite;
     sf:: Vector2u arenaSize = arena.getSize();
     
-    if (!arena.loadFromFile("/home/ensea/plt/res/arena1.png"))
+    if (!arena.loadFromFile("/home/ensea/plt/res/Terrains/seku_terrain.png"))
     {
         std::cout<<"Load Failed" << std::endl;
         system("Pause");
@@ -27,7 +27,7 @@ void testSFML() {
     //display fighter1
     sf::Texture spriteSheet;
     sf:: IntRect rectSourceSprite(0,0,100,120);
-    if (!spriteSheet.loadFromFile("/home/ensea/plt/res/kuro.png",rectSourceSprite));
+    if (!spriteSheet.loadFromFile("/home/ensea/plt/res/Fighters/kuro.png",rectSourceSprite));
     {
         std::cout<<"Load Failed" << std::endl;
         system("Pause");
@@ -41,7 +41,7 @@ void testSFML() {
     //display fighter2
     sf::Texture spriteSheet2;
     sf:: IntRect rectSourceSprite1(0,0,80,125);
-    if (!spriteSheet2.loadFromFile("/home/ensea/plt/res/thork.png",rectSourceSprite1))
+    if (!spriteSheet2.loadFromFile("/home/ensea/plt/res/Fighters/thork.png",rectSourceSprite1))
     {
         std::cout<<"Load Failed" << std::endl;
         system("Pause");
