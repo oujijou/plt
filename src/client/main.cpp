@@ -100,6 +100,7 @@ int main(int argc,char* argv[])
 {
     cout << "Bonjour " <<argv[1] << endl;
     testSFML();
+    
 
     return 0;
 }
