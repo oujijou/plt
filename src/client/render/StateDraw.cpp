@@ -1,9 +1,9 @@
-#include "StateDraw.h"
+// #include "StateDraw.h"
 
-using namespace std;
+// using namespace std;
 
-namespace render
-{
+// namespace render
+// {
     // bool Surface::loadFighters(state::State &state, sf::Texture &textureTileset, sf::Vector2u tileSize, unsigned int width, unsigned int height)
     // {
     //      // on redimensionne le tableau de vertex pour qu'il puisse contenir tout le niveau
@@ -38,4 +38,4 @@ namespace render
 
     // return true;
     // }
-}
+//}
