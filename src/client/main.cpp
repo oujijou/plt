@@ -113,50 +113,42 @@ int main(int argc,char* argv[])
 
             //testSFML();
             State state;
-            //initialisation des combattants
-            Fighter fighter1 = Fighter(Kuro,ALIVE,100,100,50,0,COUPDEPOING);
-            Fighter fighter2 = Fighter(Flint,ALIVE,100,100,50,0,COUPDEPOING);
-            //ajout à l'état
-            state.setFighter(fighter1);
-            state.setFighter(fighter2);
-
-            sf::RenderWindow window(sf::VideoMode(1950, 900), "Fighter Zone");
+            cout << " etat cree" << endl;
+            state.initPlayers();
+            
+            sf::RenderWindow window(sf::VideoMode(640, 384), "Fighter Zone");
+            cout << " fenetre cree" << endl;
 
             //les differentes couches de textures
-
-
+            StateLayer stateLayer(window,state);
+            cout << " window et state ok cree" << endl;
+            stateLayer.initTextureManagers(state);
+            cout << " texture Managers init ok cree" << endl;
 
             //fin 
 
         
             while (window.isOpen()){
             // Close the window if the close button is pressed
-            sf::Event event;
-            while (window.pollEvent(event))
-            {
-                if (event.type == sf::Event::Closed)
+                sf::Event event;
+                while (window.pollEvent(event))
                 {
-                    window.close();
+                    if (event.type == sf::Event::Closed)
+                    {
+                        window.close();
+                    }
                 }
-            }
-            //stateLayer.draw(window);
-            /*
-            window.clear();
+               // cout << " window opened" << endl;
+                //stateLayer.draw(window);
             
-            window.draw(*stateLayer.getTextureAreas()[0]);	// Draw the map			
-            window.draw(*stateLayer.getTextureAreas()[1]);	// Draw the units
-            window.draw(*stateLayer.getTextureAreas()[2]);	// Draw the cursor*/
-            window.display();
-		}  
+                window.clear();
+                
+               // window.draw(*stateLayer.getTextureManagers()[0]);	// Draw fighter1			
+                //window.draw(*stateLayer.getTextureManagers()[1]);	// Draw fighter2
+                window.draw(*stateLayer.getTextureManagers()[2]);	// Draw the cursor
+                window.display();
+		    }  
+        }
     }
-    
-    
-    
-
-    
-    
-    }
-    
- 
     return 0;
 }

@@ -27,7 +27,7 @@ TileSet::TileSet(TileSetID newID){
         cellHeight=384;
         imageFile="res/Terrains/seku_terrain.png";
     }
-
+    //sf:: IntRect rectSourceSprite(0,0,100,100);
     textureTileSet.loadFromFile(imageFile);
 }
 
