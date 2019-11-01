@@ -6,10 +6,7 @@ using namespace render;
 
 StateLayer::StateLayer(sf::RenderWindow& window, state::State& State)
 {
-    //font.loadFromFile("rsc/Font/Game_Played.otf");
-    
-
-	TileSet tileSetFighter1(KUROTILE);
+   	TileSet tileSetFighter1(KUROTILE);
 	unique_ptr<TileSet> ptr_fighterTileSet1 (new TileSet(tileSetFighter1));
 	tileSets.push_back(move(ptr_fighterTileSet1));
 
@@ -39,10 +36,6 @@ void StateLayer::initTextureManagers(state::State state)
     TextureManager textureFighter2;
     TextureManager textureTerrain;
 
-    //Chargement des Tiles dans Texture
-    // string directory="rsc/Images/level1_completeMap.png";
-    // .loadMap(mapWidth,mapHeight,directory);
-    //map.loadMap(mapWidth,mapHeight,state,*tileSets[2]);
 
     // textureFighter1.loadFighter1(state,*tileSets[0]);
     // textureFighter2.loadFighter2(state,*tileSets[1]);
@@ -84,4 +77,3 @@ int StateLayer::getMapHeight() const{
 int StateLayer::getMapWidth() const{
     return mapWidth;
 }
-
