@@ -5,7 +5,7 @@ using namespace render;
 
 TileSet::TileSet(TileSetID newID){
     id = newID;
-    
+    sf:: IntRect rectSourceSprite(0,0,100,100);
     cellWidth=100;
     cellHeight=100;
 
@@ -13,22 +13,25 @@ TileSet::TileSet(TileSetID newID){
     {
         cellWidth=100;
         cellHeight=100;
-        imageFile="res/Fighters/Kuro.png";
+        imageFile="/home/ensea/plt/res/Fighters/Kuro.png";
+        textureTileSet.loadFromFile(imageFile,rectSourceSprite);
     }
     if (id == FLINTTILE)
     {
         cellWidth=100;
         cellHeight=100;
-        imageFile="res/Fighters/Flint.png";
+        imageFile="/home/ensea/plt/res/Fighters/Flint.png";
+        textureTileSet.loadFromFile(imageFile,rectSourceSprite);
     }
      if (id == TERRAIN )
     {
         cellWidth=640;
         cellHeight=384;
-        imageFile="res/Terrains/seku_terrain.png";
+        imageFile="/home/ensea/plt/res/Terrains/seku_terrain.png";
+        textureTileSet.loadFromFile(imageFile);
     }
     //sf:: IntRect rectSourceSprite(0,0,100,100);
-    textureTileSet.loadFromFile(imageFile);
+    
 }
 
 int const TileSet ::getCellWidth(){

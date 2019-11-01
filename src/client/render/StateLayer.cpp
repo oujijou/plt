@@ -7,19 +7,15 @@ using namespace render;
 StateLayer::StateLayer(sf::RenderWindow& window, state::State& State)
 {
     //font.loadFromFile("rsc/Font/Game_Played.otf");
-    screenWidth=1950;
-    screenHeight=900;
+    
 
-    mapWidth=1600;
-    mapHeight=800;
-
-	TileSet tileSetFighter1(KUROTILE);//Load units tileset image
+	TileSet tileSetFighter1(KUROTILE);
 	unique_ptr<TileSet> ptr_fighterTileSet1 (new TileSet(tileSetFighter1));
-	tileSets.push_back(move(ptr_fighterTileSet1));//Store pointor of the TileSet object
+	tileSets.push_back(move(ptr_fighterTileSet1));
 
-    TileSet tileSetFighter2(FLINTTILE);//Load units tileset image
+    TileSet tileSetFighter2(FLINTTILE);
 	unique_ptr<TileSet> ptr_fighterTileSet2 (new TileSet(tileSetFighter2));
-	tileSets.push_back(move(ptr_fighterTileSet2));//Store pointor of the TileSet object
+	tileSets.push_back(move(ptr_fighterTileSet2));
 
     TileSet tileSetTerrain(TERRAIN);
 	std::unique_ptr<TileSet> ptr_terrainTileSet (new TileSet(tileSetTerrain));
@@ -48,8 +44,10 @@ void StateLayer::initTextureManagers(state::State state)
     // .loadMap(mapWidth,mapHeight,directory);
     //map.loadMap(mapWidth,mapHeight,state,*tileSets[2]);
 
-    textureFighter1.loadFighter(state,*tileSets[0]);
-    textureFighter2.loadFighter(state,*tileSets[1]);
+    // textureFighter1.loadFighter1(state,*tileSets[0]);
+    // textureFighter2.loadFighter2(state,*tileSets[1]);
+    textureFighter1.loadFighter(100,100,"/home/ensea/plt/res/Fighters/Kuro.png");
+    textureFighter2.loadFighter(100,100,"/home/ensea/plt/res/Fighters/Flint.png");
     textureTerrain.loadTerrain(640,384,"/home/ensea/plt/res/Terrains/seku_terrain.png");
 
     //Déclaration des pointeurs sur des pbjets de types Texture
@@ -71,10 +69,11 @@ void StateLayer::initTextureManagers(state::State state)
 
 void StateLayer::draw (sf::RenderWindow& window)
 {
+
     window.clear();
+    window.draw(*textureManagers[2]);
     window.draw(*textureManagers[0]);
     window.draw(*textureManagers[1]);
-    window.draw(*textureManagers[2]);
     window.display();
 }
 

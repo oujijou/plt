@@ -34,48 +34,110 @@ bool TextureManager::loadTerrain(int width, int height , string mapImageDirector
 	return true;
 }
 
-bool TextureManager::loadFighter(state::State& currentState, TileSet& textureTileset)
+bool TextureManager::loadFighter(int width, int height, string ImageDirectory)
 {
-	texture = textureTileset.getTexture(); //Recover the sf::Texture with TileSet image loaded initialised in render::TileSet Class
+	texture.loadFromFile(ImageDirectory);
 
 	quads.setPrimitiveType(sf::Quads);
+    quads.resize(4);//quads--> a vertex array with 4 vertex 
 
-	Player currentPlayer;//Initialise Player class object in order to have the list of units belonging to each player
-	int vertexArrayIndex = 0;
-
-	for(unsigned int i=0;i<currentState.getPlayerList().size();i++)
-	{
-        currentPlayer=*currentState.getPlayerList()[i];//take the value of one player pointor adn store it in Player type variable
-        cout << "Player NAME: " << currentPlayer.getPlayerName() << endl; 
-	}
-
-	// for(unsigned int j=0;j<currentPlayer.getMobileEntityList().size();j++)
-	// {
-		quads.resize(quads.getVertexCount() + 4);
-		sf::Vertex* quad = &quads[vertexArrayIndex * 4];  
-		vertexArrayIndex += 1;
-
-		// int tx = currentPlayer.getMobileEntityList()[j]->getEntityId();
-		// int ty = currentPlayer.getMobileEntityList()[j]->getDirection();
-
-		//Definition of the four corners of the vertex in the window
-			//2 coordinate(x,y) for each vertx--> x = the unit X position in the map product the width of the unit tileSet
-			//                                --> y = the unit Y position in the map product the height of the unit tileSet
-		quad[0].position = sf::Vector2f(textureTileset.getCellWidth(),textureTileset.getCellHeight());
-		quad[1].position = sf::Vector2f(textureTileset.getCellWidth(),textureTileset.getCellHeight());
-		quad[2].position = sf::Vector2f(textureTileset.getCellWidth(), textureTileset.getCellHeight());
-		quad[3].position = sf::Vector2f(textureTileset.getCellWidth(),textureTileset.getCellHeight());
+	sf::Vertex* quad = &quads[0]; //pointor to the first vertex element of quads
+		
+	//	Definition of the four corners of the vertex in the window
+	quad[0].position = sf::Vector2f(0, 0);
+	quad[1].position = sf::Vector2f(width, 0);
+	quad[2].position = sf::Vector2f(width, height);
+	quad[3].position = sf::Vector2f(0, height);
+		
+    //Definition of coordinates to retrieve the first texture
+	quad[0].texCoords = sf::Vector2f(0, 0);
+	quad[1].texCoords = sf::Vector2f(width, 0);
+	quad[2].texCoords = sf::Vector2f(width, height);
+	quad[3].texCoords = sf::Vector2f(0, height);
 	
-		//Definition of coordinates to retrieve the first texture
-			//same as quads position
-		quad[0].texCoords = sf::Vector2f( textureTileset.getCellWidth(), textureTileset.getCellHeight());
-		quad[1].texCoords = sf::Vector2f( textureTileset.getCellWidth(),  textureTileset.getCellHeight());
-		quad[2].texCoords = sf::Vector2f( textureTileset.getCellWidth(), textureTileset.getCellHeight());
-		quad[3].texCoords = sf::Vector2f(textureTileset.getCellWidth(), textureTileset.getCellHeight());
-    //}
-		return true;
-
+	return true;
 }
+
+bool TextureManager::loadFighter1(state::State& currentState, TileSet& textureTileset){
+	texture = textureTileset.getTexture(); 
+	sf::VertexArray quads(sf::Quads , 4);
+
+// on le définit comme un rectangle, placé en (50, 250) et de taille 100x100
+	quads[0].position = sf::Vector2f(50.f, 250.f);
+	quads[1].position = sf::Vector2f(150.f, 250.f);
+	quads[2].position = sf::Vector2f(150.f, 350.f);
+	quads[3].position = sf::Vector2f(150.f, 250.f);
+
+// on applique la texture commencant en 0,0 de dimension 100,100
+	quads[0].texCoords = sf::Vector2f(0.f, 0.f);
+	quads[1].texCoords = sf::Vector2f(100.f, 0.f);
+	quads[2].texCoords = sf::Vector2f(100.f, 100.f);
+	quads[3].texCoords = sf::Vector2f(0.f, 100.f);
+
+	return true;
+}
+
+bool TextureManager::loadFighter2(state::State& currentState, TileSet& textureTileset){
+	texture = textureTileset.getTexture(); 
+	sf::VertexArray quads(sf::Quads , 4);
+	//sf::Vertex* quad = &quads;
+
+// on le définit comme un rectangle, placé en (10, 10) et de taille 100x100
+	quads[0].position = sf::Vector2f(60.f, 250.f);
+	quads[1].position = sf::Vector2f(160.f, 250.f);
+	quads[2].position = sf::Vector2f(160.f, 350.f);
+	quads[3].position = sf::Vector2f(60.f, 350.f);
+
+	quads[0].texCoords = sf::Vector2f(0.f, 0.f);
+	quads[1].texCoords = sf::Vector2f(100.f, 0.f);
+	quads[2].texCoords = sf::Vector2f(100.f, 100.f);
+	quads[3].texCoords = sf::Vector2f(0.f, 100.f);
+
+	return true;
+}
+
+// bool TextureManager::loadFighter(state::State& currentState, TileSet& textureTileset)
+// {
+// 	texture = textureTileset.getTexture(); //Recover the sf::Texture with TileSet image loaded initialised in render::TileSet Class
+
+// 	quads.setPrimitiveType(sf::Quads);
+
+// 	Player currentPlayer;//Initialise Player class object in order to have the list of units belonging to each player
+// 	int vertexArrayIndex = 0;
+
+// 	for(unsigned int i=0;i<currentState.getPlayerList().size();i++)
+// 	{
+//         currentPlayer=*currentState.getPlayerList()[i];//take the value of one player pointor adn store it in Player type variable
+//         cout << "Player NAME: " << currentPlayer.getPlayerName() << endl; 
+// 	}
+
+// 	// for(unsigned int j=0;j<currentPlayer.getMobileEntityList().size();j++)
+// 	// {
+// 		quads.resize(quads.getVertexCount() + 4);
+// 		sf::Vertex* quad = &quads[vertexArrayIndex * 4];  
+// 		vertexArrayIndex += 1;
+
+// 		// int tx = currentPlayer.getMobileEntityList()[j]->getEntityId();
+// 		// int ty = currentPlayer.getMobileEntityList()[j]->getDirection();
+
+// 		//Definition of the four corners of the vertex in the window
+// 			//2 coordinate(x,y) for each vertx--> x = the unit X position in the map product the width of the unit tileSet
+// 			//                                --> y = the unit Y position in the map product the height of the unit tileSet
+// 		quad[0].position = sf::Vector2f(textureTileset.getCellWidth(),textureTileset.getCellHeight());
+// 		quad[1].position = sf::Vector2f(textureTileset.getCellWidth(),textureTileset.getCellHeight());
+// 		quad[2].position = sf::Vector2f(textureTileset.getCellWidth(), textureTileset.getCellHeight());
+// 		quad[3].position = sf::Vector2f(textureTileset.getCellWidth(),textureTileset.getCellHeight());
+	
+// 		//Definition of coordinates to retrieve the first texture
+// 			//same as quads position
+// 		quad[0].texCoords = sf::Vector2f( textureTileset.getCellWidth(), textureTileset.getCellHeight());
+// 		quad[1].texCoords = sf::Vector2f( textureTileset.getCellWidth(),  textureTileset.getCellHeight());
+// 		quad[2].texCoords = sf::Vector2f( textureTileset.getCellWidth(), textureTileset.getCellHeight());
+// 		quad[3].texCoords = sf::Vector2f(textureTileset.getCellWidth(), textureTileset.getCellHeight());
+//     //}
+// 		return true;
+
+// }
 
 void TextureManager:: draw(sf::RenderTarget& target, sf::RenderStates states) const {
         // Apply a transformation
