@@ -39,9 +39,9 @@ void StateLayer::initTextureManagers(state::State state)
 
     // textureFighter1.loadFighter1(state,*tileSets[0]);
     // textureFighter2.loadFighter2(state,*tileSets[1]);
-    textureFighter1.loadFighter(100,100,"/home/ensea/plt/res/Fighters/Kuro.png");
-    textureFighter2.loadFighter(100,100,"/home/ensea/plt/res/Fighters/Flint.png");
-    textureTerrain.loadTerrain(640,384,"/home/ensea/plt/res/Terrains/seku_terrain.png");
+    textureFighter1.loadFighter(100,100,"res/Fighters/Kuro.png");
+    textureFighter2.loadFighter(100,100,"res/Fighters/Flint.png");
+    textureTerrain.loadTerrain(640,384,"res/Terrains/seku_terrain.png");
 
     //Déclaration des pointeurs sur des pbjets de types Texture
 	std::unique_ptr<TextureManager> ptr_fighter1 (new TextureManager(textureFighter1));
