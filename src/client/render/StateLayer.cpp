@@ -1,6 +1,7 @@
 #include "StateLayer.h"
 #include "../render.h"
-
+#include <string>
+#include <time.h>
 using namespace std;
 using namespace render;
 
@@ -36,12 +37,19 @@ void StateLayer::initTextureManagers(state::State state)
     TextureManager textureFighter2;
     TextureManager textureTerrain;
 
-
+	string arenasAdress[4]={"res/Terrains/kuro_terrain.png","res/Terrains/flint_terrain.png","res/Terrains/seku_terrain.png","res/Terrains/thork_terrain.png"};
+	//arenasAdress[0] = "res/Terrains/kuro_terrain.png";
+	//arenasAdress[1] = "res/Terrains/flint_terrain.png";
+	//arenasAdress[2] = "res/Terrains/seku_terrain.png";
+	//arenasAdress[3] = "res/Terrains/thork_terrain.png";
+	srand (time(NULL));
+	int randIndex = rand()%4; 
     // textureFighter1.loadFighter1(state,*tileSets[0]);
     // textureFighter2.loadFighter2(state,*tileSets[1]);
+    
     textureFighter1.loadFighter(100,100,"res/Fighters/Kuro.png");
     textureFighter2.loadFighter(100,100,"res/Fighters/Flint.png");
-    textureTerrain.loadTerrain(640,384,"res/Terrains/seku_terrain.png");
+    textureTerrain.loadTerrain(640,384,arenasAdress[randIndex]);
 
     //Déclaration des pointeurs sur des pbjets de types Texture
 	std::unique_ptr<TextureManager> ptr_fighter1 (new TextureManager(textureFighter1));

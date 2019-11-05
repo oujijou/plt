@@ -41,7 +41,7 @@ bool TextureManager::loadFighter(int width, int height, string ImageDirectory)
 	quads.setPrimitiveType(sf::Quads);
     quads.resize(4);//quads--> a vertex array with 4 vertex 
 
-	sf::Vertex* quad = &quads[0]; //pointor to the first vertex element of quads
+	sf::Vertex* quad = &quads[0]; //pointer to the first vertex element of quads
 		
 	//	Definition of the four corners of the vertex in the window
 	quad[0].position = sf::Vector2f(0, 0);
