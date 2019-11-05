@@ -21,12 +21,11 @@ int main(int argc,char* argv[])
         if(strcmp(argv[1], "testSFML")==0)
         {
             cout << "test sfml"  << endl;
-            int frame = 0;
+            
             //display arena
             sf::Texture arena;
             sf::Sprite arenaSprite;
-            sf::Vector2u arenaSize = arena.getSize();
-            
+                        
             if (!arena.loadFromFile("/home/ensea/plt/res/Terrains/seku_terrain.png"))
             {
                 std::cout<<"Load Failed" << std::endl;
@@ -142,6 +141,10 @@ int main(int argc,char* argv[])
                 // window.draw(*stateLayer.getTextureManagers()[2]);	// Draw the terrain
                 window.display();
 		    }  
+        }else if( strcmp(argv[1],"engine")==0 ){
+            cout << "render" << endl;
+
+            sf::RenderWindow window(sf::VideoMode(640, 384), "Fighter Zone");
         }
     }
     return 0;
