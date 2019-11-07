@@ -67,10 +67,10 @@ BOOST_AUTO_TEST_CASE(TestConstructor)
   BOOST_CHECK_EQUAL(fighter2.getCombo(), 5);
 
   //Setting of Status
-  fighter1.setStatus(ALIVE);
-  BOOST_CHECK_EQUAL(fighter1.getStatus(), ALIVE);
-  fighter2.setStatus(ALIVE);
-  BOOST_CHECK_EQUAL(fighter2.getStatus(), ALIVE);
+  fighter1.setStatus(DEAD);
+  BOOST_CHECK_EQUAL(fighter1.getStatus(), DEAD);
+  fighter2.setStatus(DEAD);
+  BOOST_CHECK_EQUAL(fighter2.getStatus(), DEAD);
 
   //Fighting tests
   fighter1.fight(fighter2, COUPDEPOING);
@@ -87,7 +87,7 @@ BOOST_AUTO_TEST_CASE(TestConstructor)
   BOOST_CHECK_EQUAL(fighter1.getAttack(), UPPERCUT);
   //checking HealthPoints equal to 0
   BOOST_CHECK_EQUAL(fighter2.getHealthPoints(), 0);
-  //isALive fonction!!!
+  //isDEAD fonction!!!
 
   //Type of attack save in attacker's variable attack
   
@@ -104,9 +104,9 @@ BOOST_AUTO_TEST_CASE(TestConstructor)
                                                   //caused less damage :15
 
   //Fighter fighter4 {};
-  Fighter fighter4(Kuro,ALIVE,100,100,10,0,COUPDEPOING);
+  Fighter fighter4(Kuro,DEAD,100,100,10,0,COUPDEPOING);
   BOOST_CHECK_EQUAL(fighter4.getName(),Kuro);
-  BOOST_CHECK_EQUAL(fighter4.getStatus(),ALIVE);
+  BOOST_CHECK_EQUAL(fighter4.getStatus(),DEAD);
   BOOST_CHECK_EQUAL(fighter4.getHealthPointsMax(),100);
   BOOST_CHECK_EQUAL(fighter4.getHealthPoints(),100);
   //BOOST_CHECK_EQUAL(fighter4.getMovePoints(),10);
@@ -127,7 +127,7 @@ BOOST_AUTO_TEST_CASE(TestConstructor)
 
     // testing of the second constructor
   // {
-  //   Fighter fighter3(Thork,ALIVE,100,100,10,COUPDEPOING);
+  //   Fighter fighter3(Thork,DEAD,100,100,10,COUPDEPOING);
 
 
   // }

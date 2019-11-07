@@ -1,6 +1,8 @@
 #include "Observable.h"
 #include <algorithm> // find
 
+using namespace std;
+
 namespace state{
 
     Observable::~Observable()
@@ -8,12 +10,12 @@ namespace state{
 
     }
 
-    void Observable::registerObserver(Observer *o)
+    void Observable::registerObserver(IObserver *o)
     {
-        this->observers.push_back(o); //{1,2,3} -> {1,2,3,4}
+        observers.push_back(o); //{1,2,3} -> {1,2,3,4}
     }
 
-    void Observable::unregisterObserver(Observer *o)
+    void Observable::unregisterObserver(IObserver *o)
     {
         observers.erase(find(observers.begin(),observers.end(),o));
     }
@@ -23,11 +25,11 @@ namespace state{
         observers.clear();
     }
 
-    const void Observable::notifyObservers(const Event &e) // State state
+    const void Observable::notifyObservers(const state::StateEvent& e, const State& state) // State state
     {
-        for(auto o:observers)
+        for(auto observer:observers)
         {
-           //o->stateChanged(e, state);//state
+           observer->stateChanged(e, state);//state
         }
     }
     

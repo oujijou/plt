@@ -2,10 +2,12 @@
 #include <state.h>
 #include "string.h"
 #include "render.h"
+#include "engine.h"
 
 using namespace std;
 using namespace state;
 using namespace render;
+using namespace engine;
 
 // Les lignes suivantes ne servent qu'à vérifier que la compilation avec SFML fonctionne
 #include <SFML/Graphics.hpp>
@@ -115,10 +117,11 @@ int main(int argc,char* argv[])
 
             //les differentes couches de textures
             StateLayer stateLayer(window,state); // on cree une couche pour l'etat  et y associant une fenetre
+            //stateLayer.registerObserver();
             cout << " window et state ok cree" << endl;
             stateLayer.initTextureManagers(state); //
             cout << " texture Managers init ok cree" << endl;
-
+            
             // Positionnement des texture sur le terrain
             stateLayer.getTextureManagers()[0]->setPosition(sf::Vector2f(50.f, 250.f));
             stateLayer.getTextureManagers()[1]->setPosition(sf::Vector2f(500.f, 250.f));
@@ -145,6 +148,46 @@ int main(int argc,char* argv[])
             cout << "render" << endl;
 
             sf::RenderWindow window(sf::VideoMode(640, 384), "Fighter Zone");
+
+            Engine engine;
+            engine.getState().initPlayers();
+
+            StateLayer stateLayer(window,engine.getState());
+            stateLayer.initTextureManagers(engine.getState());
+
+            StateLayer* ptr_stateLayer=&stateLayer;
+			engine.getState().registerObserver(ptr_stateLayer);
+
+            while (window.isOpen()){
+				sf::Event event;
+                while (window.pollEvent(event)){
+					if (event.type == sf::Event::Closed){
+						window.close();
+                    }
+                }
+            
+            // Attaq attaq(*engine.getState().getPlayerList()[0]->getFighter(), *engine.getState().getPlayerList()[1]->getFighter());
+            // unique_ptr<Command> ptr_attack (new Attaq(attaq));
+            // engine.addCommand(1, move(ptr_attack));
+
+            // engine.update();
+
+
+                // if(clock.getElapsedTime().asSeconds()>1.0f)
+                // {
+                //     if(rectSourceSprite.left==300)
+                //         rectSourceSprite.left=0;
+                //     else
+                //     {
+                //         rectSourceSprite.left +=100;
+                //     }
+                    // playerSprite.setTextureRect(rectSourceSprite);
+                    // clock.restart();
+                    //}
+                window.close();
+            }
+
+
         }
     }
     return 0;

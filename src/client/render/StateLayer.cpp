@@ -5,7 +5,7 @@
 using namespace std;
 using namespace render;
 
-StateLayer::StateLayer(sf::RenderWindow& window, state::State& State)
+StateLayer::StateLayer(sf::RenderWindow& window, state::State& State): window(window)
 {
    	TileSet tileSetFighter1(KUROTILE);
 	unique_ptr<TileSet> ptr_fighterTileSet1 (new TileSet(tileSetFighter1));
@@ -70,7 +70,6 @@ void StateLayer::initTextureManagers(state::State state)
 
 void StateLayer::draw (sf::RenderWindow& window)
 {
-
     window.clear();
     window.draw(*textureManagers[2]);
     window.draw(*textureManagers[0]);
@@ -78,10 +77,9 @@ void StateLayer::draw (sf::RenderWindow& window)
     window.display();
 }
 
-int StateLayer::getMapHeight() const{
-    return mapHeight;
+void StateLayer::stateChanged(const state::StateEvent& stateEvent, const state::State& state){
+    initTextureManagers(state);
+    draw(window);
 }
 
-int StateLayer::getMapWidth() const{
-    return mapWidth;
-}
+
