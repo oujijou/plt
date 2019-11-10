@@ -27,6 +27,9 @@ int main(int argc,char* argv[])
             //display arena
             sf::Texture arena;
             sf::Sprite arenaSprite;
+            int frame = 0;
+            int row = 1;
+            int frameCounter = 0;
                         
             if (!arena.loadFromFile("/home/ensea/plt/res/Terrains/seku_terrain.png"))
             {
@@ -38,14 +41,15 @@ int main(int argc,char* argv[])
                 
             //display fighter1
             sf::Texture spriteSheet;
-            sf:: IntRect rectSourceSprite(0,0,100,100);
-            if (!spriteSheet.loadFromFile("/home/ensea/plt/res/Fighters/Kuro.png",rectSourceSprite));
+            //sf:: IntRect rectSourceSprite(0,100,100,100);
+            if (!spriteSheet.loadFromFile("/home/ensea/plt/res/Fighters/Kuro.png"))//,rectSourceSprite));
             {
                 std::cout<<"Load Failed" << std::endl;
                 system("Pause");
             }
             sf::Sprite playerSprite;
             playerSprite.setTexture(spriteSheet);
+           
             // put fighter on the right of the arena
             playerSprite.setPosition(sf::Vector2f(50.f, 250.f)); 
                 
@@ -79,6 +83,14 @@ int main(int argc,char* argv[])
                     if (event.type == sf::Event::Closed)
                         window.close();
                 }
+                playerSprite.setTextureRect(sf::IntRect(100*frame,100*row,100,100));
+
+                if(frameCounter == 100)
+                {
+                    frame = (frame + 1) %3;
+                    frameCounter = 0;
+                }
+                frameCounter++;
                 // if(clock.getElapsedTime().asSeconds()>1.0f)
                 // {
                 //     if(rectSourceSprite.left==300)
@@ -105,68 +117,90 @@ int main(int argc,char* argv[])
         }
         else if (strcmp(argv[1],"render")==0)
         {
-            cout << "affichage d'un etat" << endl;
+            // cout << "affichage d'un etat" << endl;
 
-            //testSFML();
-            State state;
-            cout << " etat cree" << endl;
-            state.initPlayers();
+            // //testSFML();
+            // State state;
+            // cout << " etat cree" << endl;
+            // state.initPlayers();
             
-            sf::RenderWindow window(sf::VideoMode(640, 384), "Fighter Zone");
-            cout << " fenetre cree" << endl;
+            // sf::RenderWindow window(sf::VideoMode(640, 384), "Fighter Zone");
+            // cout << " fenetre cree" << endl;
 
-            //les differentes couches de textures
-            StateLayer stateLayer(window,state); // on cree une couche pour l'etat  et y associant une fenetre
-            //stateLayer.registerObserver();
-            cout << " window et state ok cree" << endl;
-            stateLayer.initTextureManagers(state); //
-            cout << " texture Managers init ok cree" << endl;
+            // //les differentes couches de textures
+            // StateLayer stateLayer(window,state); // on cree une couche pour l'etat  et y associant une fenetre
+            // //stateLayer.registerObserver();
+            // cout << " window et state ok cree" << endl;
+            // stateLayer.initTextureManagers(state); //
+            // cout << " texture Managers init ok cree" << endl;
             
-            // Positionnement des texture sur le terrain
-            stateLayer.getTextureManagers()[0]->setPosition(sf::Vector2f(50.f, 250.f));
-            stateLayer.getTextureManagers()[1]->setPosition(sf::Vector2f(500.f, 250.f));
+            // // Positionnement des texture sur le terrain
+            // stateLayer.getTextureManagers()[0]->setPosition(sf::Vector2f(50.f, 250.f));
+            // stateLayer.getTextureManagers()[1]->setPosition(sf::Vector2f(500.f, 250.f));
         
-            while (window.isOpen()){
-            // Close the window if the close button is pressed
-                sf::Event event;
-                while (window.pollEvent(event))
-                {
-                    if (event.type == sf::Event::Closed)
-                    {
-                        window.close();
-                    }
-                }
-               // cout << " window opened" << endl;
-                stateLayer.draw(window); //on utilise la methode draw de StateLayer pour afficher l etat
-                //window.clear();
-                // window.draw(*stateLayer.getTextureManagers()[0]);	// Draw fighter1			
-                // window.draw(*stateLayer.getTextureManagers()[1]);	// Draw fighter2
-                // window.draw(*stateLayer.getTextureManagers()[2]);	// Draw the terrain
-                window.display();
+            // while (window.isOpen()){
+            // // Close the window if the close button is pressed
+            //     sf::Event event;
+            //     while (window.pollEvent(event))
+            //     {
+            //         if (event.type == sf::Event::Closed)
+            //         {
+            //             window.close();
+            //         }
+            //     }
+            //    // cout << " window opened" << endl;
+            //     stateLayer.draw(); //on utilise la methode draw de StateLayer pour afficher l etat
+            //     //window.clear();
+            //     // window.draw(*stateLayer.getTextureManagers()[0]);	// Draw fighter1			
+            //     // window.draw(*stateLayer.getTextureManagers()[1]);	// Draw fighter2
+            //     // window.draw(*stateLayer.getTextureManagers()[2]);	// Draw the terrain
+            //     window.display();
 		    }  
         }else if( strcmp(argv[1],"engine")==0 ){
-            cout << "render" << endl;
+            cout << "engine is coming !!" << endl;
 
-            sf::RenderWindow window(sf::VideoMode(640, 384), "Fighter Zone");
+            // sf::RenderWindow window(sf::VideoMode(640, 384), "Fighter Zone");
 
-            Engine engine;
-            engine.getState().initPlayers();
 
-            StateLayer stateLayer(window,engine.getState());
-            stateLayer.initTextureManagers(engine.getState());
+            // Engine engine;
+            // engine.getState().initPlayers();
 
-            StateLayer* ptr_stateLayer=&stateLayer;
-			engine.getState().registerObserver(ptr_stateLayer);
+            // StateLayer stateLayer(window,engine.getState());
+            // stateLayer.initTextureManagers(engine.getState());
 
-            while (window.isOpen()){
-				sf::Event event;
-                while (window.pollEvent(event)){
-					if (event.type == sf::Event::Closed){
-						window.close();
-                    }
-                }
+            // StateLayer* ptr_stateLayer=&stateLayer;
+			// engine.getState().registerObserver(ptr_stateLayer);
+
+            // stateLayer.getTextureManagers()[0]->setPosition(sf::Vector2f(50.f, 250.f));
+            // stateLayer.getTextureManagers()[1]->setPosition(sf::Vector2f(500.f, 250.f));
+           
+
+            // while (window.isOpen()){
+			// 	sf::Event event;
+                
+            //     // Draw all the display on the screen
+            //     stateLayer.draw();
+               
+            //     while (window.pollEvent(event)){
+			// 		if (event.type == sf::Event::Closed){
+			// 			window.close();
+            //         }
+            //         else if(event.type==sf::Event::KeyPressed && engine.getState().getRound()==1)
+            //         {
+            //             // cout<<"in loop if" << endl;
+            //             // Attaq attaq(*engine.getState().getPlayerList()[0]->getFighter(),*engine.getState().getPlayerList()[1]->getFighter());
+            //             // unique_ptr<Command> ptr_attack (new Attaq(attaq));
+            //             // engine.addCommand(1, move(ptr_attack));
+
+            //             // engine.getState().setRound(2);
+            //             // engine.update();
+            //         }
+            //     }
+            //     //window.close();
+            // }
+
             
-            // Attaq attaq(*engine.getState().getPlayerList()[0]->getFighter(), *engine.getState().getPlayerList()[1]->getFighter());
+            //Attaq attaq(*engine.getState().getPlayerList()[0]->getFighter(), *engine.getState().getPlayerList()[1]->getFighter());
             // unique_ptr<Command> ptr_attack (new Attaq(attaq));
             // engine.addCommand(1, move(ptr_attack));
 
@@ -184,11 +218,9 @@ int main(int argc,char* argv[])
                     // playerSprite.setTextureRect(rectSourceSprite);
                     // clock.restart();
                     //}
-                window.close();
-            }
-
+            
 
         }
     }
-    return 0;
-}
+    // return 0;
+

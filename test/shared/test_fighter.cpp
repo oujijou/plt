@@ -104,7 +104,7 @@ BOOST_AUTO_TEST_CASE(TestConstructor)
                                                   //caused less damage :15
 
   //Fighter fighter4 {};
-  Fighter fighter4(Kuro,DEAD,100,100,10,0,COUPDEPOING);
+  Fighter fighter4(Kuro,DEAD,100,100,10,0,COUPDEPOING,0);
   BOOST_CHECK_EQUAL(fighter4.getName(),Kuro);
   BOOST_CHECK_EQUAL(fighter4.getStatus(),DEAD);
   BOOST_CHECK_EQUAL(fighter4.getHealthPointsMax(),100);

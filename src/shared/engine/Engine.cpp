@@ -40,10 +40,10 @@ void Engine::update()
 	map<int, std::unique_ptr<Command>>::iterator it;
 
     // Execute each command of the currentCommands table
-	for(size_t i=0; i<currentCommand.size();i++){
-			currentCommand[i]->execute(currentState);
-			currentState.notifyObservers(stateEvent, currentState); // Notify the state which will notify render
-			sleep(2);
+	for(size_t i=0; i<currentCommand.size(); i++){
+		currentCommand[i]->execute(currentState);
+		currentState.notifyObservers(stateEvent, currentState); // Notify the state which will notify render
+		sleep(2);
 	}
 
     // Erase all the commands which were executed

@@ -10,7 +10,7 @@ namespace state{
 
 	}
 
-	Fighter::Fighter(FighterName name, FighterStatus status, int healthPointsMax, int healthPoints,int movePoints,int combo,Attack attak)
+	Fighter::Fighter(FighterName name, FighterStatus status, int healthPointsMax, int healthPoints,int movePoints,int combo,Attack attak, int mana)
 	{
 		this->name = name;
 		this->status = status;
@@ -18,6 +18,7 @@ namespace state{
 		this->healthPoints = healthPoints;
 		this->combo=combo;
 		this->attak=attak;
+		this->mana = mana;
 	}
 	
 	int Fighter::damageCompute(int damage)
@@ -27,59 +28,81 @@ namespace state{
 		return healthPoints;
 	}
 
+	
+
 	void Fighter::fight(Fighter& target, Attack attack)
 	{
 		int damage =0;
-		if(attack==COUPDEPOING && target.status!=DEFENSE)
+		if(mana >=30)
 		{
-			attak = COUPDEPOING; //attak is the value uses 
-			damage = 20;		//for defining the variable
-			target.damageCompute(damage); // attack in Fighter
-			
-		}
-		if(attack==COUPDEPIED && target.status!=DEFENSE)
-		{
-			attak = COUPDEPIED;
-			damage = 20;
-			target.damageCompute(damage);
-		}
-		if(attack==UPPERCUT && target.status!=DEFENSE)
-		{
-			attak = UPPERCUT;
-			damage = 30;
-			target.damageCompute(damage);
-		}
-				
-		if(attack==FLASH_KICK && target.status!=DEFENSE)
-		{
-			attak = FLASH_KICK;
-			damage = 30;
-			target.damageCompute(damage);
-		}
-		//target defending
-		if(target.status == DEFENSE)
-		{
-			if(attack == COUPDEPOING )
+			if(attack==COUPDEPOING && target.status!=DEFENSE)
 			{
-				damage = 10;
-				target.damageCompute(damage);
+				attak = COUPDEPOING; //attak is the value uses 
+				damage = 20;		//for defining the variable
+				target.damageCompute(damage); // attack in Fighter
+				mana -= 30;
 			}
-			if(attack == COUPDEPIED )
+			if(attack==COUPDEPIED && target.status!=DEFENSE)
 			{
-				damage = 10;
+				attak = COUPDEPIED;
+				damage = 20;
 				target.damageCompute(damage);
+				mana -= 30;
 			}
-			if(attack == FLASH_KICK )
+			if(attack==UPPERCUT && target.status!=DEFENSE)
 			{
-				damage = 15;
+				attak = UPPERCUT;
+				damage = 30;
 				target.damageCompute(damage);
+				mana -= 30;
 			}
-			if(attack == UPPERCUT)
+					
+			if(attack==FLASH_KICK && target.status!=DEFENSE)
 			{
-				damage = 15;
+				attak = FLASH_KICK;
+				damage = 30;
 				target.damageCompute(damage);
+				mana -= 30;
+			}
+			//target defending
+			if(target.status == DEFENSE)
+			{
+				if(attack == COUPDEPOING )
+				{
+					damage = 10;
+					target.damageCompute(damage);
+					mana -=30;
+				}
+				if(attack == COUPDEPIED )
+				{
+					damage = 10;
+					target.damageCompute(damage);
+					mana -=30;
+				}
+				if(attack == FLASH_KICK )
+				{
+					damage = 15;
+					target.damageCompute(damage);
+					mana -=30;
+				}
+				if(attack == UPPERCUT)
+				{
+					damage = 15;
+					target.damageCompute(damage);
+					mana -=30;
+				}
+			} //attacker is SPECIAL
+			if(attack == SPECIAL)
+			{
+				if(mana >=60)
+				{
+					damage = 40;
+					target.damageCompute(damage);
+					mana -=60;
+				}
 			}
 		}
+		
 	}
 
 	FighterName Fighter::getName()
@@ -158,4 +181,30 @@ namespace state{
 	{
 		return movePoints;
 	}
+
+	void Fighter::setMana(int mana)
+	{
+		this->mana = mana;
+	}
+
+	int Fighter::getMana()
+	{
+		return mana;
+	}
+
+	void Fighter::recharge(Fighter& fighter)
+	{
+		fighter.setStatus(RECHARGE);
+		int m = fighter.getMana();
+		m += 20;
+		int h = fighter.getHealthPoints() ;
+		h+= 10;
+	}
+
+	void Fighter::defend(Fighter& defender)
+	{
+		defender.setStatus(DEFENSE);
+		
+	}
+	
 }

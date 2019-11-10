@@ -18,18 +18,16 @@ Attaq::Attaq (state::Fighter& attaqer, state::Fighter& target):attaqer(attaqer),
 
 
 void Attaq::execute (state::State& state){
-    bool attaqIsPossible=false;
-
-    if(attaqer.getStatus()!=DEAD &&attaqer.getStatus()!=SPECIAL){
+    
+    if(attaqer.getStatus()!=DEAD){
 
         //Target
-        cout<<"Attaq is possible"<<endl;
-        //target.setHealth(50);
+        cout<<"Attack is coming!!"<<endl;
+        
         float oldTargetHealth=target.getHealthPoints();
         
-
         //Attaq
-        attaqer.fight(target, COUPDEPOING);
+        attaqer.fight(target, COUPDEPOING); //for now only this attack is available
         
 
         //Display on console : State 
@@ -44,7 +42,7 @@ void Attaq::execute (state::State& state){
             sleep(2);
            
         }
-
+    
     }else if(attaqer.getStatus()==DEAD){
         cout<<"Already dead!"<<endl;
     }
