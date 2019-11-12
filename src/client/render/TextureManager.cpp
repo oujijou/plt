@@ -9,6 +9,52 @@ using namespace state;
 #include "state.h"
 #include "string.h"
 
+/*
+TextureManager *t = TextureManager::getInstance();
+auto *tile = TextureManager::getInstance()->getTileFighter(...);
+*/
+
+TextureManager* TextureManager::instance = nullptr;
+TextureManager::TextureManager(){
+	tiles_fighter.insert({Kuro, TileSet("./res/Fighters/Kuro.png")});
+	tiles_fighter.insert({Flint, TileSet("./res/Fighters/Flint.png")});
+	tiles_fighter.insert({Thork, TileSet("./res/Fighters/Thork.png")});
+	tiles_fighter.insert({Seku, TileSet("./res/Fighters/Seku.png")});
+
+	tiles_background.insert({SekuTerrain, TileSet("./res/Fighters/SekuTerrain.png")});
+	tiles_background.insert({FlintTerrain, TileSet("./res/Fighters/FlintTerrain.png")});
+	tiles_background.insert({KuroTerrain, TileSet("./res/Fighters/KuroTerrain.png")});
+	tiles_background.insert({ThorkTerrain, TileSet("./res/Fighters/ThorkTerrain.png")});
+}
+TextureManager* TextureManager::getInstance(){
+	instance = new TextureManager();
+	return instance;
+}
+
+TileSet* TextureManager::getTileFighter (state::FighterName fighter){
+	
+	return &tiles_fighter.at(fighter);
+	
+}
+
+TileSet* TextureManager::getTileBackground (state::Terrain bg){
+	
+	return &tiles_background.at(bg);
+	
+}
+
+
+bool TextureManager::load(){
+	// TODO: Check if Textures loaded? Prevent double call to "load"
+	
+	for (auto &it : tiles_fighter) {
+		if (!it.second.loadTexture()) {
+			return false;
+		}
+	}
+	
+	return true;
+}
 
 // bool TextureManager::loadTerrain(int width, int height , string mapImageDirectory)
 // {
