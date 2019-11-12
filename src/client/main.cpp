@@ -117,17 +117,17 @@ int main(int argc,char* argv[])
         }
         else if (strcmp(argv[1],"render")==0)
         {
-            // cout << "affichage d'un etat" << endl;
-
-            // //testSFML();
-            // State state;
-            // cout << " etat cree" << endl;
-            // state.initPlayers();
+            cout << "affichage d'un etat" << endl;
             
-            // sf::RenderWindow window(sf::VideoMode(640, 384), "Fighter Zone");
-            // cout << " fenetre cree" << endl;
+            // //testSFML();
+            State state;
+            cout << " etat cree" << endl;
+            state.initPlayers();
+            
+            sf::RenderWindow window(sf::VideoMode(640, 384), "Fighter Zone");
+            cout << " fenetre cree" << endl;
 
-            // //les differentes couches de textures
+            // les differentes couches de textures
             // StateLayer stateLayer(window,state); // on cree une couche pour l'etat  et y associant une fenetre
             // //stateLayer.registerObserver();
             // cout << " window et state ok cree" << endl;

@@ -1,6 +1,5 @@
 #include "Engine.h"
 #include "../engine.h"
-#include </home/ensea/plt/src/client/render.h>
 #include <iostream>
 #include <unistd.h>
 #include "../state.h"
@@ -8,7 +7,6 @@
 using namespace std;
 using namespace engine;
 using namespace state;
-using namespace render;
 
 Engine::Engine ()
 {
