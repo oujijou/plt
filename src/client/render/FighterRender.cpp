@@ -4,11 +4,11 @@
 using namespace std;
 using namespace render;
 
-void FighterRender::draw (sf::RenderWindow& window, float drawPositionX, float drawPositionY, state::Fighter& fighter)
-{
-    const TextureManager *instance = TextureManager::getInstance(); //recupère une instance de TextureManager
+// void FighterRender::draw (sf::RenderWindow& window, float drawPositionX, float drawPositionY, state::Fighter& fighter)
+// {
+//     const TextureManager *instance = TextureManager::getInstance(); //recupère une instance de TextureManager
     //TileSet* tileFighter = instance->getTileFighter(state.getFighter().getName()); // on recupère le tilefighter  
-}
+// }
 // void FighterRender::draw(sf::RenderWindow window, sf::Vector2f drawPosition, state::Fighter& fighter)
 // {
 //     //sf::Texture textureFighter = tileFighter->getTexture();
