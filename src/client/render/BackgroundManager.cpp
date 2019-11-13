@@ -1,4 +1,5 @@
 #include "BackgroundManager.h"
+#include "TextureManager.h"
 
 
 using namespace std;
