@@ -7,7 +7,20 @@ using namespace std;
 namespace state{
 
     State::State(){
+        
+        //Player (false,Kuro,fighter1);
+       // Fighter fighter1(Kuro,DEAD,);
+        fighter1.setName(Kuro);
+        //fighter(Kuro,DEFENSE,100,)
 
+        fighter2.setName(Flint);
+
+        terrain = KuroTerrain;
+
+        
+
+        level = 1;
+        round = 1;
     }
 
     Fighter State::getFighter(){

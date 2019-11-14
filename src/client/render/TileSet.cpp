@@ -4,17 +4,15 @@ using namespace std;
 using namespace render;
 
 
-TileSet::TileSet(std::string path){
-	
-		this->path = path;
-	
- }
+TileSet::TileSet(std::string path)
+{
+	this->path = path;
+}
  
 bool TileSet::loadTexture()
 {
 	textureTileSet.loadFromFile(path);
 }
-
 
 const sf::Texture& TileSet::getTexture() 
 {

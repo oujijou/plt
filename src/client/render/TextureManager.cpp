@@ -31,16 +31,14 @@ TextureManager* TextureManager::getInstance(){
 	return instance;
 }
 
-TileSet* TextureManager::getTileFighter (state::FighterName fighter){
-	
+TileSet* TextureManager::getTileFighter (state::FighterName fighter)
+{	
 	return &tiles_fighter.at(fighter);
-	
 }
 
-TileSet* TextureManager::getTileBackground (state::Terrain bg){
-	
+TileSet* TextureManager::getTileBackground (state::Terrain bg)
+{	
 	return &tiles_background.at(bg);
-	
 }
 
 
