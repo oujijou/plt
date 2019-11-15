@@ -121,11 +121,45 @@ int main(int argc,char* argv[])
             
             // //testSFML();
             State state;
-            cout << " etat cree" << endl;
-            state.initPlayers();
+            Fighter fighter1;
+            Fighter fighter2;
+
+            fighter1.setName(Flint);
+            fighter2.setName(Seku);
+
+            // Fighter fighter1(Flint, DEAD, 100,100,300,10,2,COUPDEPOING,100);
+            // Fighter fighter2(Seku, DEAD, 100,100,300,10,2,COUPDEPOING,100);
+            state.setFighter(fighter1);
+            state.setFighter(fighter2);
+            cout << "etat cree" << endl;
+           // state.initPlayers();
             
             sf::RenderWindow window(sf::VideoMode(640, 384), "Fighter Zone");
             cout << " fenetre cree" << endl;
+
+            
+            TextureManager *textureManager = textureManager->getInstance();;
+            cout << "texuture manager ok!" << endl;
+
+            //StateLayer stateLayer(window, state);
+            cout << "statelayer ok!" << endl;
+
+            while (window.isOpen()){
+            // Close the window if the close button is pressed
+                sf::Event event;
+                while (window.pollEvent(event))
+                {
+                    if (event.type == sf::Event::Closed)
+                    {
+                        window.close();
+                    }
+                }
+                cout << " window opened" << endl;
+                //stateLayer.draw(); 
+               
+            }
+
+
 
             // les differentes couches de textures
             // StateLayer stateLayer(window,state); // on cree une couche pour l'etat  et y associant une fenetre

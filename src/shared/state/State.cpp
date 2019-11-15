@@ -23,6 +23,16 @@ namespace state{
         round = 1;
     }
 
+    Terrain State::getTerrain()
+    {
+        return terrain;
+    }
+
+    void State::setTerrain(Terrain terrain)
+    {
+        this-> terrain = terrain;
+    }
+
     Fighter State::getFighter(){
         return fighter1;
     }
