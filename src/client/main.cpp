@@ -93,7 +93,7 @@ int main(int argc,char* argv[])
                 frameCounter++;
                 // if(clock.getElapsedTime().asSeconds()>1.0f)
                 // {
-                //     if(rectSourceSprite.left==300)
+                //     if(rectSourceSpritel.left==300)
                 //         rectSourceSprite.left=0;
                 //     else
                 //     {
@@ -138,12 +138,27 @@ int main(int argc,char* argv[])
             cout << " fenetre cree" << endl;
 
             
-            TextureManager *textureManager = textureManager->getInstance();;
-            cout << "texuture manager ok!" << endl;
+            TextureManager *textureManager = textureManager->getInstance();
+            if (textureManager->load()) {
+                cout << "texuture manager ok!" << endl;
+            } else {
+                cout << "texuture manager loading failed!" << endl;
+                return EXIT_FAILURE;
+            }
 
-            //StateLayer stateLayer(window, state);
+            //textureManager->getTileFighter(Seku);
+            textureManager->getTileFighter(Kuro);
+            textureManager->getTileBackground(SekuTerrain);
+
+            // BackgroundManager backgroundManager;
+            // backgroundManager.
+
+            StateLayer stateLayer(window, state);
+            state.registerObserver(&stateLayer);
             cout << "statelayer ok!" << endl;
 
+            stateLayer.draw(); 
+            cout << "ok" ;
             while (window.isOpen()){
             // Close the window if the close button is pressed
                 sf::Event event;
@@ -152,10 +167,11 @@ int main(int argc,char* argv[])
                     if (event.type == sf::Event::Closed)
                     {
                         window.close();
+                    } else if (event.type == sf::Event::KeyPressed) {
+                        state.notifyObservers({StateEventID::ALLCHANGED}, state);
                     }
                 }
-                cout << " window opened" << endl;
-                //stateLayer.draw(); 
+                //cout << " window opened" << endl;  
                
             }
 

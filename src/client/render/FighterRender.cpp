@@ -16,9 +16,7 @@ void FighterRender::draw (sf::RenderWindow& window, float drawPositionX, float d
     
     spriteFighter.setTexture(tileFighter->getTexture());
          
-    window.clear();
     window.draw(spriteFighter);
-    window.display();
 }
 
 // void FighterRender::draw(sf::RenderWindow window, sf::Vector2f drawPosition, state::Fighter& fighter)

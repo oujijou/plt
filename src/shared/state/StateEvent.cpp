@@ -12,3 +12,8 @@ void StateEvent::setStateEventID (StateEventID newID)
 {
     stateEventID = newID;
 }
+
+StateEventID StateEvent::getStateEventID()
+{
+    return stateEventID;
+}

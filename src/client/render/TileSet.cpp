@@ -1,4 +1,5 @@
 #include "TileSet.h"
+#include <iostream>
 
 using namespace std;
 using namespace render;
@@ -11,12 +12,35 @@ TileSet::TileSet(std::string path)
  
 bool TileSet::loadTexture()
 {
-	textureTileSet.loadFromFile(path);
+	sf::IntRect rectSourceSprite1;
+	std::string path;
+	bool result;
+	
+	// if(path == "./res/Fighters/Kuro.png"|| "./res/Fighters/Thork.png"
+	// 	|| "./res/Fighters/Flint.png" || "./res/Fighters/Seku.png")
+	// {
+	// 	this->textureTileSet.loadFromFile(path,sf::IntRect(0,0,100,100));
+	// }
+	
+	// if(path == "./res/Terrains/seku_terrain.png" || "./res/Terrains/flint_terrain.png"
+	// 	|| "./res/Terrains/thork_terrain.png" || "./res/Terrains/kuro_terrain.png")
+	// {
+	// 	this->textureTileSet.loadFromFile(path);
+	// }
+
+	result = this->textureTileSet.loadFromFile(path);
+
+	cout << "TileSet: Loaded texture " << &this->textureTileSet
+		 << " for path \"" << path << "\" in " << this << endl;
+
+	return result;
 }
 
 const sf::Texture& TileSet::getTexture() 
 {
-	return textureTileSet;
+	cout << "TileSet: Requesting texture " << &this->textureTileSet <<
+		" from " << this << endl;
+	return this->textureTileSet;
 }
 
 

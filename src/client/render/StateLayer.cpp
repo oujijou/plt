@@ -3,6 +3,7 @@
 #include <string>
 #include <time.h>
 #include "state.h"
+#include <iostream>
 
 using namespace std;
 using namespace render;
@@ -18,14 +19,37 @@ void StateLayer::draw()
 {
    // state::Fighter f1;
     window.clear();
-    fighterRender1.draw(window,50.f,250.f,state);
-    fighterRender2.draw(window,500.f, 250.f,state);
     background.draw(window, state);
+    fighterRender1.draw(window,50.f,250.f,state);
+    //draw la bonne partie
+    fighterRender2.draw(window,500.f, 250.f,state);
     window.display();
 }
 
-void StateLayer::stateChanged(const state::StateEvent& stateEvent, const state::State state)
+void StateLayer::stateChanged(const state::StateEvent& stateEvent,
+                              const state::State &new_state)
 {
-    draw();
+    this->state = new_state;
+    this->draw();
+    cout << "StateLayer::stateChanged" << endl;
+    //this->stateEvent = stateEvent;
+    //draw();
     //stateLayer.registerObservers();
+    /*
+    if(stateEvent.getStateEventID == ALLCHANGED)
+    {
+        state.getFighter();
+        state.getTerrain();
+        draw();
+    }
+    if(stateEvent.getStateEventID == FIGHTERCHANGED)
+    {
+        state.getFighter();
+        draw();
+    }
+    if(stateEvent.getStateEventID == TERRAINCHANGED)
+    {
+        state.getTerrain();
+        draw();
+    }*/
 }
