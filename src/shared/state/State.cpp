@@ -10,12 +10,12 @@ namespace state{
         
         //Player (false,Kuro,fighter1);
        // Fighter fighter1(Kuro,DEAD,);
-        fighter1.setName(Kuro);
+        //fighter1.setName(Kuro);
         //fighter(Kuro,DEFENSE,100,)
 
-        fighter2.setName(Flint);
+        //fighter2.setName(Flint);
 
-        terrain = KuroTerrain;
+       // terrain = KuroTerrain;
 
         
 
@@ -34,12 +34,20 @@ namespace state{
     }
 
     Fighter State::getFighter(){
-        return fighter1;
+        return fighter; //!!!!
     }
 
-    Fighter State::setFighter(Fighter fighter1){
-        this->fighter1= fighter1;
+    void State::setFighter(Fighter fighter){
+        this->fighter = move(fighter); //!!!!
     }
+    
+    void State::setFighters(Fighter fighter1, Fighter fighter2){
+        this->fighter1= fighter1;
+        this->fighter2= fighter2;
+
+    }
+
+  
 
     int State::getRound(){
         return round;

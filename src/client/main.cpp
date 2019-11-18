@@ -122,15 +122,18 @@ int main(int argc,char* argv[])
             // //testSFML();
             State state;
             Fighter fighter1;
-            Fighter fighter2;
-
             fighter1.setName(Flint);
-            fighter2.setName(Thork);
-
+            Fighter fighter2;     
+            fighter2.setName(Kuro);
+            cout << "fighters name ok" << endl;
             // Fighter fighter1(Flint, DEAD, 100,100,300,10,2,COUPDEPOING,100);
             // Fighter fighter2(Seku, DEAD, 100,100,300,10,2,COUPDEPOING,100);
             state.setFighter(fighter1);
             state.setFighter(fighter2);
+            //state.setFighters(fighter1,fighter2);
+            cout << "fighters ok" << endl;
+            //state.setFighter(fighter2);
+            state.setTerrain(SekuTerrain);
             cout << "etat cree" << endl;
            // state.initPlayers();
             
@@ -146,11 +149,12 @@ int main(int argc,char* argv[])
                 return EXIT_FAILURE;
             }
 
-            //textureManager->getTileFighter(Seku);
-            textureManager->getTileFighter(Thork);
-            textureManager->getTileBackground(SekuTerrain);
+            // textureManager->getTileBackground(SekuTerrain);
+            // textureManager->getTileFighter(Flint);
+            // textureManager->getTileFighter(Kuro);
+            
 
-            // BackgroundManager backgroundManager;
+             BackgroundManager backgroundManager;
             // backgroundManager.
 
             StateLayer stateLayer(window, state);

@@ -118,10 +118,10 @@ BOOST_AUTO_TEST_CASE(TestConstructor)
 
    //State
     {
-      State s {};
-      Fighter fighter1;
-      s.setFighter(fighter1);
-      s.getFighter();
+      // State s {};
+      // Fighter fighter1;
+      // s.setFighter(fighter1);
+      // s.getFighter();
     }
   }
 
