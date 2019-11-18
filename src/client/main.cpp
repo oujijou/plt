@@ -125,7 +125,7 @@ int main(int argc,char* argv[])
             Fighter fighter2;
 
             fighter1.setName(Flint);
-            fighter2.setName(Seku);
+            fighter2.setName(Thork);
 
             // Fighter fighter1(Flint, DEAD, 100,100,300,10,2,COUPDEPOING,100);
             // Fighter fighter2(Seku, DEAD, 100,100,300,10,2,COUPDEPOING,100);
@@ -147,7 +147,7 @@ int main(int argc,char* argv[])
             }
 
             //textureManager->getTileFighter(Seku);
-            textureManager->getTileFighter(Kuro);
+            textureManager->getTileFighter(Thork);
             textureManager->getTileBackground(SekuTerrain);
 
             // BackgroundManager backgroundManager;
