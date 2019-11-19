@@ -182,7 +182,7 @@ int main(int argc, char *argv[])
                         switch (event.key.code)
                         {
                         case sf::Keyboard::A:
-                        cout << " touche A ENCLENCHE" << endl;
+                            cout << " touche A ENCLENCHE" << endl;
                             attackPress = true;
                             break;
                         default:
@@ -196,55 +196,32 @@ int main(int argc, char *argv[])
                         //state.notifyObservers({StateEventID::ALLCHANGED}, state);
                         break;
                     }
-                    
                 }
-                if(attackPress){
+                if (attackPress)
+                {
                     playerSprite.setTextureRect(sf::IntRect(100 * frame, 100 * row, 100, 100));
-                            if (frameCounter == 100)
-                            {
-                                frame = (frame + 1) % 3;
-                                frameCounter = 0;
-                            }
-                            frameCounter++;
+                    if (frameCounter == 100)
+                    {
+                        frame = (frame + 1) % 3;
+                        frameCounter = 0;
+                    }
+                    frameCounter++;
                 }
                 cout << "frame = " << frame << endl;
                 cout << "frame counter = " << frameCounter << endl;
 
-
+                //   window.clear();
+                // window.draw(arenaSprite);
+                // window.draw(playerSprite);
+                // window.draw(playerSprite2);
+                // window.display();
                 window.clear();
-                    window.draw(playerSprite);
+                window.draw(arenaSprite);
+                window.draw(playerSprite);
+
                 window.display();
                 //cout << " window opened" << endl;
             }
-
-            // les differentes couches de textures
-            // StateLayer stateLayer(window,state); // on cree une couche pour l'etat  et y associant une fenetre
-            // //stateLayer.registerObserver();
-            // cout << " window et state ok cree" << endl;
-            // stateLayer.initTextureManagers(state); //
-            // cout << " texture Managers init ok cree" << endl;
-
-            // // Positionnement des texture sur le terrain
-            // stateLayer.getTextureManagers()[0]->setPosition(sf::Vector2f(50.f, 250.f));
-            // stateLayer.getTextureManagers()[1]->setPosition(sf::Vector2f(500.f, 250.f));
-
-            // while (window.isOpen()){
-            // // Close the window if the close button is pressed
-            //     sf::Event event;
-            //     while (window.pollEvent(event))
-            //     {
-            //         if (event.type == sf::Event::Closed)
-            //         {
-            //             window.close();
-            //         }
-            //     }
-            //    // cout << " window opened" << endl;
-            //     stateLayer.draw(); //on utilise la methode draw de StateLayer pour afficher l etat
-            //     //window.clear();
-            //     // window.draw(*stateLayer.getTextureManagers()[0]);	// Draw fighter1
-            //     // window.draw(*stateLayer.getTextureManagers()[1]);	// Draw fighter2
-            //     // window.draw(*stateLayer.getTextureManagers()[2]);	// Draw the terrain
-            //     window.display();
         }
     }
     else if (strcmp(argv[1], "engine") == 0)
