@@ -171,7 +171,7 @@ int main(int argc, char *argv[])
 
             sf::RenderWindow window(sf::VideoMode(640, 384), "Fighter Zone");
             cout << " fenetre cree" << endl;
-
+		   
             TextureManager *textureManager = textureManager->getInstance();
             if (textureManager->load())
             {
@@ -251,8 +251,9 @@ int main(int argc, char *argv[])
                 // window.draw(playerSprite);
                 // window.draw(playerSprite2);
                 // window.display();
+                
                 stateLayer.draw();
-
+            
                 // window.clear();
                 // window.draw(arenaSprite);
                 // window.draw(playerSprite);
