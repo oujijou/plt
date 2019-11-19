@@ -71,12 +71,42 @@ int main(int argc, char *argv[])
             sf::VideoMode resolution;
 
             sf::RenderWindow window(sf::VideoMode(640, 384), "SFML works!", sf::Style::Default);
-
-            sf::Clock clock;
+            
+            
 
             while (window.isOpen())
             {
                 sf::Event event;
+                sf::Font font;
+				if(!font.loadFromFile("/home/ensea/plt/res/Fonts/FontFile.ttf"))
+				{
+				return false;
+				}
+				sf::Text text1;
+				text1.setFont(font);
+				text1.setString("Health Points");
+				text1.setCharacterSize(40);
+				
+				sf::Text text2;
+				text2.setFont(font);
+				text2.setString("Health Points");
+				text2.setCharacterSize(40);
+				text2.setPosition(530.f,0.f);
+				
+				sf::Texture hpBarTexture;
+				if(!hpBarTexture.loadFromFile("/home/ensea/plt/res/redBg.jpg",sf::IntRect(0,0,100,10)))
+				{
+					return false;
+				}
+				
+				sf::Sprite hpBarP1;
+				hpBarP1.setTexture(hpBarTexture);
+				hpBarP1.setPosition(0.f,40.f);
+				
+				sf::Sprite hpBarP2;
+				hpBarP2.setTexture(hpBarTexture);
+				hpBarP2.setPosition(530.f,40.f);
+				
                 while (window.pollEvent(event))
                 {
                     if (event.type == sf::Event::Closed)
@@ -102,9 +132,18 @@ int main(int argc, char *argv[])
                 // clock.restart();
 
                 //playerSprite.setTextureRect(sf::IntRect(32*frame, row, 32,48));
+				
+            
 
+            sf::Clock clock;
+					
                 window.clear();
+                
                 window.draw(arenaSprite);
+                window.draw(text1);
+                window.draw(text2);
+                window.draw(hpBarP1);
+                window.draw(hpBarP2);
                 window.draw(playerSprite);
                 window.draw(playerSprite2);
                 window.display();
@@ -118,8 +157,11 @@ int main(int argc, char *argv[])
             cout << "affichage d'un etat" << endl;
 
             // //testSFML();
+            
+        
+       
             State state;
-
+			
             state.initPlayers();
             std::vector<std::shared_ptr<Player>> playerList = state.getPlayerList();
 
@@ -167,6 +209,7 @@ int main(int argc, char *argv[])
             bool attackPress = false;
             stateLayer.draw();
             cout << "ok";
+            
             while (window.isOpen())
             {
                 // Close the window if the close button is pressed
