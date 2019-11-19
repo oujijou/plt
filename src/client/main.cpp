@@ -121,21 +121,28 @@ int main(int argc,char* argv[])
             
             // //testSFML();
             State state;
+
+            state.initPlayers();
+            std::vector<std::shared_ptr<Player>>playerList = state.getPlayerList();
+            
             Fighter fighter1;
-            fighter1.setName(Flint);
-            Fighter fighter2;     
-            fighter2.setName(Kuro);
+            fighter1.setName(Kuro);
+            Fighter fighter2 ;    
+            fighter2.setName(Flint);
             cout << "fighters name ok" << endl;
             // Fighter fighter1(Flint, DEAD, 100,100,300,10,2,COUPDEPOING,100);
             // Fighter fighter2(Seku, DEAD, 100,100,300,10,2,COUPDEPOING,100);
             state.setFighter(fighter1);
             state.setFighter(fighter2);
+            //playerList[0]->setFighter(fighter1);
+            
+            
             //state.setFighters(fighter1,fighter2);
             cout << "fighters ok" << endl;
             //state.setFighter(fighter2);
-            state.setTerrain(SekuTerrain);
+            state.setTerrain(ThorkTerrain);
             cout << "etat cree" << endl;
-           // state.initPlayers();
+           
             
             sf::RenderWindow window(sf::VideoMode(640, 384), "Fighter Zone");
             cout << " fenetre cree" << endl;

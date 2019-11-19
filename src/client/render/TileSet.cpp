@@ -12,28 +12,13 @@ TileSet::TileSet(std::string path)
  
 bool TileSet::loadTexture()
 {
-	//sf::IntRect rectSourceSprite1;
-	//std::string path;
+	
 	bool result;
 	
-	
-	// if(path != "./res/Fighters/Kuro.png"|| "./res/Fighters/Thork.png"
-	// 	|| "./res/Fighters/Flint.png" || "./res/Fighters/Seku.png")
-	// {
-	// 	cout<< "je rentre" <<endl;
-	// 	this->textureTileSet.loadFromFile(path,sf::IntRect(0,0,100,100));
-	// 	//result = this->textureTileSet.loadFromFile(path);
-	// }
-	
-	// if(path != "./res/Terrains/seku_terrain.png" || "./res/Terrains/flint_terrain.png"
-	// 	|| "./res/Terrains/thork_terrain.png" || "./res/Terrains/kuro_terrain.png")
-	// {
-		
-	// 	// result = this->textureTileSet.loadFromFile(path);
-	// }
+
 
 	result = this->textureTileSet.loadFromFile(path);
-
+	//charge tout le temps la meme tile
 	cout << "TileSet: Loaded texture " << &this->textureTileSet
 		 << " for path \"" << path << "\" in " << this << endl;
 

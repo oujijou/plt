@@ -21,8 +21,8 @@ void StateLayer::draw()
     window.clear();
     background.draw(window, state);
     fighterRender1.draw(window,50.f,250.f,state);
-    //draw la bonne partie
     fighterRender2.draw(window,500.f, 250.f,state);
+
     window.display();
 }
 

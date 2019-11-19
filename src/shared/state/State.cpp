@@ -1,8 +1,10 @@
 #include "State.h"
 #include "memory.h"
 #include <memory>
+#include <iostream>
 
 using namespace std;
+
 
 namespace state{
 
@@ -34,16 +36,30 @@ namespace state{
     }
 
     Fighter State::getFighter(){
-        return fighter; //!!!!
+        bool choice;
+        if(choice)
+        {
+            return fighterList[0];
+            
+        }
+        if(!choice)
+        {
+            return fighterList[1];
+        }
+        //return fighter; //!!!!
     }
 
     void State::setFighter(Fighter fighter){
-        this->fighter = move(fighter); //!!!!
+        this->fighter1 = fighter; //!!!!
+        fighterList.push_back(fighter);
     }
     
-    void State::setFighters(Fighter fighter1, Fighter fighter2){
-        this->fighter1= fighter1;
-        this->fighter2= fighter2;
+    void State::setFighters(Fighter  fighter11, Fighter  fighter22){
+        
+        std::cout << "test1" <<" **"<< fighter11.getName()<<  std::endl;
+        this->fighter1= fighter11;
+        std::cout << "test2***"<<fighter22.getName()<<std::endl;
+        this->fighter2= fighter22;
 
     }
 

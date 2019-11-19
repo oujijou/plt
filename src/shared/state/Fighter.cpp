@@ -4,10 +4,18 @@
 using namespace std;
 
 namespace state{
+	// Fighter::Fighter(const Fighter & old)
+	// {
+	// 	cout << "test copie constructeur" << old.name << endl;
+
+	// 	this->name = old.name;
+	// 	cout << "test copie constructeur" << this->name << endl;
+	// }
 
 	Fighter:: Fighter()
 	{
-
+		
+		this->name= Thork;
 	}
 
 	Fighter::Fighter(FighterName name, FighterStatus status, int healthPointsMax, int healthPoints,int movePoints,int combo,Attack attak, int mana)

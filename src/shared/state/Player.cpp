@@ -6,8 +6,8 @@ using namespace state;
 
 Player::Player()
 {
-    Player player1;
-    player1.setPlayerName("Armand");
+    // Player player1;
+    // player1.setPlayerName("Armand");
     //player1.setFighter(state::fighter1);
 }
 
