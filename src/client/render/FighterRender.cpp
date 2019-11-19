@@ -1,14 +1,17 @@
 #include "FighterRender.h"
+#include "state/FighterName.h"
 #include "TextureManager.h"
+#include <iostream>
 
 using namespace std;
 using namespace render;
+using namespace state;
 
-void FighterRender::draw (sf::RenderWindow& window, float drawPositionX, float drawPositionY, state::State& state)
+void FighterRender::draw (sf::RenderWindow& window, float drawPositionX, float drawPositionY, state::State& state, int id)
 {
     TextureManager *instance = TextureManager::getInstance(); //recupère une instance de TextureManager
     // on recupère le tilefighter  
-    TileSet* tileFighter = instance->getTileFighter(state.getFighter().getName());
+    TileSet* tileFighter = instance->getTileFighter(static_cast<FighterName>(id));
     
     sf::Sprite spriteFighter; //creation d'une sprite
     spriteFighter.setPosition(sf::Vector2f(drawPositionX,drawPositionY)); //postionnement d'un fighter

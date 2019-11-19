@@ -12,67 +12,66 @@ using namespace engine;
 // Les lignes suivantes ne servent qu'à vérifier que la compilation avec SFML fonctionne
 #include <SFML/Graphics.hpp>
 
-int main(int argc,char* argv[])
+int main(int argc, char *argv[])
 {
-    if (argc >1)
-    {
-        if(strcmp(argv[1], "hello")==0)
-        {
-            cout << "Bonjour " <<((argv[2])?argv[2]:"tout le monde") << endl;
-        }
-        if(strcmp(argv[1], "testSFML")==0)
-        {
-            cout << "test sfml"  << endl;
-            
-            //display arena
-            sf::Texture arena;
-            sf::Sprite arenaSprite;
-            int frame = 0;
-            int row = 1;
-            int frameCounter = 0;
-                        
-            if (!arena.loadFromFile("/home/ensea/plt/res/Terrains/seku_terrain.png"))
-            {
-                std::cout<<"Load Failed" << std::endl;
-                system("Pause");
-            }
-            //arenaSprite.setScale(0.5,0.5);
-            arenaSprite.setTexture(arena);
-                
-            //display fighter1
-            sf::Texture spriteSheet;
-            //sf:: IntRect rectSourceSprite(0,100,100,100);
-            if (!spriteSheet.loadFromFile("/home/ensea/plt/res/Fighters/Kuro.png"))//,rectSourceSprite));
-            {
-                std::cout<<"Load Failed" << std::endl;
-                system("Pause");
-            }
-            sf::Sprite playerSprite;
-            playerSprite.setTexture(spriteSheet);
-           
-            // put fighter on the right of the arena
-            playerSprite.setPosition(sf::Vector2f(50.f, 250.f)); 
-                
+    //display arena
+    sf::Texture arena;
+    sf::Sprite arenaSprite;
+    int frame = 0;
+    int row = 1;
+    int frameCounter = 0;
 
-            //display fighter2
-            sf::Texture spriteSheet2;
-            sf:: IntRect rectSourceSprite1(0,0,100,100);
-            if (!spriteSheet2.loadFromFile("/home/ensea/plt/res/Fighters/Flint.png",rectSourceSprite1))
-            {
-                std::cout<<"Load Failed" << std::endl;
-                system("Pause");
-            }
-            sf::Sprite playerSprite2;
-            // playerSprite2.setOrigin(10.f, 20.f);
-            playerSprite2.setTexture(spriteSheet2);
-            // // put fighter on the left of the arena
-            playerSprite2.setPosition(sf::Vector2f(500.f, 250.f)); 
+    if (!arena.loadFromFile("/home/ensea/plt/res/Terrains/seku_terrain.png"))
+    {
+        std::cout << "Load Failed" << std::endl;
+        system("Pause");
+    }
+    //arenaSprite.setScale(0.5,0.5);
+    arenaSprite.setTexture(arena);
+
+    //display fighter1
+    sf::Texture spriteSheet;
+    //sf:: IntRect rectSourceSprite(0,100,100,100);
+    if (!spriteSheet.loadFromFile("/home/ensea/plt/res/Fighters/Kuro.png")) //,rectSourceSprite));
+    {
+        std::cout << "Load Failed" << std::endl;
+        system("Pause");
+    }
+    sf::Sprite playerSprite;
+    playerSprite.setTexture(spriteSheet);
+
+    // put fighter on the right of the arena
+    playerSprite.setPosition(sf::Vector2f(50.f, 250.f));
+
+    //display fighter2
+    sf::Texture spriteSheet2;
+    sf::IntRect rectSourceSprite1(0, 0, 100, 100);
+    if (!spriteSheet2.loadFromFile("/home/ensea/plt/res/Fighters/Flint.png", rectSourceSprite1))
+    {
+        std::cout << "Load Failed" << std::endl;
+        system("Pause");
+    }
+    sf::Sprite playerSprite2;
+    // playerSprite2.setOrigin(10.f, 20.f);
+    playerSprite2.setTexture(spriteSheet2);
+    // // put fighter on the left of the arena
+    playerSprite2.setPosition(sf::Vector2f(500.f, 250.f));
+
+    if (argc > 1)
+    {
+        if (strcmp(argv[1], "hello") == 0)
+        {
+            cout << "Bonjour " << ((argv[2]) ? argv[2] : "tout le monde") << endl;
+        }
+        if (strcmp(argv[1], "testSFML") == 0)
+        {
+            cout << "test sfml" << endl;
 
             //size of image as input of VideoMode
             sf::VideoMode resolution;
 
-            sf::RenderWindow window(sf::VideoMode(640, 384), "SFML works!",sf::Style::Default);
-            
+            sf::RenderWindow window(sf::VideoMode(640, 384), "SFML works!", sf::Style::Default);
+
             sf::Clock clock;
 
             while (window.isOpen())
@@ -83,11 +82,11 @@ int main(int argc,char* argv[])
                     if (event.type == sf::Event::Closed)
                         window.close();
                 }
-                playerSprite.setTextureRect(sf::IntRect(100*frame,100*row,100,100));
+                playerSprite.setTextureRect(sf::IntRect(100 * frame, 100 * row, 100, 100));
 
-                if(frameCounter == 100)
+                if (frameCounter == 100)
                 {
-                    frame = (frame + 1) %3;
+                    frame = (frame + 1) % 3;
                     frameCounter = 0;
                 }
                 frameCounter++;
@@ -99,94 +98,124 @@ int main(int argc,char* argv[])
                 //     {
                 //         rectSourceSprite.left +=100;
                 //     }
-                    // playerSprite.setTextureRect(rectSourceSprite);
-                    // clock.restart();
-                        
-                    
-                    //playerSprite.setTextureRect(sf::IntRect(32*frame, row, 32,48));
+                // playerSprite.setTextureRect(rectSourceSprite);
+                // clock.restart();
 
-                    window.clear();
-                    window.draw(arenaSprite);
-                    window.draw(playerSprite);
-                    window.draw(playerSprite2);
-                    window.display();
+                //playerSprite.setTextureRect(sf::IntRect(32*frame, row, 32,48));
+
+                window.clear();
+                window.draw(arenaSprite);
+                window.draw(playerSprite);
+                window.draw(playerSprite2);
+                window.display();
                 //}
             }
 
             // Fin test SFML
         }
-        else if (strcmp(argv[1],"render")==0)
+        else if (strcmp(argv[1], "render") == 0)
         {
             cout << "affichage d'un etat" << endl;
-            
+
             // //testSFML();
             State state;
 
             state.initPlayers();
-            std::vector<std::shared_ptr<Player>>playerList = state.getPlayerList();
-            
+            std::vector<std::shared_ptr<Player>> playerList = state.getPlayerList();
+
             Fighter fighter1;
-            fighter1.setName(Kuro);
-            Fighter fighter2 ;    
-            fighter2.setName(Flint);
+            fighter1.setName(Flint);
+            Fighter fighter2;
+            fighter2.setName(Kuro);
             cout << "fighters name ok" << endl;
             // Fighter fighter1(Flint, DEAD, 100,100,300,10,2,COUPDEPOING,100);
             // Fighter fighter2(Seku, DEAD, 100,100,300,10,2,COUPDEPOING,100);
-            state.setFighter(fighter1);
-            state.setFighter(fighter2);
+            //state.setFighter(fighter1);
+            //state.setFighter(fighter2);
             //playerList[0]->setFighter(fighter1);
-            
-            
-            //state.setFighters(fighter1,fighter2);
+
+            state.setFighters(fighter1, fighter2);
             cout << "fighters ok" << endl;
             //state.setFighter(fighter2);
-            state.setTerrain(ThorkTerrain);
+            state.setTerrain(SekuTerrain);
             cout << "etat cree" << endl;
-           
-            
+
             sf::RenderWindow window(sf::VideoMode(640, 384), "Fighter Zone");
             cout << " fenetre cree" << endl;
 
-            
             TextureManager *textureManager = textureManager->getInstance();
-            if (textureManager->load()) {
+            if (textureManager->load())
+            {
                 cout << "texuture manager ok!" << endl;
-            } else {
+            }
+            else
+            {
                 cout << "texuture manager loading failed!" << endl;
                 return EXIT_FAILURE;
             }
 
-            // textureManager->getTileBackground(SekuTerrain);
-            // textureManager->getTileFighter(Flint);
-            // textureManager->getTileFighter(Kuro);
-            
+            //textureManager->getTileBackground(SekuTerrain);
+            //textureManager->getTileFighter(Flint);
+            //textureManager->getTileFighter(Kuro);
 
-             BackgroundManager backgroundManager;
+            BackgroundManager backgroundManager;
             // backgroundManager.
 
             StateLayer stateLayer(window, state);
             state.registerObserver(&stateLayer);
             cout << "statelayer ok!" << endl;
-
-            stateLayer.draw(); 
-            cout << "ok" ;
-            while (window.isOpen()){
-            // Close the window if the close button is pressed
+            bool attackPress = false;
+            stateLayer.draw();
+            cout << "ok";
+            while (window.isOpen())
+            {
+                // Close the window if the close button is pressed
                 sf::Event event;
                 while (window.pollEvent(event))
                 {
-                    if (event.type == sf::Event::Closed)
+                    switch (event.type)
                     {
+                    case sf::Event::Closed:
                         window.close();
-                    } else if (event.type == sf::Event::KeyPressed) {
-                        state.notifyObservers({StateEventID::ALLCHANGED}, state);
+                        break;
+                    case sf::Event::KeyPressed:
+                        switch (event.key.code)
+                        {
+                        case sf::Keyboard::A:
+                        cout << " touche A ENCLENCHE" << endl;
+                            attackPress = true;
+                            break;
+                        default:
+                            //state.notifyObservers({StateEventID::ALLCHANGED}, state);
+                            break;
+                        }
+                        break;
+                    case sf::Event::MouseMoved:
+                        break;
+                    default:
+                        //state.notifyObservers({StateEventID::ALLCHANGED}, state);
+                        break;
                     }
+                    
                 }
-                //cout << " window opened" << endl;  
-               
+                if(attackPress){
+                    playerSprite.setTextureRect(sf::IntRect(100 * frame, 100 * row, 100, 100));
+                            if (frameCounter == 100)
+                            {
+                                frame = (frame + 1) % 3;
+                                frameCounter = 0;
+                            }
+                            frameCounter++;
+                }
+                cout << "frame = " << frame << endl;
+                cout << "frame counter = " << frameCounter << endl;
+
+
+                window.clear();
+                    window.draw(playerSprite);
+                window.display();
+                //cout << " window opened" << endl;
             }
-
-
 
             // les differentes couches de textures
             // StateLayer stateLayer(window,state); // on cree une couche pour l'etat  et y associant une fenetre
@@ -194,11 +223,11 @@ int main(int argc,char* argv[])
             // cout << " window et state ok cree" << endl;
             // stateLayer.initTextureManagers(state); //
             // cout << " texture Managers init ok cree" << endl;
-            
+
             // // Positionnement des texture sur le terrain
             // stateLayer.getTextureManagers()[0]->setPosition(sf::Vector2f(50.f, 250.f));
             // stateLayer.getTextureManagers()[1]->setPosition(sf::Vector2f(500.f, 250.f));
-        
+
             // while (window.isOpen()){
             // // Close the window if the close button is pressed
             //     sf::Event event;
@@ -212,76 +241,71 @@ int main(int argc,char* argv[])
             //    // cout << " window opened" << endl;
             //     stateLayer.draw(); //on utilise la methode draw de StateLayer pour afficher l etat
             //     //window.clear();
-            //     // window.draw(*stateLayer.getTextureManagers()[0]);	// Draw fighter1			
+            //     // window.draw(*stateLayer.getTextureManagers()[0]);	// Draw fighter1
             //     // window.draw(*stateLayer.getTextureManagers()[1]);	// Draw fighter2
             //     // window.draw(*stateLayer.getTextureManagers()[2]);	// Draw the terrain
             //     window.display();
-		    }  
-        }else if( strcmp(argv[1],"engine")==0 ){
-            cout << "engine is coming !!" << endl;
-
-            // sf::RenderWindow window(sf::VideoMode(640, 384), "Fighter Zone");
-
-
-            // Engine engine;
-            // engine.getState().initPlayers();
-
-            // StateLayer stateLayer(window,engine.getState());
-            // stateLayer.initTextureManagers(engine.getState());
-
-            // StateLayer* ptr_stateLayer=&stateLayer;
-			// engine.getState().registerObserver(ptr_stateLayer);
-
-            // stateLayer.getTextureManagers()[0]->setPosition(sf::Vector2f(50.f, 250.f));
-            // stateLayer.getTextureManagers()[1]->setPosition(sf::Vector2f(500.f, 250.f));
-           
-
-            // while (window.isOpen()){
-			// 	sf::Event event;
-                
-            //     // Draw all the display on the screen
-            //     stateLayer.draw();
-               
-            //     while (window.pollEvent(event)){
-			// 		if (event.type == sf::Event::Closed){
-			// 			window.close();
-            //         }
-            //         else if(event.type==sf::Event::KeyPressed && engine.getState().getRound()==1)
-            //         {
-            //             // cout<<"in loop if" << endl;
-            //             // Attaq attaq(*engine.getState().getPlayerList()[0]->getFighter(),*engine.getState().getPlayerList()[1]->getFighter());
-            //             // unique_ptr<Command> ptr_attack (new Attaq(attaq));
-            //             // engine.addCommand(1, move(ptr_attack));
-
-            //             // engine.getState().setRound(2);
-            //             // engine.update();
-            //         }
-            //     }
-            //     //window.close();
-            // }
-
-            
-            //Attaq attaq(*engine.getState().getPlayerList()[0]->getFighter(), *engine.getState().getPlayerList()[1]->getFighter());
-            // unique_ptr<Command> ptr_attack (new Attaq(attaq));
-            // engine.addCommand(1, move(ptr_attack));
-
-            // engine.update();
-
-
-                // if(clock.getElapsedTime().asSeconds()>1.0f)
-                // {
-                //     if(rectSourceSprite.left==300)
-                //         rectSourceSprite.left=0;
-                //     else
-                //     {
-                //         rectSourceSprite.left +=100;
-                //     }
-                    // playerSprite.setTextureRect(rectSourceSprite);
-                    // clock.restart();
-                    //}
-            
-
         }
     }
-    // return 0;
+    else if (strcmp(argv[1], "engine") == 0)
+    {
+        cout << "engine is coming !!" << endl;
 
+        // sf::RenderWindow window(sf::VideoMode(640, 384), "Fighter Zone");
+
+        // Engine engine;
+        // engine.getState().initPlayers();
+
+        // StateLayer stateLayer(window,engine.getState());
+        // stateLayer.initTextureManagers(engine.getState());
+
+        // StateLayer* ptr_stateLayer=&stateLayer;
+        // engine.getState().registerObserver(ptr_stateLayer);
+
+        // stateLayer.getTextureManagers()[0]->setPosition(sf::Vector2f(50.f, 250.f));
+        // stateLayer.getTextureManagers()[1]->setPosition(sf::Vector2f(500.f, 250.f));
+
+        // while (window.isOpen()){
+        // 	sf::Event event;
+
+        //     // Draw all the display on the screen
+        //     stateLayer.draw();
+
+        //     while (window.pollEvent(event)){
+        // 		if (event.type == sf::Event::Closed){
+        // 			window.close();
+        //         }
+        //         else if(event.type==sf::Event::KeyPressed && engine.getState().getRound()==1)
+        //         {
+        //             // cout<<"in loop if" << endl;
+        //             // Attaq attaq(*engine.getState().getPlayerList()[0]->getFighter(),*engine.getState().getPlayerList()[1]->getFighter());
+        //             // unique_ptr<Command> ptr_attack (new Attaq(attaq));
+        //             // engine.addCommand(1, move(ptr_attack));
+
+        //             // engine.getState().setRound(2);
+        //             // engine.update();
+        //         }
+        //     }
+        //     //window.close();
+        // }
+
+        //Attaq attaq(*engine.getState().getPlayerList()[0]->getFighter(), *engine.getState().getPlayerList()[1]->getFighter());
+        // unique_ptr<Command> ptr_attack (new Attaq(attaq));
+        // engine.addCommand(1, move(ptr_attack));
+
+        // engine.update();
+
+        // if(clock.getElapsedTime().asSeconds()>1.0f)
+        // {
+        //     if(rectSourceSprite.left==300)
+        //         rectSourceSprite.left=0;
+        //     else
+        //     {
+        //         rectSourceSprite.left +=100;
+        //     }
+        // playerSprite.setTextureRect(rectSourceSprite);
+        // clock.restart();
+        //}
+    }
+}
+// return 0;

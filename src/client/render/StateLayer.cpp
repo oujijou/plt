@@ -20,9 +20,9 @@ void StateLayer::draw()
    // state::Fighter f1;
     window.clear();
     background.draw(window, state);
-    fighterRender1.draw(window,50.f,250.f,state);
-    fighterRender2.draw(window,500.f, 250.f,state);
-
+    fighterRender1.draw(window,50.f,250.f,state, 0);
+    fighterRender2.draw(window,500.f, 250.f,state, 1);
+    
     window.display();
 }
 

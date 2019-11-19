@@ -50,11 +50,12 @@ namespace state{
     }
 
     void State::setFighter(Fighter fighter){
+        //this->fighter2 = fighter;
         this->fighter1 = fighter; //!!!!
         fighterList.push_back(fighter);
     }
     
-    void State::setFighters(Fighter  fighter11, Fighter  fighter22){
+    void State::setFighters(Fighter fighter11, Fighter  fighter22){
         
         std::cout << "test1" <<" **"<< fighter11.getName()<<  std::endl;
         this->fighter1= fighter11;
