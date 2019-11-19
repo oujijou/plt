@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
     //display fighter1
     sf::Texture spriteSheet;
     //sf:: IntRect rectSourceSprite(0,100,100,100);
-    if (!spriteSheet.loadFromFile("/home/ensea/plt/res/Fighters/Kuro.png")) //,rectSourceSprite));
+    if (!spriteSheet.loadFromFile("/home/ensea/plt/res/Fighters/Kuro.png", sf::IntRect(0, 0, 100, 100))) //,rectSourceSprite));
     {
         std::cout << "Load Failed" << std::endl;
         system("Pause");
@@ -120,16 +120,7 @@ int main(int argc, char *argv[])
                     frameCounter = 0;
                 }
                 frameCounter++;
-                // if(clock.getElapsedTime().asSeconds()>1.0f)
-                // {
-                //     if(rectSourceSpritel.left==300)
-                //         rectSourceSprite.left=0;
-                //     else
-                //     {
-                //         rectSourceSprite.left +=100;
-                //     }
-                // playerSprite.setTextureRect(rectSourceSprite);
-                // clock.restart();
+               
 
                 //playerSprite.setTextureRect(sf::IntRect(32*frame, row, 32,48));
 				
@@ -170,11 +161,7 @@ int main(int argc, char *argv[])
             Fighter fighter2;
             fighter2.setName(Kuro);
             cout << "fighters name ok" << endl;
-            // Fighter fighter1(Flint, DEAD, 100,100,300,10,2,COUPDEPOING,100);
-            // Fighter fighter2(Seku, DEAD, 100,100,300,10,2,COUPDEPOING,100);
-            //state.setFighter(fighter1);
-            //state.setFighter(fighter2);
-            //playerList[0]->setFighter(fighter1);
+            
 
             state.setFighters(fighter1, fighter2);
             cout << "fighters ok" << endl;
@@ -207,7 +194,9 @@ int main(int argc, char *argv[])
             state.registerObserver(&stateLayer);
             cout << "statelayer ok!" << endl;
             bool attackPress = false;
-            stateLayer.draw();
+
+            
+
             cout << "ok";
             
             while (window.isOpen())
@@ -240,6 +229,7 @@ int main(int argc, char *argv[])
                         break;
                     }
                 }
+                
                 if (attackPress)
                 {
                     playerSprite.setTextureRect(sf::IntRect(100 * frame, 100 * row, 100, 100));
@@ -249,20 +239,25 @@ int main(int argc, char *argv[])
                         frameCounter = 0;
                     }
                     frameCounter++;
+                    // window.clear();
+                    // window.draw(playerSprite);
+                    // window.display();
                 }
                 cout << "frame = " << frame << endl;
                 cout << "frame counter = " << frameCounter << endl;
 
-                //   window.clear();
+                // window.clear();
                 // window.draw(arenaSprite);
                 // window.draw(playerSprite);
                 // window.draw(playerSprite2);
                 // window.display();
-                window.clear();
-                window.draw(arenaSprite);
-                window.draw(playerSprite);
+                stateLayer.draw();
 
-                window.display();
+                // window.clear();
+                // window.draw(arenaSprite);
+                // window.draw(playerSprite);
+                // window.draw(playerSprite2);
+                // window.display();
                 //cout << " window opened" << endl;
             }
         }
