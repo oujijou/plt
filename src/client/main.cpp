@@ -314,10 +314,21 @@ int main(int argc, char *argv[])
     {
         cout << "engine is coming !!" << endl;
 
-        // sf::RenderWindow window(sf::VideoMode(640, 384), "Fighter Zone");
+        sf::RenderWindow window(sf::VideoMode(640, 384), "Fighter Zone");
 
-        // Engine engine;
-        // engine.getState().initPlayers();
+        Engine engine;
+        engine.getState().initPlayers();
+
+        StateLayer stateLayer(window,engine.getState());
+        
+        //stateLayer.initTextureAreas(engine.getState());
+    
+        // StateLayer* ptr_stateLayer= &stateLayer;
+        // engine.getState().registerObserver(ptr_stateLayer);
+
+        // Engine* ptr_engine=&engine;
+        // stateLayer.registerRenderObserver(ptr_engine);
+
 
         // StateLayer stateLayer(window,engine.getState());
         // stateLayer.initTextureManagers(engine.getState());
