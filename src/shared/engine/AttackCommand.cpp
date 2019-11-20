@@ -3,7 +3,7 @@
 #include <iostream> 
 #include <unistd.h>
 #include <stdlib.h>
-#include "Attaq.h"
+#include "AttackCommand.h"
 
 using namespace engine;
 using namespace state;
@@ -11,15 +11,15 @@ using namespace std;
 
 
 
-Attaq::Attaq (state::Fighter& attaqer, state::Fighter& target):attaqer(attaqer),target(target)
+AttackCommand::AttackCommand (state::Fighter& attaqer, state::Fighter& target):attacker(attacker),target(target)
 {
 
 }
 
 
-void Attaq::execute (state::State& state){
+void AttackCommand::execute (state::State& state){
     
-    if(attaqer.getStatus()!=DEAD){
+    if(attacker.getStatus()!=DEAD){
 
         //Target
         cout<<"Attack is coming!!"<<endl;
@@ -27,7 +27,7 @@ void Attaq::execute (state::State& state){
         float oldTargetHealth=target.getHealthPoints();
         
         //Attaq
-        attaqer.fight(target, COUPDEPOING); //for now only this attack is available
+        attacker.fight(target, COUPDEPOING); //for now only this attack is available
         
 
         //Display on console : State 
@@ -43,7 +43,7 @@ void Attaq::execute (state::State& state){
            
         }
     
-    }else if(attaqer.getStatus()==DEAD){
+    }else if(attacker.getStatus()==DEAD){
         cout<<"Already dead!"<<endl;
     }
 }

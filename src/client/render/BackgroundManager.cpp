@@ -12,7 +12,7 @@ void BackgroundManager::draw(sf::RenderWindow& window,  state::State& state)
     TileSet* tileBackground = instance->getTileBackground(state.getTerrain());
     
     sf::Sprite spriteBackground(tileBackground->getTexture());
-    cout << "Hey: " << &tileBackground->getTexture() << endl;
+    //cout << "Hey: " << &tileBackground->getTexture() << endl;
     
     window.draw(spriteBackground);
     /*

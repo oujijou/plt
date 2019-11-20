@@ -32,14 +32,13 @@ int main(int argc, char *argv[])
     //display fighter1
     sf::Texture spriteSheet;
     //sf:: IntRect rectSourceSprite(0,100,100,100);
-    if (!spriteSheet.loadFromFile("/home/ensea/plt/res/Fighters/Kuro.png", sf::IntRect(0, 0, 100, 100))) //,rectSourceSprite));
+    if (!spriteSheet.loadFromFile("/home/ensea/plt/res/Fighters/Kuro.png",sf::IntRect(0, 0, 0, 5))) //,rectSourceSprite));
     {
         std::cout << "Load Failed" << std::endl;
         system("Pause");
     }
     sf::Sprite playerSprite;
     playerSprite.setTexture(spriteSheet);
-
     // put fighter on the right of the arena
     playerSprite.setPosition(sf::Vector2f(50.f, 250.f));
 
@@ -71,8 +70,6 @@ int main(int argc, char *argv[])
             sf::VideoMode resolution;
 
             sf::RenderWindow window(sf::VideoMode(640, 384), "SFML works!", sf::Style::Default);
-            
-            
 
             while (window.isOpen())
             {
@@ -106,103 +103,9 @@ int main(int argc, char *argv[])
 				sf::Sprite hpBarP2;
 				hpBarP2.setTexture(hpBarTexture);
 				hpBarP2.setPosition(530.f,40.f);
-				
-                while (window.pollEvent(event))
-                {
-                    if (event.type == sf::Event::Closed)
-                        window.close();
-                }
-                playerSprite.setTextureRect(sf::IntRect(100 * frame, 100 * row, 100, 100));
+				bool attackPress = false;
 
-                if (frameCounter == 100)
-                {
-                    frame = (frame + 1) % 3;
-                    frameCounter = 0;
-                }
-                frameCounter++;
-               
-
-                //playerSprite.setTextureRect(sf::IntRect(32*frame, row, 32,48));
-				
-            
-
-            sf::Clock clock;
-					
-                window.clear();
                 
-                window.draw(arenaSprite);
-                window.draw(text1);
-                window.draw(text2);
-                window.draw(hpBarP1);
-                window.draw(hpBarP2);
-                window.draw(playerSprite);
-                window.draw(playerSprite2);
-                window.display();
-                //}
-            }
-
-            // Fin test SFML
-        }
-        else if (strcmp(argv[1], "render") == 0)
-        {
-            cout << "affichage d'un etat" << endl;
-
-            // //testSFML();
-            
-        
-       
-            State state;
-			
-            state.initPlayers();
-            std::vector<std::shared_ptr<Player>> playerList = state.getPlayerList();
-
-            Fighter fighter1;
-            fighter1.setName(Flint);
-            Fighter fighter2;
-            fighter2.setName(Kuro);
-            cout << "fighters name ok" << endl;
-            
-
-            state.setFighters(fighter1, fighter2);
-            cout << "fighters ok" << endl;
-            //state.setFighter(fighter2);
-            state.setTerrain(SekuTerrain);
-            cout << "etat cree" << endl;
-
-            sf::RenderWindow window(sf::VideoMode(640, 384), "Fighter Zone");
-            cout << " fenetre cree" << endl;
-		   
-            TextureManager *textureManager = textureManager->getInstance();
-            if (textureManager->load())
-            {
-                cout << "texuture manager ok!" << endl;
-            }
-            else
-            {
-                cout << "texuture manager loading failed!" << endl;
-                return EXIT_FAILURE;
-            }
-
-            //textureManager->getTileBackground(SekuTerrain);
-            //textureManager->getTileFighter(Flint);
-            //textureManager->getTileFighter(Kuro);
-
-            BackgroundManager backgroundManager;
-            // backgroundManager.
-
-            StateLayer stateLayer(window, state);
-            state.registerObserver(&stateLayer);
-            cout << "statelayer ok!" << endl;
-            bool attackPress = false;
-
-            
-
-            cout << "ok";
-            
-            while (window.isOpen())
-            {
-                // Close the window if the close button is pressed
-                sf::Event event;
                 while (window.pollEvent(event))
                 {
                     switch (event.type)
@@ -230,6 +133,7 @@ int main(int argc, char *argv[])
                     }
                 }
                 
+               
                 if (attackPress)
                 {
                     playerSprite.setTextureRect(sf::IntRect(100 * frame, 100 * row, 100, 100));
@@ -239,9 +143,152 @@ int main(int argc, char *argv[])
                         frameCounter = 0;
                     }
                     frameCounter++;
+                }
+                cout << "frame = " << frame << endl;
+                cout << "frame counter = " << frameCounter << endl;
+
+               
+
+                //playerSprite.setTextureRect(sf::IntRect(32*frame, row, 32,48));
+				
+            
+
+                sf::Clock clock;
+					
+                window.clear();
+                
+                window.draw(arenaSprite);
+                window.draw(text1);
+                window.draw(text2);
+                window.draw(hpBarP1);
+                window.draw(hpBarP2);
+                window.draw(playerSprite);
+                window.draw(playerSprite2);
+
+                window.display();
+                //}
+            }
+
+            // Fin test SFML
+        }
+        else if (strcmp(argv[1], "render") == 0)
+        {
+            cout << "affichage d'un etat" << endl;
+            State state;
+			
+            state.initPlayers();
+            std::vector<std::shared_ptr<Player>> playerList = state.getPlayerList();
+
+            Fighter fighter1;
+            fighter1.setName(Flint);
+            Fighter fighter2;
+            fighter2.setName(Kuro);
+            cout << "fighters name ok" << endl;
+            
+
+            state.setFighters(fighter1, fighter2);
+            cout << "fighters ok" << endl;
+            state.setTerrain(SekuTerrain);
+            cout << "etat cree" << endl;
+            cout << "setting fighters on the state ok" << endl;
+
+           
+		   
+            TextureManager *textureManager = textureManager->getInstance();
+            if (textureManager->load())
+            {
+                cout << "texuture manager ok!" << endl;
+            }
+            else
+            {
+                cout << "texuture manager loading failed!" << endl;
+                return EXIT_FAILURE;
+            }
+
+            sf::RenderWindow window(sf::VideoMode(640, 384), "Fighter Zone");
+            cout << " fenetre cree" << endl;
+
+            //registering statelayer to observer
+            StateLayer stateLayer(window, state);
+            state.registerObserver(&stateLayer);
+            cout << "statelayer ok!" << endl;
+            bool attackPress = false;
+
+            while (window.isOpen())
+            {
+                // Close the window if the close button is pressed
+                sf::Event event;
+                sf::Font font;
+				if(!font.loadFromFile("/home/ensea/plt/res/Fonts/FontFile.ttf"))
+				{
+				return false;
+				}
+				sf::Text text1;
+				text1.setFont(font);
+				text1.setString("Health Points");
+				text1.setCharacterSize(40);
+				
+				sf::Text text2;
+				text2.setFont(font);
+				text2.setString("Health Points");
+				text2.setCharacterSize(40);
+				text2.setPosition(530.f,0.f);
+				
+				sf::Texture hpBarTexture;
+				if(!hpBarTexture.loadFromFile("/home/ensea/plt/res/redBg.jpg",sf::IntRect(0,0,100,10)))
+				{
+					return false;
+				}
+				
+				sf::Sprite hpBarP1;
+				hpBarP1.setTexture(hpBarTexture);
+				hpBarP1.setPosition(0.f,40.f);
+				
+				sf::Sprite hpBarP2;
+				hpBarP2.setTexture(hpBarTexture);
+				hpBarP2.setPosition(530.f,40.f);
+
+                while (window.pollEvent(event))
+                {
+                    switch (event.type)
+                    {
+                    case sf::Event::Closed:
+                        window.close();
+                        break;
+                    case sf::Event::KeyPressed:
+                        switch (event.key.code)
+                        {
+                        case sf::Keyboard::A:
+                            cout << " touche A ENCLENCHE" << endl;
+                            attackPress = true;
+                            break;
+                        default:
+                            //state.notifyObservers({StateEventID::ALLCHANGED}, state);
+                            break;
+                        }
+                        break;
+                    case sf::Event::MouseMoved:
+                        break;
+                    default:
+                        state.notifyObservers({StateEventID::ALLCHANGED}, state);
+                        break;
+                    }
+                }
+                
+                if (attackPress)
+                {
+                    playerSprite.setTextureRect(sf::IntRect(100 * frame, 100 * row, 100, 100));
+                    if (frameCounter == 100)
+                    {
+                        frame = (frame + 1) % 3;
+                        frameCounter = 0;
+                        
+                    }
+                    frameCounter++;
                     // window.clear();
                     // window.draw(playerSprite);
                     // window.display();
+                   
                 }
                 cout << "frame = " << frame << endl;
                 cout << "frame counter = " << frameCounter << endl;
@@ -252,13 +299,19 @@ int main(int argc, char *argv[])
                 // window.draw(playerSprite2);
                 // window.display();
                 
-                stateLayer.draw();
-            
-                // window.clear();
-                // window.draw(arenaSprite);
-                // window.draw(playerSprite);
-                // window.draw(playerSprite2);
-                // window.display();
+                //stateLayer.draw(); 
+                //stateLayer.draw();
+                window.clear(); 
+
+                window.draw(arenaSprite);
+                window.draw(text1);
+                window.draw(text2);
+                window.draw(hpBarP1);
+                window.draw(hpBarP2);
+                window.draw(playerSprite);
+                window.draw(playerSprite2);
+                
+                window.display();
                 //cout << " window opened" << endl;
             }
         }

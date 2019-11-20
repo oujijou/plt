@@ -19,16 +19,16 @@ bool TileSet::loadTexture()
 
 	result = this->textureTileSet.loadFromFile(path);
 	//charge tout le temps la meme tile
-	cout << "TileSet: Loaded texture " << &this->textureTileSet
-		 << " for path \"" << path << "\" in " << this << endl;
+	// cout << "TileSet: Loaded texture " << &this->textureTileSet
+	// 	 << " for path \"" << path << "\" in " << this << endl;
 
 	return result;
 }
 
 const sf::Texture& TileSet::getTexture() 
 {
-	cout << "TileSet: Requesting texture " << &this->textureTileSet <<
-		" from " << this << endl;
+	// cout << "TileSet: Requesting texture " << &this->textureTileSet <<
+	// 	" from " << this << endl;
 	return this->textureTileSet;
 }
 
