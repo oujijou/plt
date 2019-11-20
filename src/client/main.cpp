@@ -180,15 +180,18 @@ int main(int argc, char *argv[])
             std::vector<std::shared_ptr<Player>> playerList = state.getPlayerList();
 
             Fighter fighter1;
-            fighter1.setName(Flint);
+            fighter1.setName(Seku);//Can change by Thork
+            
             Fighter fighter2;
-            fighter2.setName(Kuro);
+            fighter2.setName(Thork);//Can change by Seku
             cout << "fighters name ok" << endl;
             
 
             state.setFighters(fighter1, fighter2);
             cout << "fighters ok" << endl;
-            state.setTerrain(SekuTerrain);
+
+
+            state.setTerrain(SekuTerrain); // ThorkTerrain, FlintTerrain, KuroTerrain
             cout << "etat cree" << endl;
             cout << "setting fighters on the state ok" << endl;
 
@@ -284,34 +287,25 @@ int main(int argc, char *argv[])
                         frameCounter = 0;
                         
                     }
-                    frameCounter++;
-                    // window.clear();
-                    // window.draw(playerSprite);
-                    // window.display();
-                   
+                    frameCounter++;                   
                 }
                 cout << "frame = " << frame << endl;
                 cout << "frame counter = " << frameCounter << endl;
 
-                // window.clear();
+                
+                stateLayer.draw(); // In StateLayer.cpp id 0 or 1 for Fighter Flint et Kuro
+                                    //  In StateLayer.cpp id 1 or 2 for Fighter Thork et Seku
+                // window.clear(); 
+
                 // window.draw(arenaSprite);
+                // window.draw(text1);
+                // window.draw(text2);
+                // window.draw(hpBarP1);
+                // window.draw(hpBarP2);
                 // window.draw(playerSprite);
                 // window.draw(playerSprite2);
+                
                 // window.display();
-                
-                //stateLayer.draw(); 
-                //stateLayer.draw();
-                window.clear(); 
-
-                window.draw(arenaSprite);
-                window.draw(text1);
-                window.draw(text2);
-                window.draw(hpBarP1);
-                window.draw(hpBarP2);
-                window.draw(playerSprite);
-                window.draw(playerSprite2);
-                
-                window.display();
                 //cout << " window opened" << endl;
             }
         }

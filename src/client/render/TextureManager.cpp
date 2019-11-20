@@ -19,8 +19,8 @@ TextureManager* TextureManager::instance = nullptr;
 TextureManager::TextureManager(){
 	tiles_fighter.insert({Kuro, make_shared<TileSet>("./res/Fighters/Kuro.png")});
 	tiles_fighter.insert({Flint, make_shared<TileSet>("./res/Fighters/Flint.png")});
-	tiles_fighter.insert({Thork, make_shared<TileSet>("./res/Fighters/thork.png")});
-	tiles_fighter.insert({Seku, make_shared<TileSet>("./res/Fighters/seku.png")});
+	tiles_fighter.insert({Thork, make_shared<TileSet>("./res/Fighters/Thork.png")});
+	tiles_fighter.insert({Seku, make_shared<TileSet>("./res/Fighters/Seku.png")});
 
 	tiles_background.insert({SekuTerrain, make_shared<TileSet>("./res/Terrains/seku_terrain.png")});
 	tiles_background.insert({FlintTerrain, make_shared<TileSet>("./res/Terrains/flint_terrain.png")});

@@ -20,8 +20,8 @@ void StateLayer::draw()
    // state::Fighter f1;
     window.clear();
     background.draw(window, state);
-    fighterRender1.draw(window,50.f,250.f,state, 0);
-    fighterRender2.draw(window,500.f, 250.f,state, 1);
+    fighterRender1.draw(window,50.f,250.f,state, 2);// id = 0, 2,
+    fighterRender2.draw(window,500.f, 250.f,state,1);// id = 1, 3
     
     sf::Event event;
     sf::Font font;
