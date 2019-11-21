@@ -3,29 +3,25 @@
 #include <iostream> 
 #include <unistd.h>
 #include <stdlib.h>
-#include "AttackCommand.h"
-
-using namespace engine;
-using namespace state;
-using namespace std;
+#include "DefenseCommand.h"
 
 
-//Contructor
-AttackCommand::AttackCommand (state::Fighter& attacker, state::Fighter& target):attacker(attacker),target(target)
+//Constructor
+
+DefenseCommand::DefenseCommand (state::Fighter& fighter):fighter(fighter)
 {
 
 }
-
 //Functions
-
-void AttackCommand::execute (state::State& state){
+void DefenseCommand::execute (state::State& state){
+    
     
     if(attacker.getStatus()!=DEAD){
-  
-        //Target
-        cout<<"Attack is coming!!"<<endl;
+		
+		cout<<"Defense is coming!!"<<endl;
         float oldTargetHealth=target.getHealthPoints();
         
+        //Target
         int waitingTime=40000;
 		string entityNameTarget = "";
 		switch(attacker.getName()){
@@ -44,7 +40,8 @@ void AttackCommand::execute (state::State& state){
     }
 
         //Attack
-             
+        attacker.fight(target, COUPDEPOING); //for now only this attack is available
+       
 		string entityNameAttacker = "";
 		switch(attacker.getName()){
 			case Flint: 
@@ -60,28 +57,28 @@ void AttackCommand::execute (state::State& state){
             entityNameAttacker = "seku";
             break;
         cout << "The " << entityNameAttacker << " will attack or try to attack the " << entityNameTarget << "." << endl;
+           
+    }
         
-        if(target.getStatus()==DEFENSE){
-				attacker.fight(target, COUPDEPOING);
-				attacker.setHealthPoints(attacker.getHealthPoints()+10); //for now only this attack is available
-		}
-		else{
-			attacker.fight(target, COUPDEPOING);
-		}
+        cout<<"Defense is coming!!"<<endl;
+        float oldMana=fighter.getMana();
+        
+        int waitingTime=40000;
+		string entityNameRecharging = "";
+		switch(fighter.getName()){
+			case Flint: 
+				entityNameRecharging = "flint";
+            break;
+			case Kuro:
+				entityNameRecharging = "kuro";
+            break;
+			case Thork:
+				entityNameRecharging = "thork";
+            break;
+			case Seku:
+				entityNameRecharging = "seku";
+            break;       
     }
-
-        //Display on console : State 
-        cout<<"Le target avait "<<oldTargetHealth<<" points de vie."<<endl;
-        cout<<"Le target a "<<target.getHealthPoints()<<" de points de vie restant."<<endl;
-
-        if(target.getHealthPoints()==0){
-            target.setStatus(DEAD);
-            // animation dead
-            cout << "Le target est mort." << endl;
-            sleep(2);
-        }
-    
-    }else if(attacker.getStatus()==DEAD){
-        cout<<"Already dead!"<<endl;
-    }
+    fighter.defend(fighter);
+}
 }

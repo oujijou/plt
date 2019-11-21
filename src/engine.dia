@@ -1345,13 +1345,13 @@
         <dia:point val="10.9124,25.4809"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="10.8624,25.4309;26.8624,31.3309"/>
+        <dia:rectangle val="10.8624,25.4309;27.2474,31.3309"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
         <dia:point val="10.9124,25.4809"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
-        <dia:real val="15.9"/>
+        <dia:real val="16.285"/>
       </dia:attribute>
       <dia:attribute name="elem_height">
         <dia:real val="5.8000000000000007"/>
@@ -1526,7 +1526,7 @@
           <dia:attribute name="parameters">
             <dia:composite type="umlparameter">
               <dia:attribute name="name">
-                <dia:string>#attaqer#</dia:string>
+                <dia:string>#attacker#</dia:string>
               </dia:attribute>
               <dia:attribute name="type">
                 <dia:string>#state::Fighter&amp;#</dia:string>
@@ -1619,7 +1619,7 @@
         <dia:point val="29.2067,21.8893"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="18.8124,21.8393;30.0567,25.4805"/>
+        <dia:rectangle val="19.0049,21.8393;30.0567,25.4805"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
@@ -1627,8 +1627,8 @@
       <dia:attribute name="orth_points">
         <dia:point val="29.2067,21.8893"/>
         <dia:point val="29.2067,24.0599"/>
-        <dia:point val="18.8624,24.0599"/>
-        <dia:point val="18.8624,25.4305"/>
+        <dia:point val="19.0549,24.0599"/>
+        <dia:point val="19.0549,25.4305"/>
       </dia:attribute>
       <dia:attribute name="orth_orient">
         <dia:enum val="1"/>
@@ -1670,13 +1670,13 @@
         <dia:point val="50.6642,26.2249"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="50.6142,26.1749;67.7692,30.4749"/>
+        <dia:rectangle val="50.6142,26.1749;66.9992,30.4749"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
         <dia:point val="50.6642,26.2249"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
-        <dia:real val="17.055"/>
+        <dia:real val="16.285"/>
       </dia:attribute>
       <dia:attribute name="elem_height">
         <dia:real val="4.2000000000000002"/>
@@ -1828,7 +1828,7 @@
           <dia:attribute name="parameters">
             <dia:composite type="umlparameter">
               <dia:attribute name="name">
-                <dia:string>#recharger#</dia:string>
+                <dia:string>#fighter#</dia:string>
               </dia:attribute>
               <dia:attribute name="type">
                 <dia:string>#state::Fighter&amp;#</dia:string>
@@ -1904,7 +1904,7 @@
         <dia:point val="29.2067,21.8889"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="28.3567,21.8389;59.2417,26.2254"/>
+        <dia:rectangle val="28.3567,21.8389;58.8567,26.2254"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
@@ -1912,8 +1912,8 @@
       <dia:attribute name="orth_points">
         <dia:point val="29.2067,21.8889"/>
         <dia:point val="29.2067,24.1452"/>
-        <dia:point val="59.1917,24.1452"/>
-        <dia:point val="59.1917,26.1754"/>
+        <dia:point val="58.8067,24.1452"/>
+        <dia:point val="58.8067,26.1754"/>
       </dia:attribute>
       <dia:attribute name="orth_orient">
         <dia:enum val="1"/>
