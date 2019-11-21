@@ -22,10 +22,9 @@ Engine::~Engine()
    
 }
 
-state::State& Engine::getState()
+State& Engine::getState()
 {
-    state::State& refState = currentState;
-    return refState;
+    return currentState;
 }
 
 void Engine::addCommand(int priority, std::unique_ptr<Command> ptr_cmd)
@@ -52,7 +51,9 @@ void Engine::update()
 		currentCommand.erase(it);
 	}
 
-    
-    
 }
 
+// bool Engine::checkGameEnd()
+// {
+//     return 
+// }

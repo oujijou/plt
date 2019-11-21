@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
     //display fighter1
     sf::Texture spriteSheet;
     //sf:: IntRect rectSourceSprite(0,100,100,100);
-    if (!spriteSheet.loadFromFile("/home/ensea/plt/res/Fighters/Kuro.png",sf::IntRect(0, 0, 0, 5))) //,rectSourceSprite));
+    if (!spriteSheet.loadFromFile("/home/ensea/plt/res/Fighters/Kuro.png", sf::IntRect(0, 0, 0, 5))) //,rectSourceSprite));
     {
         std::cout << "Load Failed" << std::endl;
         system("Pause");
@@ -75,37 +75,36 @@ int main(int argc, char *argv[])
             {
                 sf::Event event;
                 sf::Font font;
-				if(!font.loadFromFile("/home/ensea/plt/res/Fonts/FontFile.ttf"))
-				{
-				return false;
-				}
-				sf::Text text1;
-				text1.setFont(font);
-				text1.setString("Health Points");
-				text1.setCharacterSize(40);
-				
-				sf::Text text2;
-				text2.setFont(font);
-				text2.setString("Health Points");
-				text2.setCharacterSize(40);
-				text2.setPosition(530.f,0.f);
-				
-				sf::Texture hpBarTexture;
-				if(!hpBarTexture.loadFromFile("/home/ensea/plt/res/redBg.jpg",sf::IntRect(0,0,100,10)))
-				{
-					return false;
-				}
-				
-				sf::Sprite hpBarP1;
-				hpBarP1.setTexture(hpBarTexture);
-				hpBarP1.setPosition(0.f,40.f);
-				
-				sf::Sprite hpBarP2;
-				hpBarP2.setTexture(hpBarTexture);
-				hpBarP2.setPosition(530.f,40.f);
-				bool attackPress = false;
+                if (!font.loadFromFile("/home/ensea/plt/res/Fonts/FontFile.ttf"))
+                {
+                    return false;
+                }
+                sf::Text text1;
+                text1.setFont(font);
+                text1.setString("Health Points");
+                text1.setCharacterSize(40);
 
-                
+                sf::Text text2;
+                text2.setFont(font);
+                text2.setString("Health Points");
+                text2.setCharacterSize(40);
+                text2.setPosition(530.f, 0.f);
+
+                sf::Texture hpBarTexture;
+                if (!hpBarTexture.loadFromFile("/home/ensea/plt/res/redBg.jpg", sf::IntRect(0, 0, 100, 10)))
+                {
+                    return false;
+                }
+
+                sf::Sprite hpBarP1;
+                hpBarP1.setTexture(hpBarTexture);
+                hpBarP1.setPosition(0.f, 40.f);
+
+                sf::Sprite hpBarP2;
+                hpBarP2.setTexture(hpBarTexture);
+                hpBarP2.setPosition(530.f, 40.f);
+                bool attackPress = false;
+
                 while (window.pollEvent(event))
                 {
                     switch (event.type)
@@ -132,8 +131,7 @@ int main(int argc, char *argv[])
                         break;
                     }
                 }
-                
-               
+
                 if (attackPress)
                 {
                     playerSprite.setTextureRect(sf::IntRect(100 * frame, 100 * row, 100, 100));
@@ -147,16 +145,12 @@ int main(int argc, char *argv[])
                 cout << "frame = " << frame << endl;
                 cout << "frame counter = " << frameCounter << endl;
 
-               
-
                 //playerSprite.setTextureRect(sf::IntRect(32*frame, row, 32,48));
-				
-            
 
                 sf::Clock clock;
-					
+
                 window.clear();
-                
+
                 window.draw(arenaSprite);
                 window.draw(text1);
                 window.draw(text2);
@@ -175,28 +169,24 @@ int main(int argc, char *argv[])
         {
             cout << "affichage d'un etat" << endl;
             State state;
-			
+
             state.initPlayers();
             std::vector<std::shared_ptr<Player>> playerList = state.getPlayerList();
 
             Fighter fighter1;
-            fighter1.setName(Seku);//Can change by Thork
-            
+            fighter1.setName(Seku); //Can change by Thork
+
             Fighter fighter2;
-            fighter2.setName(Thork);//Can change by Seku
+            fighter2.setName(Thork); //Can change by Seku
             cout << "fighters name ok" << endl;
-            
 
             state.setFighters(fighter1, fighter2);
             cout << "fighters ok" << endl;
-
 
             state.setTerrain(SekuTerrain); // ThorkTerrain, FlintTerrain, KuroTerrain
             cout << "etat cree" << endl;
             cout << "setting fighters on the state ok" << endl;
 
-           
-		   
             TextureManager *textureManager = textureManager->getInstance();
             if (textureManager->load())
             {
@@ -222,34 +212,34 @@ int main(int argc, char *argv[])
                 // Close the window if the close button is pressed
                 sf::Event event;
                 sf::Font font;
-				if(!font.loadFromFile("/home/ensea/plt/res/Fonts/FontFile.ttf"))
-				{
-				return false;
-				}
-				sf::Text text1;
-				text1.setFont(font);
-				text1.setString("Health Points");
-				text1.setCharacterSize(40);
-				
-				sf::Text text2;
-				text2.setFont(font);
-				text2.setString("Health Points");
-				text2.setCharacterSize(40);
-				text2.setPosition(530.f,0.f);
-				
-				sf::Texture hpBarTexture;
-				if(!hpBarTexture.loadFromFile("/home/ensea/plt/res/redBg.jpg",sf::IntRect(0,0,100,10)))
-				{
-					return false;
-				}
-				
-				sf::Sprite hpBarP1;
-				hpBarP1.setTexture(hpBarTexture);
-				hpBarP1.setPosition(0.f,40.f);
-				
-				sf::Sprite hpBarP2;
-				hpBarP2.setTexture(hpBarTexture);
-				hpBarP2.setPosition(530.f,40.f);
+                if (!font.loadFromFile("/home/ensea/plt/res/Fonts/FontFile.ttf"))
+                {
+                    return false;
+                }
+                sf::Text text1;
+                text1.setFont(font);
+                text1.setString("Health Points");
+                text1.setCharacterSize(40);
+
+                sf::Text text2;
+                text2.setFont(font);
+                text2.setString("Health Points");
+                text2.setCharacterSize(40);
+                text2.setPosition(530.f, 0.f);
+
+                sf::Texture hpBarTexture;
+                if (!hpBarTexture.loadFromFile("/home/ensea/plt/res/redBg.jpg", sf::IntRect(0, 0, 100, 10)))
+                {
+                    return false;
+                }
+
+                sf::Sprite hpBarP1;
+                hpBarP1.setTexture(hpBarTexture);
+                hpBarP1.setPosition(0.f, 40.f);
+
+                sf::Sprite hpBarP2;
+                hpBarP2.setTexture(hpBarTexture);
+                hpBarP2.setPosition(530.f, 40.f);
 
                 while (window.pollEvent(event))
                 {
@@ -277,7 +267,7 @@ int main(int argc, char *argv[])
                         break;
                     }
                 }
-                
+
                 if (attackPress)
                 {
                     playerSprite.setTextureRect(sf::IntRect(100 * frame, 100 * row, 100, 100));
@@ -285,17 +275,15 @@ int main(int argc, char *argv[])
                     {
                         frame = (frame + 1) % 3;
                         frameCounter = 0;
-                        
                     }
-                    frameCounter++;                   
+                    frameCounter++;
                 }
                 cout << "frame = " << frame << endl;
                 cout << "frame counter = " << frameCounter << endl;
 
-                
                 stateLayer.draw(); // In StateLayer.cpp id 0 or 1 for Fighter Flint et Kuro
-                                    //  In StateLayer.cpp id 1 or 2 for Fighter Thork et Seku
-                // window.clear(); 
+                                   //  In StateLayer.cpp id 1 or 2 for Fighter Thork et Seku
+                // window.clear();
 
                 // window.draw(arenaSprite);
                 // window.draw(text1);
@@ -304,7 +292,7 @@ int main(int argc, char *argv[])
                 // window.draw(hpBarP2);
                 // window.draw(playerSprite);
                 // window.draw(playerSprite2);
-                
+
                 // window.display();
                 //cout << " window opened" << endl;
             }
@@ -317,69 +305,118 @@ int main(int argc, char *argv[])
         sf::RenderWindow window(sf::VideoMode(640, 384), "Fighter Zone");
 
         Engine engine;
+
         engine.getState().initPlayers();
 
-        StateLayer stateLayer(window,engine.getState());
+        TextureManager *textureManager = textureManager->getInstance();
+        if (textureManager->load())
+        {
+            cout << "texuture manager ok!" << endl;
+        }
+        else
+        {
+            cout << "texuture manager loading failed!" << endl;
+            return EXIT_FAILURE;
+        }
+
         
-        //stateLayer.initTextureAreas(engine.getState());
-    
-        // StateLayer* ptr_stateLayer= &stateLayer;
-        // engine.getState().registerObserver(ptr_stateLayer);
+
+        //registering statelayer to observer
+
+        StateLayer stateLayer(window, engine.getState());
+        engine.getState().registerObserver(&stateLayer);
 
         // Engine* ptr_engine=&engine;
         // stateLayer.registerRenderObserver(ptr_engine);
+        bool booting = false;
+        while (window.isOpen())
+        {
+            sf::Event event;
 
+            if (booting)
+            {
+                // Draw all the display on the screen
+                stateLayer.draw();
+                cout << "Start of the game.\n"
+                     << endl;
+                booting = false;
+            }
+            // Close the window if the close button is pressed
+            // while (1)
+            // {
+            //     if (engine.checkGameEnd() == true)
+            //     {
+            //         window.close();
+            //         cout << "Game END" << endl;
+            //         break;
+            //     }
 
-        // StateLayer stateLayer(window,engine.getState());
-        // stateLayer.initTextureManagers(engine.getState());
+            //     if (!engine.getState().getEndFight() && engine.checkRoundEnd())
+            //     {
+            //         engine.checkRoundStart();
+            //         StateEvent stateEvent(FIGHTERCHANGED);
+            //         engine.getState().notifyObservers(stateEvent, engine.getState());
+            //     }
+            // }
+                //stateLayer.initTextureAreas(engine.getState());
 
-        // StateLayer* ptr_stateLayer=&stateLayer;
-        // engine.getState().registerObserver(ptr_stateLayer);
+                // StateLayer* ptr_stateLayer= &stateLayer;
+                // engine.getState().registerObserver(ptr_stateLayer);
 
-        // stateLayer.getTextureManagers()[0]->setPosition(sf::Vector2f(50.f, 250.f));
-        // stateLayer.getTextureManagers()[1]->setPosition(sf::Vector2f(500.f, 250.f));
+                // Engine* ptr_engine=&engine;
+                // stateLayer.registerRenderObserver(ptr_engine);
 
-        // while (window.isOpen()){
-        // 	sf::Event event;
+                // StateLayer stateLayer(window,engine.getState());
+                // stateLayer.initTextureManagers(engine.getState());
 
-        //     // Draw all the display on the screen
-        //     stateLayer.draw();
+                // StateLayer* ptr_stateLayer=&stateLayer;
+                // engine.getState().registerObserver(ptr_stateLayer);
 
-        //     while (window.pollEvent(event)){
-        // 		if (event.type == sf::Event::Closed){
-        // 			window.close();
-        //         }
-        //         else if(event.type==sf::Event::KeyPressed && engine.getState().getRound()==1)
-        //         {
-        //             // cout<<"in loop if" << endl;
-        //             // Attaq attaq(*engine.getState().getPlayerList()[0]->getFighter(),*engine.getState().getPlayerList()[1]->getFighter());
-        //             // unique_ptr<Command> ptr_attack (new Attaq(attaq));
-        //             // engine.addCommand(1, move(ptr_attack));
+                // stateLayer.getTextureManagers()[0]->setPosition(sf::Vector2f(50.f, 250.f));
+                // stateLayer.getTextureManagers()[1]->setPosition(sf::Vector2f(500.f, 250.f));
 
-        //             // engine.getState().setRound(2);
-        //             // engine.update();
-        //         }
-        //     }
-        //     //window.close();
-        // }
+                // while (window.isOpen()){
+                // 	sf::Event event;
 
-        //Attaq attaq(*engine.getState().getPlayerList()[0]->getFighter(), *engine.getState().getPlayerList()[1]->getFighter());
-        // unique_ptr<Command> ptr_attack (new Attaq(attaq));
-        // engine.addCommand(1, move(ptr_attack));
+                //     // Draw all the display on the screen
+                //     stateLayer.draw();
 
-        // engine.update();
+                //     while (window.pollEvent(event)){
+                // 		if (event.type == sf::Event::Closed){
+                // 			window.close();
+                //         }
+                //         else if(event.type==sf::Event::KeyPressed && engine.getState().getRound()==1)
+                //         {
+                //             // cout<<"in loop if" << endl;
+                //             // Attaq attaq(*engine.getState().getPlayerList()[0]->getFighter(),*engine.getState().getPlayerList()[1]->getFighter());
+                //             // unique_ptr<Command> ptr_attack (new Attaq(attaq));
+                //             // engine.addCommand(1, move(ptr_attack));
 
-        // if(clock.getElapsedTime().asSeconds()>1.0f)
-        // {
-        //     if(rectSourceSprite.left==300)
-        //         rectSourceSprite.left=0;
-        //     else
-        //     {
-        //         rectSourceSprite.left +=100;
-        //     }
-        // playerSprite.setTextureRect(rectSourceSprite);
-        // clock.restart();
-        //}
-    }
+                //             // engine.getState().setRound(2);
+                //             // engine.update();
+                //         }
+                //     }
+                //     //window.close();
+                // }
+
+                //Attaq attaq(*engine.getState().getPlayerList()[0]->getFighter(), *engine.getState().getPlayerList()[1]->getFighter());
+                // unique_ptr<Command> ptr_attack (new Attaq(attaq));
+                // engine.addCommand(1, move(ptr_attack));
+
+                // engine.update();
+
+                // if(clock.getElapsedTime().asSeconds()>1.0f)
+                // {
+                //     if(rectSourceSprite.left==300)
+                //         rectSourceSprite.left=0;
+                //     else
+                //     {
+                //         rectSourceSprite.left +=100;
+                //     }
+                // playerSprite.setTextureRect(rectSourceSprite);
+                // clock.restart();
+                //}
+            }
+        }
 }
-// return 0;
+    // return 0;
