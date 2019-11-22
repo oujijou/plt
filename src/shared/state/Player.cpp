@@ -54,3 +54,18 @@ std::shared_ptr<Fighter> Player::getFighter()
     return IA;
  }
 
+vector<std::shared_ptr<Fighter>> & Player::getFighterList()
+{
+    return fighterList;
+}
+
+void Player::setID(int id)
+{
+    this->id = id;
+}
+
+int Player::getID()
+{
+    return id;
+}
+

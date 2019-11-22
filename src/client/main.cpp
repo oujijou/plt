@@ -3,6 +3,7 @@
 #include "string.h"
 #include "render.h"
 #include "engine.h"
+#include <unistd.h>
 
 using namespace std;
 using namespace state;
@@ -342,22 +343,31 @@ int main(int argc, char *argv[])
                 booting = false;
             }
             // Close the window if the close button is pressed
-            // while (1)
-            // {
-            //     if (engine.checkGameEnd() == true)
-            //     {
-            //         window.close();
-            //         cout << "Game END" << endl;
-            //         break;
-            //     }
+            while (1)
+            {
+                if (engine.checkGameEnd() == true)
+                {
+                    window.close();
+                    cout << "Game END" << endl;
+                    break;
+                }
 
-            //     if (!engine.getState().getEndFight() && engine.checkRoundEnd())
-            //     {
-            //         engine.checkRoundStart();
-            //         StateEvent stateEvent(FIGHTERCHANGED);
-            //         engine.getState().notifyObservers(stateEvent, engine.getState());
-            //     }
-            // }
+                if (!engine.getState().getEndFight() && engine.checkRoundEnd())
+                {
+                    engine.checkRoundStart();
+                    StateEvent stateEvent(FIGHTERCHANGED);
+                    engine.getState().notifyObservers(stateEvent, engine.getState());
+                }
+            }
+
+            window.pollEvent(event);
+            if (event.type == sf::Event::Closed){
+                window.close();
+            }
+            
+           // stateLayer.inputManager(event, engine.getState());
+            engine.screenRefresh();
+            usleep(5);
                 //stateLayer.initTextureAreas(engine.getState());
 
                 // StateLayer* ptr_stateLayer= &stateLayer;
