@@ -103,4 +103,19 @@ namespace state{
         return playerList;
     }
 
+    bool State::getEndFight()
+    {
+        return endFight;
+    }
+
+    void State::setCurrentPlayerID(int currentPlayerID)
+    {
+        this->currentPlayerID = currentPlayerID;
+    }
+
+    int State::getCurrentPlayerID()
+    {
+        return currentPlayerID;
+    }
+
 }
