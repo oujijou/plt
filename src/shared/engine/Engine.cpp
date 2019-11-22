@@ -135,3 +135,43 @@ bool Engine::checkRoundEnd(){
 	
 	return roundChange;
 }
+
+void Engine::checkRoundStart(){
+	if (changeRound == true){
+	
+		// Change the current player
+		currentState.setCurrentPlayerID(1);//Reset player ID to "1"=> first player
+		cout << "\t\t--- Round " << currentState.getRound() << " ---\n" << endl;
+		
+		// For each player
+		for (unsigned int i = 0; i < currentState.getPlayerList().size(); i++){
+			// For each Fighter belonging to each player
+			for(unsigned int j = 0;j<currentState.getPlayerList()[i]->getFighterList().size(); j++){
+
+				// For all Fighter which do not belong to the currentPlayer and which are not DEAD
+				if (currentState.getPlayerList()[i]->getFighterList()[j]->getStatus()!= DEAD ){
+					// Reset Status to Available
+					//currentState.getPlayerList()[i]->getFighterList()[j]->setStatus(AVAILABLE);
+					
+					// Reset health points for each unit
+					// if (currentState.getPlayerList()[i]->getFighterList()[j]->getEntityId() == KNIGHT){
+					// 	currentState.getPlayerList()[i]->getFighterList()[j]->setMovementRange(2);
+					// 	currentState.getPlayerList()[i]->getFighterList()[j]->setMovementLeft(2);
+
+					// }
+					// else if(currentState.getPlayerList()[i]->getFighterList()[j]->getEntityId() == TROLL) {
+					// 	currentState.getPlayerList()[i]->getFighterList()[j]->setMovementRange(3);
+					// 	currentState.getPlayerList()[i]->getFighterList()[j]->setMovementLeft(3);
+
+					// }else if(currentState.getPlayerList()[i]->getFighterList()[j]->getEntityId() == MAGE) {
+					// 	currentState.getPlayerList()[i]->getFighterList()[j]->setMovementRange(4);
+					// 	currentState.getPlayerList()[i]->getFighterList()[j]->setMovementLeft(4);
+
+					// }	
+				}
+				
+			}
+		}
+		changeRound = !changeRound;
+	}
+}
