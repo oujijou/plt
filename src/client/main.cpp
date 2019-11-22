@@ -386,6 +386,16 @@ int main(int argc, char *argv[])
                                         //playerSprite.move(10.0f,0.0f);
                                         playerSprite.move(200.f,0.0f);
                                         break;
+                                    case sf::Keyboard::Left:
+                                        cout << " touche Left ENCLENCHE" << endl;
+                                        //playerSprite.move(10.0f,0.0f);
+                                        playerSprite2.move(-200.f,0.0f);
+                                        break;
+                                    case sf::Keyboard::Right:
+                                        cout << " touche right ENCLENCHE" << endl;
+                                        //playerSprite.move(10.0f,0.0f);
+                                        playerSprite2.move(200.f,0.0f);
+                                        break;
                                     default:
                                         engine.getState().notifyObservers({StateEventID::ALLCHANGED}, engine.getState());
                                         break;
