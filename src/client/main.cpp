@@ -305,6 +305,9 @@ int main(int argc, char *argv[])
         else if (strcmp(argv[1], "engine") == 0)
         {
             cout << "engine is coming !!" << endl;
+            cout << "------- commands -------------" << endl;
+            cout << " Press Q or D to move the fighter on the left respectively to left or right" << endl;
+            cout << "Press left or right to move the fighter on the right respectively to left or right" << endl;
 
             sf::RenderWindow window(sf::VideoMode(640, 384), "Fighter Zone");
 
@@ -327,6 +330,9 @@ int main(int argc, char *argv[])
             cout << "etat cree" << endl;
             cout << "setting fighters on the state ok" << endl;
 
+            //cout << engine.getState().getTerrain() << endl;
+            
+
             TextureManager *textureManager = textureManager->getInstance();
             if (textureManager->load())
             {
@@ -341,9 +347,9 @@ int main(int argc, char *argv[])
             
 
             //registering statelayer to observer
-            StateLayer stateLayer(window, engine.getState());
-            engine.getState().registerObserver(&stateLayer);
-            cout << "stateLayer ok!" << endl;
+            // StateLayer stateLayer(window, engine.getState());
+            // engine.getState().registerObserver(&stateLayer);
+            // cout << "stateLayer ok!" << endl;
             // Engine* ptr_engine=&engine;
             // stateLayer.registerRenderObserver(ptr_engine);
             bool booting = true;
@@ -362,7 +368,7 @@ int main(int argc, char *argv[])
                 //     booting = false;
                 // }
                 // Close the window if the close button is pressed
-                
+                /*move fighter*/
                 while(window.pollEvent(event)){
                     
                     // else  if(event.type==sf::Event::KeyPressed && engine.getState().getRound()==1){
@@ -406,10 +412,10 @@ int main(int argc, char *argv[])
                                 default:
                                     //state.notifyObservers({StateEventID::ALLCHANGED}, state);
                                     break;
-                            }
+                            }//fin switch
                         
                    // }
-                }
+/*fin move fighter */          }//while(window.pollEvent(event))
                     
                     // else if (engine.checkGameEnd() == true)
                     // {
@@ -426,12 +432,17 @@ int main(int argc, char *argv[])
                     // }
                    
                         //Kuro attacks
-                        
-
+                    
+                    // AttackCommand attackCommand(*engine.getState().getPlayerList()[0]->getFighterList()[1], *engine.getState().getPlayerList()[1]->getFighterList()[0]);
+                    // cout << engine.getState().getPlayerList()[0]->getFighterList()[1]->getName() << endl;
+                    // unique_ptr<Command> ptr_attack (new AttackCommand(attackCommand));
+                    // engine.addCommand(1, move(ptr_attack));
 
 
 
                         //Seku attacks
+
+
                 window.clear();
                 window.draw(arenaSprite);
                 window.draw(playerSprite);

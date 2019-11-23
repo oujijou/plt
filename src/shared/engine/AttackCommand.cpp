@@ -60,10 +60,18 @@ void AttackCommand::execute (state::State& state){
             entityNameAttacker = "seku";
             break;
         cout << "The " << entityNameAttacker << " will attack or try to attack the " << entityNameTarget << "." << endl;
+        bool attack = true;
+        // if(attack){
+        //         attacker.setX(destination.getX());
+        //         selectedUnit.setY(destination.getY());
+        //         selectedUnit.setMovementLeft(selectedUnit.getMovementLeft()-1);
+        //         state.getCursor().setX(destination.getX());
+        //         state.getCursor().setY(destination.getY());
+
         
         if(target.getStatus()==DEFENSE){
-				attacker.fight(target, COUPDEPOING);
-				attacker.setHealthPoints(attacker.getHealthPoints()+10); //for now only this attack is available
+            attacker.fight(target, COUPDEPOING);
+            attacker.setHealthPoints(attacker.getHealthPoints()+10); //for now only this attack is available
 		}
 		else{
 			attacker.fight(target, COUPDEPOING);
