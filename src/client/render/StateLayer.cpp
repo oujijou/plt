@@ -18,11 +18,16 @@ StateLayer::StateLayer(sf::RenderWindow& window, const state::State& state): win
 void StateLayer::draw()
 {
    // state::Fighter f1;
+    srand (time(NULL));
     window.clear();
     background.draw(window, state);
     fighterRender1.draw(window,50.f,250.f,state, 2);// id = 0, 2,
     fighterRender2.draw(window,500.f, 250.f,state,1);// id = 1, 3
+
     
+    
+
+    //about the Font ...
     sf::Event event;
     sf::Font font;
     if(!font.loadFromFile("/home/ensea/plt/res/Fonts/FontFile.ttf"))

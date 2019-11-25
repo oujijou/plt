@@ -26,7 +26,7 @@ Player::Player(bool IA, std::string& playerName, shared_ptr<Fighter> fighter)
 
 void Player::setFighter(std::shared_ptr<Fighter> fighter)
 {
-    this->fighter = fighter;
+    fighterList.push_back(this->fighter);
 }
 
 std::shared_ptr<Fighter> Player::getFighter()

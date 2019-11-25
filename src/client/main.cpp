@@ -315,16 +315,24 @@ int main(int argc, char *argv[])
             engine.getState().initPlayers(); //getting the state by using engine
             
             std::vector<std::shared_ptr<Player>> playerList = engine.getState().getPlayerList();
+            cout <<"There are :"<< playerList.size() << "players" << endl;
 
-            Fighter fighter1;
-            fighter1.setName(Seku); //Can change by Thork
+            Fighter *fighter1 = new Fighter;
+            fighter1->setName(Seku); //Can change by Thork
 
-            Fighter fighter2;
-            fighter2.setName(Thork); //Can change by Seku
+            Fighter *fighter2 = new Fighter;
+            fighter2->setName(Thork); //Can change by Seku
             cout << "fighters name ok" << endl;
 
-            engine.getState().setFighters(fighter1, fighter2);
+            engine.getState().setFighters(*fighter1, *fighter2);
             cout << "fighters ok" << endl;
+
+            cout <<"There are :"<< playerList.size() << "players" << endl;
+            //playerList[0]->setFighter(fighter1);
+
+            cout << "player1's fighter is :" << playerList[0]->getFighter() << endl;
+            cout << "player2's fighter is :" << playerList[1]->getFighter() << endl;
+
 
             engine.getState().setTerrain(SekuTerrain); // ThorkTerrain, FlintTerrain, KuroTerrain
             cout << "etat cree" << endl;
@@ -344,6 +352,48 @@ int main(int argc, char *argv[])
                 return EXIT_FAILURE;
             }
 
+            //registering statelayer to observer
+            StateLayer stateLayer(window, engine.getState());
+            engine.getState().registerObserver(&stateLayer);
+            cout << "stateLayer ok!" << endl;
+            // Engine* ptr_engine=&engine;
+            // stateLayer.registerRenderObserver(ptr_engine);
+//             bool booting = true;
+
+            bool start = true;
+            while (window.isOpen())
+            {
+                sf::Event event;
+                while(window.pollEvent(event)){
+                    switch (event.type)
+                    {                                
+                        case sf::Event::Closed:
+                            window.close();
+                            break;
+                        case sf::Event::KeyPressed:
+                            switch (event.key.code)
+                            {
+                            case sf::Keyboard::Q:
+                                cout << " touche Q ENCLENCHE" << endl;
+                                playerSprite.move(-200.f,0.0f);
+                                break;
+                            }
+                    }
+                }
+              // Draw all the display on the screen
+                    stateLayer.draw();
+
+                //Thork attacks 
+                // AttackCommand attackCommand(*engine.getState().getPlayerList()[0]->getFighterList()[1], *engine.getState().getPlayerList()[1]->getFighterList()[0]);
+                // cout << "attack is coming" << endl;
+                // unique_ptr<Command> ptr_attack (new AttackCommand(attackCommand));
+                // cout << "command is coming " << endl;
+                // engine.addCommand(1, move(ptr_attack));
+                // cout << "command added to engine " << endl;
+                
+            }     
+            
+
             
 
             //registering statelayer to observer
@@ -352,104 +402,104 @@ int main(int argc, char *argv[])
             // cout << "stateLayer ok!" << endl;
             // Engine* ptr_engine=&engine;
             // stateLayer.registerRenderObserver(ptr_engine);
-            bool booting = true;
+//             bool booting = true;
 
 
-            while (window.isOpen())
-            {
-                sf::Event event;
+//             while (window.isOpen())
+//             {
+//                 sf::Event event;
 
-                // if (booting)
-                // {
-                //     // Draw all the display on the screen
-                //     stateLayer.draw();
-                //     cout << "Start of the game.\n"
-                //         << endl;
-                //     booting = false;
-                // }
-                // Close the window if the close button is pressed
-                /*move fighter*/
-                while(window.pollEvent(event)){
+//                 // if (booting)
+//                 // {
+//                 //     // Draw all the display on the screen
+//                 //     stateLayer.draw();
+//                 //     cout << "Start of the game.\n"
+//                 //         << endl;
+//                 //     booting = false;
+//                 // }
+//                 // Close the window if the close button is pressed
+//                 /*move fighter*/
+//                 while(window.pollEvent(event)){
                     
-                    // else  if(event.type==sf::Event::KeyPressed && engine.getState().getRound()==1){
-                    //     cout << "\t\t--- Round 1 ---\n" << endl;
+//                     // else  if(event.type==sf::Event::KeyPressed && engine.getState().getRound()==1){
+//                     //     cout << "\t\t--- Round 1 ---\n" << endl;
                     
                         
-                            switch (event.type)
-                            {                                
-                                case sf::Event::Closed:
-                                    window.close();
-                                    break;
-                                case sf::Event::KeyPressed:
-                                    switch (event.key.code)
-                                    {
-                                    case sf::Keyboard::Q:
-                                        cout << " touche Q ENCLENCHE" << endl;
-                                        playerSprite.move(-200.f,0.0f);
-                                        break;
-                                    case sf::Keyboard::D:
-                                        cout << " touche D ENCLENCHE" << endl;
-                                        //playerSprite.move(10.0f,0.0f);
-                                        playerSprite.move(200.f,0.0f);
-                                        break;
-                                    case sf::Keyboard::Left:
-                                        cout << " touche Left ENCLENCHE" << endl;
-                                        //playerSprite.move(10.0f,0.0f);
-                                        playerSprite2.move(-200.f,0.0f);
-                                        break;
-                                    case sf::Keyboard::Right:
-                                        cout << " touche right ENCLENCHE" << endl;
-                                        //playerSprite.move(10.0f,0.0f);
-                                        playerSprite2.move(200.f,0.0f);
-                                        break;
-                                    default:
-                                        engine.getState().notifyObservers({StateEventID::ALLCHANGED}, engine.getState());
-                                        break;
-                                    }
-                                    break;
-                                case sf::Event::MouseMoved:
-                                    break;
-                                default:
-                                    //state.notifyObservers({StateEventID::ALLCHANGED}, state);
-                                    break;
-                            }//fin switch
+//                             switch (event.type)
+//                             {                                
+//                                 case sf::Event::Closed:
+//                                     window.close();
+//                                     break;
+//                                 case sf::Event::KeyPressed:
+//                                     switch (event.key.code)
+//                                     {
+//                                     case sf::Keyboard::Q:
+//                                         cout << " touche Q ENCLENCHE" << endl;
+//                                         playerSprite.move(-200.f,0.0f);
+//                                         break;
+//                                     case sf::Keyboard::D:
+//                                         cout << " touche D ENCLENCHE" << endl;
+//                                         //playerSprite.move(10.0f,0.0f);
+//                                         playerSprite.move(200.f,0.0f);
+//                                         break;
+//                                     case sf::Keyboard::Left:
+//                                         cout << " touche Left ENCLENCHE" << endl;
+//                                         //playerSprite.move(10.0f,0.0f);
+//                                         playerSprite2.move(-200.f,0.0f);
+//                                         break;
+//                                     case sf::Keyboard::Right:
+//                                         cout << " touche right ENCLENCHE" << endl;
+//                                         //playerSprite.move(10.0f,0.0f);
+//                                         playerSprite2.move(200.f,0.0f);
+//                                         break;
+//                                     default:
+//                                         engine.getState().notifyObservers({StateEventID::ALLCHANGED}, engine.getState());
+//                                         break;
+//                                     }
+//                                     break;
+//                                 case sf::Event::MouseMoved:
+//                                     break;
+//                                 default:
+//                                     //state.notifyObservers({StateEventID::ALLCHANGED}, state);
+//                                     break;
+//                             }//fin switch
                         
-                   // }
-/*fin move fighter */          }//while(window.pollEvent(event))
+//                    // }
+// /*fin move fighter */          }//while(window.pollEvent(event))
                     
-                    // else if (engine.checkGameEnd() == true)
-                    // {
-                    //     window.close();
-                    //     cout << "Game END" << endl;
-                    //     break;
-                    // }
+//                     // else if (engine.checkGameEnd() == true)
+//                     // {
+//                     //     window.close();
+//                     //     cout << "Game END" << endl;
+//                     //     break;
+//                     // }
 
-                    // else if (!engine.getState().getEndFight() && engine.checkRoundEnd())
-                    // {
-                    //     engine.checkRoundStart();
-                    //     StateEvent stateEvent(FIGHTERCHANGED);
-                    //     engine.getState().notifyObservers(stateEvent, engine.getState());
-                    // }
+//                     // else if (!engine.getState().getEndFight() && engine.checkRoundEnd())
+//                     // {
+//                     //     engine.checkRoundStart();
+//                     //     StateEvent stateEvent(FIGHTERCHANGED);
+//                     //     engine.getState().notifyObservers(stateEvent, engine.getState());
+//                     // }
                    
-                        //Kuro attacks
+//                         //Kuro attacks
                     
-                    // AttackCommand attackCommand(*engine.getState().getPlayerList()[0]->getFighterList()[1], *engine.getState().getPlayerList()[1]->getFighterList()[0]);
-                    // cout << engine.getState().getPlayerList()[0]->getFighterList()[1]->getName() << endl;
-                    // unique_ptr<Command> ptr_attack (new AttackCommand(attackCommand));
-                    // engine.addCommand(1, move(ptr_attack));
+//                     // AttackCommand attackCommand(*engine.getState().getPlayerList()[0]->getFighterList()[1], *engine.getState().getPlayerList()[1]->getFighterList()[0]);
+//                     // cout << engine.getState().getPlayerList()[0]->getFighterList()[1]->getName() << endl;
+//                     // unique_ptr<Command> ptr_attack (new AttackCommand(attackCommand));
+//                     // engine.addCommand(1, move(ptr_attack));
 
 
 
-                        //Seku attacks
+//                         //Seku attacks
 
 
-                window.clear();
-                window.draw(arenaSprite);
-                window.draw(playerSprite);
-                window.draw(playerSprite2);
-                window.display();  
+//                 window.clear();
+//                 window.draw(arenaSprite);
+//                 window.draw(playerSprite);
+//                 window.draw(playerSprite2);
+//                 window.display();  
                     
-            }
+//             }
 
                 
         }
