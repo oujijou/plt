@@ -28,24 +28,12 @@ In order to test the code-coverage you may process as following:
 A web page will be open showing the code-coverage based on the functions and the lines of code.
 
 ## Displaying a render and a gameplay 
-*"cmake .." from "build" folder
-*"make" from the same folder
-*"./bin/client render" from  "plt" folder to display the render of a state 
-*"./bin/client engine" from "plt" folder to display a gameplay 
+* "cmake .." from "build" folder
+* "make" from the same folder
+* "./bin/client render" from  "plt" folder to display the render of a state 
+* "./bin/client engine" from "plt" folder to display a gameplay 
 
 ## Authors
-
-* **Moïse BEUGRE** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-* **Ouajih DADAOUA** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
-
-
-
-
-
-
-
-
+* **Moïse BEUGRE** 
+* **Ouajih DADAOUA** 
 
