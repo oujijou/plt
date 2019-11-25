@@ -315,24 +315,24 @@ int main(int argc, char *argv[])
             engine.getState().initPlayers(); //getting the state by using engine
             
             std::vector<std::shared_ptr<Player>> playerList = engine.getState().getPlayerList();
+            cout <<"There are :"<< playerList.size() << " players" << endl;
+
+            {
+                Fighter fighter1;
+                fighter1.setName(Kuro); //Can change by Thork
+
+                Fighter fighter2;
+                fighter2.setName(Seku); //Can change by Seku
+                cout << "fighters name ok" << endl;
+
+                engine.getState().setFighters(fighter1, fighter2);
+                cout << "fighters ok" << endl;
+            }
+
             cout <<"There are :"<< playerList.size() << "players" << endl;
-
-            Fighter *fighter1 = new Fighter;
-            fighter1->setName(Seku); //Can change by Thork
-
-            Fighter *fighter2 = new Fighter;
-            fighter2->setName(Thork); //Can change by Seku
-            cout << "fighters name ok" << endl;
-
-            engine.getState().setFighters(*fighter1, *fighter2);
-            cout << "fighters ok" << endl;
-
-            cout <<"There are :"<< playerList.size() << "players" << endl;
-            //playerList[0]->setFighter(fighter1);
 
             cout << "player1's fighter is :" << playerList[0]->getFighter() << endl;
             cout << "player2's fighter is :" << playerList[1]->getFighter() << endl;
-
 
             engine.getState().setTerrain(SekuTerrain); // ThorkTerrain, FlintTerrain, KuroTerrain
             cout << "etat cree" << endl;
@@ -358,7 +358,7 @@ int main(int argc, char *argv[])
             cout << "stateLayer ok!" << endl;
             // Engine* ptr_engine=&engine;
             // stateLayer.registerRenderObserver(ptr_engine);
-//             bool booting = true;
+            // bool booting = true;
 
             bool start = true;
             while (window.isOpen())
@@ -377,7 +377,11 @@ int main(int argc, char *argv[])
                                 cout << " touche Q ENCLENCHE" << endl;
                                 playerSprite.move(-200.f,0.0f);
                                 break;
+                            default:
+                            break;
                             }
+                        default:
+                        break;
                     }
                 }
               // Draw all the display on the screen

@@ -6,9 +6,7 @@ using namespace state;
 
 Player::Player()
 {
-    // Player player1;
-    // player1.setPlayerName("Armand");
-    //player1.setFighter(state::fighter1);
+   
 }
 
 
@@ -26,7 +24,7 @@ Player::Player(bool IA, std::string& playerName, shared_ptr<Fighter> fighter)
 
 void Player::setFighter(std::shared_ptr<Fighter> fighter)
 {
-    fighterList.push_back(this->fighter);
+    this->fighter = fighter;
 }
 
 std::shared_ptr<Fighter> Player::getFighter()
@@ -54,10 +52,7 @@ std::shared_ptr<Fighter> Player::getFighter()
     return IA;
  }
 
-vector<std::shared_ptr<Fighter>> & Player::getFighterList()
-{
-    return fighterList;
-}
+
 
 void Player::setID(int id)
 {

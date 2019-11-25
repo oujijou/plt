@@ -35,20 +35,6 @@ namespace state{
         this-> terrain = terrain;
     }
 
-    Fighter State::getFighter(){
-        bool choice;
-        if(choice)
-        {
-            return fighterList[0];
-            
-        }
-        if(!choice)
-        {
-            return fighterList[1];
-        }
-        //return fighter; //!!!!
-    }
-
     void State::setFighter(Fighter fighter){
         //this->fighter2 = fighter;
         this->fighter1 = fighter; //!!!!
