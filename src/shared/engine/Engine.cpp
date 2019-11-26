@@ -29,26 +29,28 @@ State& Engine::getState()
 
 void Engine::addCommand(int priority, std::unique_ptr<Command> ptr_cmd)
 {
-    currentCommand[priority] = move(ptr_cmd);
+    currentCommands[priority] = move(ptr_cmd);
 }
 
 void Engine::update()
 {
     StateEvent stateEvent(FIGHTERCHANGED);
-    
+    cout << "stateEvent ok"<< endl;
 
 	map<int, std::unique_ptr<Command>>::iterator it;
-
-    // Execute each command of the currentCommands table
-	for(size_t i=0; i<currentCommand.size(); i++){
-		currentCommand[i]->execute(currentState);
+	cout << "command ok" << endl;
+    // Execute each command of the currentCommandss table
+	for(size_t i=0; i<currentCommands.size(); i++){
+		cout << "inside loop" << endl;
+		currentCommands[i]->execute(currentState);
+		cout << "execution done" << endl;
 		currentState.notifyObservers(stateEvent, currentState); // Notify the state which will notify render
 		sleep(2);
 	}
 
     // Erase all the commands which were executed
-	for(auto it=currentCommand.begin(); it!=currentCommand.end(); it++){
-		currentCommand.erase(it);
+	for(auto it=currentCommands.begin(); it!=currentCommands.end(); it++){
+		currentCommands.erase(it);
 	}
 
 }
@@ -61,7 +63,7 @@ bool Engine::checkGameEnd(){
 		// For each Fighter belonging to each player
 		
 			// As long as another player has a Fighter alive the game isn't finished
-			if(currentState.getPlayerList()[i]->getFighter()->getStatus()!=DEAD){
+			if(currentState.getPlayerList()[i].getFighter().getStatus()!=DEAD){
 
 				//cout<<"The player "<< currentState.getPlayerList()[i]->getName()<<" win the game!!!"<<endl;
 				gameEnd=false;
@@ -89,21 +91,21 @@ bool Engine::checkRoundEnd(){
 		// For each Fighter belonging to each player
 		
 			// As long as a player has a Fighter with which he didn't play --> the round is not finished
-			if(currentState.getPlayerList()[i]->getID() == currentState.getCurrentPlayerID()){
-				if (currentState.getPlayerList()[i]->getFighter()->getStatus()!= DEAD ){
-					if (currentState.getPlayerList()[i]->getFighter()->getStatus() != WAITING){
+			if(currentState.getPlayerList()[i].getID() == currentState.getCurrentPlayerID()){
+				if (currentState.getPlayerList()[i].getFighter().getStatus()!= DEAD ){
+					if (currentState.getPlayerList()[i].getFighter().getStatus() != WAITING){
 						playerChange = false;
 					}
 				}
 			}
-			if (currentState.getPlayerList()[i]->getFighter()->getStatus()!= DEAD ){
-				if (currentState.getPlayerList()[i]->getFighter()->getStatus() != WAITING){
+			if (currentState.getPlayerList()[i].getFighter().getStatus()!= DEAD ){
+				if (currentState.getPlayerList()[i].getFighter().getStatus() != WAITING){
 					roundChange = false;
 				}
 			}
 			// As long as another player has a Fighter alive the game isn't finished
-			if(currentState.getPlayerList()[i]->getID()!=currentPlayerID){
-				if(currentState.getPlayerList()[i]->getFighter()->getStatus()!=DEAD){
+			if(currentState.getPlayerList()[i].getID()!=currentPlayerID){
+				if(currentState.getPlayerList()[i].getFighter().getStatus()!=DEAD){
 					gameEnd=false;
 				}
 			}
@@ -120,8 +122,8 @@ bool Engine::checkRoundEnd(){
 		cout << "End of the game !" << endl;
 
 		for (unsigned int i = 0; i < currentState.getPlayerList().size(); i++){
-			if (currentState.getPlayerList()[i]->getID() == currentState.getCurrentPlayerID()){
-				cout<<"The player "<< currentState.getPlayerList()[i]->getPlayerName()<<" win the game!!!"<<endl;
+			if (currentState.getPlayerList()[i].getID() == currentState.getCurrentPlayerID()){
+				cout<<"The player "<< currentState.getPlayerList()[i].getPlayerName()<<" win the game!!!"<<endl;
 			}
 		}
 		
@@ -148,7 +150,7 @@ void Engine::checkRoundStart(){
 			
 
 				// For all Fighter which do not belong to the currentPlayer and which are not DEAD
-				if (currentState.getPlayerList()[i]->getFighter()->getStatus()!= DEAD ){
+				if (currentState.getPlayerList()[i].getFighter().getStatus()!= DEAD ){
 					// Reset Status to Available
 					//currentState.getPlayerList()[i]->getFighterList()[j]->setStatus(AVAILABLE);
 					

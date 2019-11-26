@@ -11,7 +11,7 @@ using namespace std;
 
 
 //Contructor
-AttackCommand::AttackCommand (state::Fighter& attacker, state::Fighter& target):attacker(attacker),target(target)
+AttackCommand::AttackCommand (state::Fighter attacker, state::Fighter target):attacker(attacker),target(target)
 {
 
 }
@@ -19,7 +19,7 @@ AttackCommand::AttackCommand (state::Fighter& attacker, state::Fighter& target):
 //Functions
 
 void AttackCommand::execute (state::State& state){
-    
+    cout << "execution is coming" << endl;
     if(attacker.getStatus()!=DEAD){
   
         //Target
@@ -27,39 +27,39 @@ void AttackCommand::execute (state::State& state){
         float oldTargetHealth=target.getHealthPoints();
         
         int waitingTime=40000;
-		string entityNameTarget = "";
+		string FigtherTarget = "";
 		switch(attacker.getName()){
 			case Flint: 
-				entityNameTarget = "flint";
+				FigtherTarget = "flint";
             break;
 			case Kuro:
-				entityNameTarget = "kuro";
+				FigtherTarget = "kuro";
             break;
 			case Thork:
-				entityNameTarget = "thork";
+				FigtherTarget = "thork";
             break;
 			case Seku:
-				entityNameTarget = "seku";
+				FigtherTarget = "seku";
             break;       
     }
 
         //Attack
              
-		string entityNameAttacker = "";
+		string FigtherAttacker = "";
 		switch(attacker.getName()){
 			case Flint: 
-				entityNameAttacker = "flint";
+				FigtherAttacker = "flint";
             break;
         case Kuro:
-            entityNameAttacker = "kuro";
+            FigtherAttacker = "kuro";
             break;
         case Thork:
-            entityNameAttacker = "thork";
+            FigtherAttacker = "thork";
             break;
         case Seku:
-            entityNameAttacker = "seku";
+            FigtherAttacker = "seku";
             break;
-        cout << "The " << entityNameAttacker << " will attack or try to attack the " << entityNameTarget << "." << endl;
+        cout << "The " << FigtherAttacker << " will attack or try to attack the " << FigtherTarget << "." << endl;
         bool attack = true;
         // if(attack){
         //         attacker.setX(destination.getX());

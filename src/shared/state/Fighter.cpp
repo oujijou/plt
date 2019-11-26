@@ -15,12 +15,19 @@ namespace state{
 	Fighter:: Fighter()
 	{
 		
-		this->name= Thork;
 	}
 
-	Fighter::Fighter(FighterName name, FighterStatus status, int healthPointsMax, int healthPoints,int movePoints,int combo,Attack attak, int mana)
+	Fighter:: Fighter(int playerID, FighterName name)
+	{
+		this-> playerID = playerID;
+		this-> name = name;
+	}
+
+
+	Fighter::Fighter(FighterName name, int playerID, FighterStatus status, int healthPointsMax, int healthPoints,int movePoints,int combo,Attack attak, int mana)
 	{
 		this->name = name;
+		this->playerID = playerID;
 		this->status = status;
 		this->healthPointsMax = healthPointsMax;
 		this->healthPoints = healthPoints;

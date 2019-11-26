@@ -173,21 +173,16 @@ int main(int argc, char *argv[])
         {
             cout << "affichage d'un etat" << endl;
             State state;
-
+            
             state.initPlayers();
-            std::vector<std::shared_ptr<Player>> playerList = state.getPlayerList();
+            auto playerList = state.getPlayerList();
+            cout << playerList.size() <<endl;
+            cout << &playerList[0] <<endl;
+            cout << &playerList[1] <<endl;
+            
 
-            Fighter fighter1;
-            fighter1.setName(Seku); //Can change by Thork
-
-            Fighter fighter2;
-            fighter2.setName(Thork); //Can change by Seku
-            cout << "fighters name ok" << endl;
-
-            state.setFighters(fighter1, fighter2);
-            cout << "fighters ok" << endl;
-
-            state.setTerrain(SekuTerrain); // ThorkTerrain, FlintTerrain, KuroTerrain
+            //initiate Terrain
+            state.setTerrain(FlintTerrain); // ThorkTerrain, FlintTerrain, KuroTerrain
             cout << "etat cree" << endl;
             cout << "setting fighters on the state ok" << endl;
 
@@ -210,6 +205,9 @@ int main(int argc, char *argv[])
             state.registerObserver(&stateLayer);
             cout << "statelayer ok!" << endl;
             bool attackPress = false;
+
+            stateLayer.draw();
+            cout << "drawing ok!" << endl;
 
             while (window.isOpen())
             {
@@ -245,47 +243,47 @@ int main(int argc, char *argv[])
                 hpBarP2.setTexture(hpBarTexture);
                 hpBarP2.setPosition(530.f, 40.f);
 
-                while (window.pollEvent(event))
-                {
-                    switch (event.type)
-                    {
-                    case sf::Event::Closed:
-                        window.close();
-                        break;
-                    case sf::Event::KeyPressed:
-                        switch (event.key.code)
-                        {
-                        case sf::Keyboard::A:
-                            cout << " touche A ENCLENCHE" << endl;
-                            attackPress = true;
-                            break;
-                        default:
-                            //state.notifyObservers({StateEventID::ALLCHANGED}, state);
-                            break;
-                        }
-                        break;
-                    case sf::Event::MouseMoved:
-                        break;
-                    default:
-                        state.notifyObservers({StateEventID::ALLCHANGED}, state);
-                        break;
-                    }
-                }
+                // while (window.pollEvent(event))
+                // {
+                //     switch (event.type)
+                //     {
+                //     case sf::Event::Closed:
+                //         window.close();
+                //         break;
+                //     case sf::Event::KeyPressed:
+                //         switch (event.key.code)
+                //         {
+                //         case sf::Keyboard::A:
+                //             cout << " touche A ENCLENCHE" << endl;
+                //             attackPress = true;
+                //             break;
+                //         default:
+                //             //state.notifyObservers({StateEventID::ALLCHANGED}, state);
+                //             break;
+                //         }
+                //         break;
+                //     case sf::Event::MouseMoved:
+                //         break;
+                //     default:
+                //         state.notifyObservers({StateEventID::ALLCHANGED}, state);
+                //         break;
+                //     }
+                // }
 
-                if (attackPress)
-                {
-                    playerSprite.setTextureRect(sf::IntRect(100 * frame, 100 * row, 100, 100));
-                    if (frameCounter == 100)
-                    {
-                        frame = (frame + 1) % 3;
-                        frameCounter = 0;
-                    }
-                    frameCounter++;
-                }
-                cout << "frame = " << frame << endl;
-                cout << "frame counter = " << frameCounter << endl;
+                // if (attackPress)
+                // {
+                //     playerSprite.setTextureRect(sf::IntRect(100 * frame, 100 * row, 100, 100));
+                //     if (frameCounter == 100)
+                //     {
+                //         frame = (frame + 1) % 3;
+                //         frameCounter = 0;
+                //     }
+                //     frameCounter++;
+                // }
+                // cout << "frame = " << frame << endl;
+                // cout << "frame counter = " << frameCounter << endl;
 
-                stateLayer.draw(); // In StateLayer.cpp id 0 or 1 for Fighter Flint et Kuro
+                //stateLayer.draw(); // In StateLayer.cpp id 0 or 1 for Fighter Flint et Kuro
                                    //  In StateLayer.cpp id 1 or 2 for Fighter Thork et Seku
                 // window.clear();
 
@@ -304,42 +302,21 @@ int main(int argc, char *argv[])
     
         else if (strcmp(argv[1], "engine") == 0)
         {
-            cout << "engine is coming !!" << endl;
-            cout << "------- commands -------------" << endl;
-            cout << " Press Q or D to move the fighter on the left respectively to left or right" << endl;
-            cout << "Press left or right to move the fighter on the right respectively to left or right" << endl;
+            // cout << "engine is coming !!" << endl;
+            // cout << "------- commands -------------" << endl;
+            // cout << " Press Q or D to move the fighter on the left respectively to left or right" << endl;
+            // cout << "Press left or right to move the fighter on the right respectively to left or right" << endl;
 
             sf::RenderWindow window(sf::VideoMode(640, 384), "Fighter Zone");
 
             Engine engine;
+            engine.getState().setTerrain(SekuTerrain);
             engine.getState().initPlayers(); //getting the state by using engine
-            
-            std::vector<std::shared_ptr<Player>> playerList = engine.getState().getPlayerList();
-            cout <<"There are :"<< playerList.size() << " players" << endl;
+            engine.getState().setRound(1);
+           //cout <<"There are :"<< engine.getState().getPlayerList().size() << "players" << endl;
 
-            {
-                Fighter fighter1;
-                fighter1.setName(Kuro); //Can change by Thork
-
-                Fighter fighter2;
-                fighter2.setName(Seku); //Can change by Seku
-                cout << "fighters name ok" << endl;
-
-                engine.getState().setFighters(fighter1, fighter2);
-                cout << "fighters ok" << endl;
-            }
-
-            cout <<"There are :"<< playerList.size() << "players" << endl;
-
-            cout << "player1's fighter is :" << playerList[0]->getFighter() << endl;
-            cout << "player2's fighter is :" << playerList[1]->getFighter() << endl;
-
-            engine.getState().setTerrain(SekuTerrain); // ThorkTerrain, FlintTerrain, KuroTerrain
-            cout << "etat cree" << endl;
-            cout << "setting fighters on the state ok" << endl;
-
-            //cout << engine.getState().getTerrain() << endl;
-            
+            // cout << "player1's fighter is :" << engine.getState().getPlayerList()[0].getFighter().getName() << endl;
+            // cout << "player2's fighter is :" << engine.getState().getPlayerList()[1].getFighter().getName() << endl;
 
             TextureManager *textureManager = textureManager->getInstance();
             if (textureManager->load())
@@ -352,15 +329,36 @@ int main(int argc, char *argv[])
                 return EXIT_FAILURE;
             }
 
-            //registering statelayer to observer
+            // //registering statelayer to observer
             StateLayer stateLayer(window, engine.getState());
             engine.getState().registerObserver(&stateLayer);
             cout << "stateLayer ok!" << endl;
-            // Engine* ptr_engine=&engine;
-            // stateLayer.registerRenderObserver(ptr_engine);
-            // bool booting = true;
 
-            bool start = true;
+            if(engine.getState().getRound()==1)
+            {
+                cout <<"in" << endl;
+                //Thork attacks 
+                AttackCommand attackCommand(engine.getState().getPlayerList()[0].getFighter(), 
+                                            engine.getState().getPlayerList()[1].getFighter());
+                cout << "attack is coming" << endl;
+                unique_ptr<Command> ptr_attack (new AttackCommand(attackCommand));
+                cout << "command is coming " << endl;
+                engine.addCommand(0, move(ptr_attack));
+                cout << "command added to engine " << endl;
+
+                //Flint attacks 
+                // AttackCommand attackCommand1(engine.getState().getPlayerList()[1].getFighter(), 
+                //                             engine.getState().getPlayerList()[0].getFighter());
+                // cout << "attack is coming" << endl;
+                // unique_ptr<Command> ptr_attack1 (new AttackCommand(attackCommand1));
+                // cout << "command is coming " << endl;
+                // engine.addCommand(1, move(ptr_attack1));
+                // cout << "command added to engine " << endl;
+
+                engine.update();
+                engine.checkRoundEnd();
+            }
+            sf::Event event;
             while (window.isOpen())
             {
                 sf::Event event;
@@ -370,32 +368,51 @@ int main(int argc, char *argv[])
                         case sf::Event::Closed:
                             window.close();
                             break;
-                        case sf::Event::KeyPressed:
-                            switch (event.key.code)
-                            {
-                            case sf::Keyboard::Q:
-                                cout << " touche Q ENCLENCHE" << endl;
-                                playerSprite.move(-200.f,0.0f);
-                                break;
-                            default:
-                            break;
-                            }
                         default:
-                        break;
+                            break;
                     }
+                   
                 }
-              // Draw all the display on the screen
-                    stateLayer.draw();
+            }
+        }
+    }
+}
+           // stateLayer.draw();
 
-                //Thork attacks 
-                // AttackCommand attackCommand(*engine.getState().getPlayerList()[0]->getFighterList()[1], *engine.getState().getPlayerList()[1]->getFighterList()[0]);
-                // cout << "attack is coming" << endl;
-                // unique_ptr<Command> ptr_attack (new AttackCommand(attackCommand));
-                // cout << "command is coming " << endl;
-                // engine.addCommand(1, move(ptr_attack));
-                // cout << "command added to engine " << endl;
+            
+           
+            // // bool booting = true;
+
+            // bool start = true;
+            // while (window.isOpen())
+            // {
+            //     sf::Event event;
+            //     while(window.pollEvent(event)){
+            //         switch (event.type)
+            //         {                                
+            //             case sf::Event::Closed:
+            //                 window.close();
+            //                 break;
+            //             case sf::Event::KeyPressed:
+            //                 switch (event.key.code)
+            //                 {
+            //                 case sf::Keyboard::Q:
+            //                     cout << " touche Q ENCLENCHE" << endl;
+            //                     playerSprite.move(-200.f,0.0f);
+            //                     break;
+            //                 default:
+            //                 break;
+            //                 }
+            //             default:
+            //             break;
+            //         }
+            //     }
+            //   // Draw all the display on the screen
+            //         stateLayer.draw();
+
+            
                 
-            }     
+            
             
 
             
@@ -506,7 +523,7 @@ int main(int argc, char *argv[])
 //             }
 
                 
-        }
+        
                 
                 // stateLayer.inputManager(event, engine.getState());
                 // engine.screenRefresh();
@@ -571,6 +588,6 @@ int main(int argc, char *argv[])
                 //}
             
         
-    }
-}
+    //}
+
     // return 0;
