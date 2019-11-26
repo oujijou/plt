@@ -35,23 +35,23 @@ void Engine::addCommand(int priority, std::unique_ptr<Command> ptr_cmd)
 void Engine::update()
 {
     StateEvent stateEvent(FIGHTERCHANGED);
-    cout << "stateEvent ok"<< endl;
+    //cout << "stateEvent ok"<< endl;
 
 	map<int, std::unique_ptr<Command>>::iterator it;
-	cout << "command ok" << endl;
+	//cout << "command ok" << endl;
     // Execute each command of the currentCommandss table
 	for(size_t i=0; i<currentCommands.size(); i++){
-		cout << "inside loop" << endl;
+		//cout << "inside loop" << endl;
 		currentCommands[i]->execute(currentState);
-		cout << "execution done" << endl;
+		//cout << "execution done" << endl;
 		currentState.notifyObservers(stateEvent, currentState); // Notify the state which will notify render
+		cout << "\n" <<endl;
 		sleep(2);
+		
 	}
 
     // Erase all the commands which were executed
-	for(auto it=currentCommands.begin(); it!=currentCommands.end(); it++){
-		currentCommands.erase(it);
-	}
+	currentCommands.clear();
 
 }
 

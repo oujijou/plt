@@ -11,7 +11,7 @@ using namespace std;
 
 //Constructor
 
-RechargeCommand::RechargeCommand (state::Fighter& fighter):fighter(fighter)
+RechargeCommand::RechargeCommand (state::Fighter fighter):fighter(fighter)
 {
 
 }
@@ -20,30 +20,37 @@ void RechargeCommand::execute (state::State& state){
     
     if(fighter.getStatus()!=DEAD){
   
-        
-        cout<<"Recharge is coming!!"<<endl;
+        //cout<<"Recharge is coming!!"<<endl;
         float oldMana=fighter.getMana();
+        float oldHealthPoints = fighter.getHealthPoints();
         
         int waitingTime=40000;
 		string entityNameRecharging = "";
 		switch(fighter.getName()){
 			case Flint: 
-				entityNameRecharging = "flint";
+				entityNameRecharging = "Flint";
             break;
 			case Kuro:
-				entityNameRecharging = "kuro";
+				entityNameRecharging = "Kuro";
             break;
 			case Thork:
-				entityNameRecharging = "thork";
+				entityNameRecharging = "Thork";
             break;
 			case Seku:
-				entityNameRecharging = "seku";
+				entityNameRecharging = "Seku";
             break;       
-    }
-    fighter.recharge(fighter);
-    cout << "This fighter" << entityNameRecharging << " is recharging " << endl;
-    cout<<"Le fighter avait "<<oldMana<<" points de vie."<<endl;
-    cout<<"Le target a "<<fighter.getMana()<<" de points de vie restant."<<endl;
+        }
+        fighter.recharge();
+        
+        cout << "This fighter " << entityNameRecharging << " is recharging " << endl;
 
-}
+        cout<<"This fighter had "<<oldMana <<" mana points"<<endl;
+        cout<<"this fighter has now "<<fighter.getMana()<<" mana points."<<endl;
+
+        cout<<"This fighter had "<<oldHealthPoints <<" health points"<<endl;
+        cout<<"This fighter has now "<<fighter.getHealthPoints()<<" healthpoints."<<endl;
+
+    }else if(fighter.getStatus()==DEAD){
+        cout<<"Already dead!"<<endl;
+    }
 }

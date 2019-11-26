@@ -48,7 +48,7 @@ bool State::initPlayers(){
     Player player1(1);
     
 
-    Fighter fighter1(Kuro, 1, WAITING,100, 100, 50,0, COUPDEPOING,20);//Tkork //Kuro
+    Fighter fighter1(Thork, 1, WAITING,100, 100, 50,0, COUPDEPOING,50);//Tkork //Kuro
     
     player1.setFighter(fighter1);
 
@@ -63,7 +63,7 @@ bool State::initPlayers(){
     Player player2(2);
     
 
-    Fighter fighter2(Flint, 1, WAITING,100, 100, 50,0, COUPDEPOING,20); // Flint // Seku
+    Fighter fighter2(Flint, 1, WAITING,100, 100, 50,0, COUPDEPOING,50); // Flint // Seku
 
     player2.setFighter(fighter2);
     // ptrFighter2->setX(ptrFighter2->getX());

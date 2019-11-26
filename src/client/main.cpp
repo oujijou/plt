@@ -332,48 +332,53 @@ int main(int argc, char *argv[])
             // //registering statelayer to observer
             StateLayer stateLayer(window, engine.getState());
             engine.getState().registerObserver(&stateLayer);
-            cout << "stateLayer ok!" << endl;
+            
 
             if(engine.getState().getRound()==1)
             {
-                cout <<"in" << endl;
-                //Thork attacks 
+                //Kuro attacks 
                 AttackCommand attackCommand(engine.getState().getPlayerList()[0].getFighter(), 
                                             engine.getState().getPlayerList()[1].getFighter());
-                cout << "attack is coming" << endl;
                 unique_ptr<Command> ptr_attack (new AttackCommand(attackCommand));
-                cout << "command is coming " << endl;
                 engine.addCommand(0, move(ptr_attack));
-                cout << "command added to engine " << endl;
 
-                //Flint attacks 
-                // AttackCommand attackCommand1(engine.getState().getPlayerList()[1].getFighter(), 
-                //                             engine.getState().getPlayerList()[0].getFighter());
-                // cout << "attack is coming" << endl;
-                // unique_ptr<Command> ptr_attack1 (new AttackCommand(attackCommand1));
-                // cout << "command is coming " << endl;
-                // engine.addCommand(1, move(ptr_attack1));
-                // cout << "command added to engine " << endl;
+                //Flint recharges
+                RechargeCommand rechargeCommand(engine.getState().getPlayerList()[1].getFighter());
+                unique_ptr<Command> ptr_recharge (new RechargeCommand(rechargeCommand));
+                engine.addCommand(1, move(ptr_recharge));
+
+
+                //Kuro recharges 
+                DefenseCommand defenseCommand(engine.getState().getPlayerList()[0].getFighter());
+                unique_ptr<Command> ptr_defense (new DefenseCommand(defenseCommand));
+                engine.addCommand(2, move(ptr_defense));
+
+                //Flint attacks
+                AttackCommand attackCommand1(engine.getState().getPlayerList()[1].getFighter(), 
+                                            engine.getState().getPlayerList()[0].getFighter());
+                unique_ptr<Command> ptr_attack1 (new AttackCommand(attackCommand1));
+                engine.addCommand(3, move(ptr_attack1));
+
 
                 engine.update();
                 engine.checkRoundEnd();
             }
             sf::Event event;
-            while (window.isOpen())
-            {
-                sf::Event event;
-                while(window.pollEvent(event)){
-                    switch (event.type)
-                    {                                
-                        case sf::Event::Closed:
-                            window.close();
-                            break;
-                        default:
-                            break;
-                    }
+            // while (window.isOpen())
+            // {
+            //     sf::Event event;
+            //     while(window.pollEvent(event)){
+            //         switch (event.type)
+            //         {                                
+            //             case sf::Event::Closed:
+            //                 window.close();
+            //                 break;
+            //             default:
+            //                 break;
+            //         }
                    
-                }
-            }
+            //     }
+            // }
         }
     }
 }

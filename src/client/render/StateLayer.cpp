@@ -17,12 +17,12 @@ StateLayer::StateLayer(sf::RenderWindow& window, const state::State& state): win
 
 void StateLayer::draw()
 {
-    cout << "enter in draw from statelayer" << endl;
+    //cout << "enter in draw from statelayer" << endl;
     window.clear();
     background.draw(window, state);
-    cout << "background ok" << endl;
+    //cout << "background ok" << endl;
     fighterRender1.draw(window,50.f,250.f,state.getPlayerList()[0], 2);// id = 0, 2
-    cout << "fighterrenderok" << endl;
+    //cout << "fighterrenderok" << endl;
     fighterRender2.draw(window,500.f, 250.f,state.getPlayerList()[1],1);// id = 1, 3
 
     //about the Font ...

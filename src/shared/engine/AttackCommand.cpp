@@ -19,77 +19,64 @@ AttackCommand::AttackCommand (state::Fighter attacker, state::Fighter target):at
 //Functions
 
 void AttackCommand::execute (state::State& state){
-    cout << "execution is coming" << endl;
+    //cout << "execution is coming" << endl;
     if(attacker.getStatus()!=DEAD){
   
         //Target
-        cout<<"Attack is coming!!"<<endl;
+        //cout<<"Attack is coming!!"<<endl;
         float oldTargetHealth=target.getHealthPoints();
-        
+
+        //Fighting
+        attacker.fight(target, COUPDEPOING);
+            //attacking animation
         int waitingTime=40000;
-		string FigtherTarget = "";
-		switch(attacker.getName()){
-			case Flint: 
-				FigtherTarget = "flint";
+        float targetHealthPoints = target.getHealthPoints();
+        string attackerName = "";
+        string targetName = "";
+
+        switch(attacker.getName()){
+            case Flint: 
+                attackerName = "Flint";
             break;
-			case Kuro:
-				FigtherTarget = "kuro";
+            case Kuro:
+                attackerName = "Kuro";
             break;
-			case Thork:
-				FigtherTarget = "thork";
+            case Thork:
+                attackerName = "Thork";
             break;
-			case Seku:
-				FigtherTarget = "seku";
+            case Seku:
+                attackerName = "Seku";
             break;       
-    }
+        }
 
-        //Attack
-             
-		string FigtherAttacker = "";
-		switch(attacker.getName()){
-			case Flint: 
-				FigtherAttacker = "flint";
+        switch(target.getName()){
+            case Flint: 
+                targetName = "Flint";
             break;
-        case Kuro:
-            FigtherAttacker = "kuro";
+            case Kuro:
+                targetName = "Kuro";
             break;
-        case Thork:
-            FigtherAttacker = "thork";
+            case Thork:
+                targetName = "Thork";
             break;
-        case Seku:
-            FigtherAttacker = "seku";
-            break;
-        cout << "The " << FigtherAttacker << " will attack or try to attack the " << FigtherTarget << "." << endl;
-        bool attack = true;
-        // if(attack){
-        //         attacker.setX(destination.getX());
-        //         selectedUnit.setY(destination.getY());
-        //         selectedUnit.setMovementLeft(selectedUnit.getMovementLeft()-1);
-        //         state.getCursor().setX(destination.getX());
-        //         state.getCursor().setY(destination.getY());
+            case Seku:
+                targetName = "Seku";
+            break;       
+        }
 
-        
-        if(target.getStatus()==DEFENSE){
-            attacker.fight(target, COUPDEPOING);
-            attacker.setHealthPoints(attacker.getHealthPoints()+10); //for now only this attack is available
-		}
-		else{
-			attacker.fight(target, COUPDEPOING);
-		}
-    }
+        cout << attackerName << " will attack or try to attack the " << targetName << "." << endl;
+        cout<<targetName << " had "<<oldTargetHealth<<" health points."<<endl;
+        cout<<targetName<< " has " << targetHealthPoints <<" health points now."<<endl;
 
-        //Display on console : State 
-        cout<<"Le target avait "<<oldTargetHealth<<" points de vie."<<endl;
-        cout<<"Le target a "<<target.getHealthPoints()<<" de points de vie restant."<<endl;
-
-        if(target.getHealthPoints()==0){
+         if(target.getHealthPoints()==0){
             target.setStatus(DEAD);
             // animation dead
-            cout << "Le target est mort." << endl;
+            cout << "The opponent is dead. You win! " << endl;
             sleep(2);
         }
-    
-    }else if(attacker.getStatus()==DEAD){
+    }
+    else if(attacker.getStatus()==DEAD){
         cout<<"Already dead!"<<endl;
     }
+   
 }

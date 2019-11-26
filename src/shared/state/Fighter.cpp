@@ -4,13 +4,7 @@
 using namespace std;
 
 namespace state{
-	// Fighter::Fighter(const Fighter & old)
-	// {
-	// 	cout << "test copie constructeur" << old.name << endl;
 
-	// 	this->name = old.name;
-	// 	cout << "test copie constructeur" << this->name << endl;
-	// }
 
 	Fighter:: Fighter()
 	{
@@ -24,7 +18,7 @@ namespace state{
 	}
 
 
-	Fighter::Fighter(FighterName name, int playerID, FighterStatus status, int healthPointsMax, int healthPoints,int movePoints,int combo,Attack attak, int mana)
+	Fighter::Fighter(FighterName name, int playerID, FighterStatus status, int healthPointsMax, int healthPoints,int movePoints,int combo,Attack attack, int mana)
 	{
 		this->name = name;
 		this->playerID = playerID;
@@ -32,7 +26,7 @@ namespace state{
 		this->healthPointsMax = healthPointsMax;
 		this->healthPoints = healthPoints;
 		this->combo=combo;
-		this->attak=attak;
+		this->attack=attack;
 		this->mana = mana;
 	}
 	
@@ -50,72 +44,56 @@ namespace state{
 		int damage =0;
 		if(mana >=30)
 		{
-			if(attack==COUPDEPOING && target.status!=DEFENSE)
+			//cout << "enough mana" << endl;
+			if(target.getStatus()!=DEFENSE)
 			{
-				attak = COUPDEPOING; //attak is the value uses 
-				damage = 20;		//for defining the variable
-				target.damageCompute(damage); // attack in Fighter
-				mana -= 30;
+				if(attack==COUPDEPOING )
+				{
+					damage = 20;		//for defining the variable
+					target.damageCompute(damage); // attack in Fighter
+					mana -= 30;
+					status = WAITING;
+				}
+				if(attack==COUPDEPIED )
+				{
+					damage = 30;
+					target.damageCompute(damage);
+					mana -= 40;
+					status = WAITING;
+				}
 			}
-			if(attack==COUPDEPIED && target.status!=DEFENSE)
+			else if(target.status == DEFENSE)
 			{
-				attak = COUPDEPIED;
-				damage = 20;
-				target.damageCompute(damage);
-				mana -= 30;
-			}
-			if(attack==UPPERCUT && target.status!=DEFENSE)
-			{
-				attak = UPPERCUT;
-				damage = 30;
-				target.damageCompute(damage);
-				mana -= 30;
-			}
-					
-			if(attack==FLASH_KICK && target.status!=DEFENSE)
-			{
-				attak = FLASH_KICK;
-				damage = 30;
-				target.damageCompute(damage);
-				mana -= 30;
-			}
-			//target defending
-			if(target.status == DEFENSE)
-			{
-				if(attack == COUPDEPOING )
+				if(attack == COUPDEPOING)
 				{
 					damage = 10;
 					target.damageCompute(damage);
 					mana -=30;
+					status = WAITING;
 				}
 				if(attack == COUPDEPIED )
 				{
-					damage = 10;
+					damage = 20;
 					target.damageCompute(damage);
-					mana -=30;
+					mana -=40;
+					status = WAITING;
 				}
-				if(attack == FLASH_KICK )
-				{
-					damage = 15;
-					target.damageCompute(damage);
-					mana -=30;
-				}
-				if(attack == UPPERCUT)
-				{
-					damage = 15;
-					target.damageCompute(damage);
-					mana -=30;
-				}
-			} //attacker is SPECIAL
+			} 
 			if(attack == SPECIAL)
 			{
 				if(mana >=60)
 				{
-					damage = 40;
+					damage = 60;
 					target.damageCompute(damage);
-					mana -=60;
+					mana -=70;
+					status = WAITING;
+				}else{
+					cout << "not enough mana for special attack. Peease recharge! ;) "<<endl; 
+					status = WAITING;
 				}
 			}
+		}else{
+			cout << "Please recharge! ;)" << endl;
 		}
 		
 	}
@@ -125,10 +103,9 @@ namespace state{
 		return name;
 	}
 	
-	FighterName Fighter::setName(FighterName name)
+	void Fighter::setName(FighterName name)
 	{
 		this->name = name;
-		return name;
 	}
 	
 	int Fighter::getHealthPoints()
@@ -136,16 +113,14 @@ namespace state{
 		return healthPoints;
 	}
 
-	int Fighter::setHealthPoints(int healthPoints)
+	void Fighter::setHealthPoints(int healthPoints)
 	{
 		this->healthPoints = healthPoints;
-		return healthPoints;
 	}
 	
-	int Fighter::setHealthPointsMax(int healthPointsMax)
+	void Fighter::setHealthPointsMax(int healthPointsMax)
 	{
 		this->healthPointsMax = healthPointsMax;
-		return healthPointsMax;
 	}
 	
 	int Fighter::getHealthPointsMax()
@@ -153,10 +128,9 @@ namespace state{
 		return healthPointsMax;
 	}
 	
-	int Fighter::setCombo(int combo)
+	void Fighter::setCombo(int combo)
 	{
 		this->combo=combo;
-		return combo;
 	}
 
 	int Fighter::getCombo()
@@ -164,37 +138,24 @@ namespace state{
 		return combo;
 	}
 	
-	FighterStatus Fighter::setStatus(FighterStatus status)
+	void Fighter::setStatus(FighterStatus status)
 	{
 		this->status = status;
-		return status;
 	}
 
-	int Fighter::getStatus()
+	FighterStatus Fighter::getStatus()
 	{
 		return status;
 	}
 
-	Attack Fighter::setAttack(Attack attak)
+	void Fighter::setAttack(Attack attack)
 	{
-		this->attak = attak;
-		return attak;
+		this->attack = attack;
 	}
 	
 	Attack Fighter::getAttack()
 	{
-		return attak;
-	}
-
-	int Fighter::setMovePoints(int movePoints)
-	{
-		this->movePoints = movePoints;
-		return movePoints;
-	}
-
-	int Fighter::getMovePoints()
-	{
-		return movePoints;
+		return attack;
 	}
 
 	void Fighter::setMana(int mana)
@@ -207,19 +168,16 @@ namespace state{
 		return mana;
 	}
 
-	void Fighter::recharge(Fighter& fighter)
+	void Fighter::recharge()
 	{
-		fighter.setStatus(RECHARGE);
-		int m = fighter.getMana();
-		m += 20;
-		int h = fighter.getHealthPoints() ;
-		h+= 10;
+		status = RECHARGE;
+		mana += 20;
+		healthPoints +=10;
 	}
 
-	void Fighter::defend(Fighter& defender)
+	void Fighter::defend()
 	{
-		defender.setStatus(DEFENSE);
-		
+		status = DEFENSE;
 	}
 	
 }
