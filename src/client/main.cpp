@@ -171,14 +171,14 @@ int main(int argc, char *argv[])
         }
         else if (strcmp(argv[1], "render") == 0)
         {
-            cout << "affichage d'un etat" << endl;
+            cout << "---------------render ---------------------" << endl;
             State state;
             
             state.initPlayers();
-            auto playerList = state.getPlayerList();
-            cout << playerList.size() <<endl;
-            cout << &playerList[0] <<endl;
-            cout << &playerList[1] <<endl;
+            // auto playerList = state.getPlayerList();
+            // cout << playerList.size() <<endl;
+            // cout << &playerList[0] <<endl;
+            // cout << &playerList[1] <<endl;
             
 
             //initiate Terrain
@@ -243,80 +243,60 @@ int main(int argc, char *argv[])
                 hpBarP2.setTexture(hpBarTexture);
                 hpBarP2.setPosition(530.f, 40.f);
 
-                // while (window.pollEvent(event))
-                // {
-                //     switch (event.type)
-                //     {
-                //     case sf::Event::Closed:
-                //         window.close();
-                //         break;
-                //     case sf::Event::KeyPressed:
-                //         switch (event.key.code)
-                //         {
-                //         case sf::Keyboard::A:
-                //             cout << " touche A ENCLENCHE" << endl;
-                //             attackPress = true;
-                //             break;
-                //         default:
-                //             //state.notifyObservers({StateEventID::ALLCHANGED}, state);
-                //             break;
-                //         }
-                //         break;
-                //     case sf::Event::MouseMoved:
-                //         break;
-                //     default:
-                //         state.notifyObservers({StateEventID::ALLCHANGED}, state);
-                //         break;
-                //     }
-                // }
+                while (window.pollEvent(event))
+                {
+                    switch (event.type)
+                    {
+                    case sf::Event::Closed:
+                        window.close();
+                        break;
+                    case sf::Event::KeyPressed:
+                        switch (event.key.code)
+                        {
+                        case sf::Keyboard::A:
+                            cout << " touche A ENCLENCHE" << endl;
+                            attackPress = true;
+                            break;
+                        default:
+                            //state.notifyObservers({StateEventID::ALLCHANGED}, state);
+                            break;
+                        }
+                        break;
+                    case sf::Event::MouseMoved:
+                        break;
+                    default:
+                        state.notifyObservers({StateEventID::ALLCHANGED}, state);
+                        break;
+                    }
+                }
 
-                // if (attackPress)
-                // {
-                //     playerSprite.setTextureRect(sf::IntRect(100 * frame, 100 * row, 100, 100));
-                //     if (frameCounter == 100)
-                //     {
-                //         frame = (frame + 1) % 3;
-                //         frameCounter = 0;
-                //     }
-                //     frameCounter++;
-                // }
-                // cout << "frame = " << frame << endl;
-                // cout << "frame counter = " << frameCounter << endl;
+                if (attackPress)
+                {
+                    playerSprite.setTextureRect(sf::IntRect(100 * frame, 100 * row, 100, 100));
+                    if (frameCounter == 100)
+                    {
+                        frame = (frame + 1) % 3;
+                        frameCounter = 0;
+                    }
+                    frameCounter++;
+                }
+                cout << "frame = " << frame << endl;
+                cout << "frame counter = " << frameCounter << endl;
 
-                //stateLayer.draw(); // In StateLayer.cpp id 0 or 1 for Fighter Flint et Kuro
-                                   //  In StateLayer.cpp id 1 or 2 for Fighter Thork et Seku
-                // window.clear();
-
-                // window.draw(arenaSprite);
-                // window.draw(text1);
-                // window.draw(text2);
-                // window.draw(hpBarP1);
-                // window.draw(hpBarP2);
-                // window.draw(playerSprite);
-                // window.draw(playerSprite2);
-
-                // window.display();
-                //cout << " window opened" << endl;
+               
             }
         }
     
         else if (strcmp(argv[1], "engine") == 0)
         {
-            // cout << "engine is coming !!" << endl;
-            // cout << "------- commands -------------" << endl;
-            // cout << " Press Q or D to move the fighter on the left respectively to left or right" << endl;
-            // cout << "Press left or right to move the fighter on the right respectively to left or right" << endl;
-
+            cout << "------------------engine-----------------"<< endl;
             sf::RenderWindow window(sf::VideoMode(640, 384), "Fighter Zone");
 
             Engine engine;
             engine.getState().setTerrain(SekuTerrain);
             engine.getState().initPlayers(); //getting the state by using engine
             engine.getState().setRound(1);
-           //cout <<"There are :"<< engine.getState().getPlayerList().size() << "players" << endl;
-
-            // cout << "player1's fighter is :" << engine.getState().getPlayerList()[0].getFighter().getName() << endl;
-            // cout << "player2's fighter is :" << engine.getState().getPlayerList()[1].getFighter().getName() << endl;
+           
 
             TextureManager *textureManager = textureManager->getInstance();
             if (textureManager->load())
@@ -363,22 +343,27 @@ int main(int argc, char *argv[])
                 engine.update();
                 engine.checkRoundEnd();
             }
-            sf::Event event;
-            // while (window.isOpen())
-            // {
-            //     sf::Event event;
-            //     while(window.pollEvent(event)){
-            //         switch (event.type)
-            //         {                                
-            //             case sf::Event::Closed:
-            //                 window.close();
-            //                 break;
-            //             default:
-            //                 break;
-            //         }
+            
+            while (window.isOpen())
+            {
+                sf::Event event;
+                while(window.pollEvent(event)){
+                    switch (event.type)
+                    {                                
+                        case sf::Event::Closed:
+                            window.close();
+                            break;
+                        default:
+                            break;
+                    }
                    
-            //     }
-            // }
+                }
+            }
+        }else if (strcmp(argv[1], "random_ai") == 0)
+        {
+            cout << "--------------------random ai-------------------" << endl;
+            
+
         }
     }
 }
