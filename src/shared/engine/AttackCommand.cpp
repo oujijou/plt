@@ -29,7 +29,7 @@ void AttackCommand::execute (state::State& state){
         //Fighting
         attacker.fight(target, COUPDEPOING);
             //attacking animation
-        int waitingTime=40000;
+        //int waitingTime=40000;
         float targetHealthPoints = target.getHealthPoints();
         string attackerName = "";
         string targetName = "";
@@ -67,6 +67,11 @@ void AttackCommand::execute (state::State& state){
         cout << attackerName << " will attack or try to attack the " << targetName << "." << endl;
         cout<<targetName << " had "<<oldTargetHealth<<" health points."<<endl;
         cout<<targetName<< " has " << targetHealthPoints <<" health points now."<<endl;
+
+        
+
+        attacker.setStatus(WAITING);
+
 
          if(target.getHealthPoints()==0){
             target.setStatus(DEAD);

@@ -13,6 +13,7 @@ using namespace state;
 
 DefenseCommand::DefenseCommand(state::Fighter isDefending) : isDefending(isDefending)
 {
+    
 }
 //Functions
 void DefenseCommand::execute(state::State &state)

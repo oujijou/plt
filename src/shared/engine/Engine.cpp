@@ -45,7 +45,7 @@ void Engine::update()
 		currentCommands[i]->execute(currentState);
 		//cout << "execution done" << endl;
 		currentState.notifyObservers(stateEvent, currentState); // Notify the state which will notify render
-		cout << "\n" <<endl;
+	//	cout << "\n" <<endl;
 		sleep(2);
 		
 	}

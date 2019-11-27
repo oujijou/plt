@@ -4,11 +4,14 @@
 #include "render.h"
 #include "engine.h"
 #include <unistd.h>
+#include <ai.h>
+
 
 using namespace std;
 using namespace state;
 using namespace render;
 using namespace engine;
+using namespace ai;
 
 // Les lignes suivantes ne servent qu'à vérifier que la compilation avec SFML fonctionne
 #include <SFML/Graphics.hpp>
@@ -312,10 +315,11 @@ int main(int argc, char *argv[])
             // //registering statelayer to observer
             StateLayer stateLayer(window, engine.getState());
             engine.getState().registerObserver(&stateLayer);
+
+            stateLayer.draw();
             
 
-            if(engine.getState().getRound()==1)
-            {
+            
                 //Kuro attacks 
                 AttackCommand attackCommand(engine.getState().getPlayerList()[0].getFighter(), 
                                             engine.getState().getPlayerList()[1].getFighter());
@@ -328,21 +332,21 @@ int main(int argc, char *argv[])
                 engine.addCommand(1, move(ptr_recharge));
 
 
-                //Kuro recharges 
-                DefenseCommand defenseCommand(engine.getState().getPlayerList()[0].getFighter());
-                unique_ptr<Command> ptr_defense (new DefenseCommand(defenseCommand));
-                engine.addCommand(2, move(ptr_defense));
+                // //Kuro recharges 
+                // DefenseCommand defenseCommand(engine.getState().getPlayerList()[0].getFighter());
+                // unique_ptr<Command> ptr_defense (new DefenseCommand(defenseCommand));
+                // engine.addCommand(2, move(ptr_defense));
 
-                //Flint attacks
-                AttackCommand attackCommand1(engine.getState().getPlayerList()[1].getFighter(), 
-                                            engine.getState().getPlayerList()[0].getFighter());
-                unique_ptr<Command> ptr_attack1 (new AttackCommand(attackCommand1));
-                engine.addCommand(3, move(ptr_attack1));
+                // //Flint attacks
+                // AttackCommand attackCommand1(engine.getState().getPlayerList()[1].getFighter(), 
+                //                             engine.getState().getPlayerList()[0].getFighter());
+                // unique_ptr<Command> ptr_attack1 (new AttackCommand(attackCommand1));
+                // engine.addCommand(3, move(ptr_attack1));
 
 
                 engine.update();
                 engine.checkRoundEnd();
-            }
+            
             
             while (window.isOpen())
             {
@@ -353,16 +357,90 @@ int main(int argc, char *argv[])
                         case sf::Event::Closed:
                             window.close();
                             break;
-                        default:
+                        case sf::Event::KeyPressed:
+                            switch (event.key.code)
+                            {
+                            case sf::Keyboard::A:
+                                cout << " Attack is coming" << endl;
+                                //engine.addCommand(0, move(ptr_attack));
+                                break;
+                            default:
                             break;
+                            }
+                        default:
+                        engine.getState().notifyObservers({StateEventID::ALLCHANGED}, engine.getState());
+                        break;
                     }
-                   
                 }
             }
         }else if (strcmp(argv[1], "random_ai") == 0)
         {
             cout << "--------------------random ai-------------------" << endl;
-            
+            sf::RenderWindow window(sf::VideoMode(640, 384), "Fighter Zone");
+
+            Engine engine;
+            engine.getState().initPlayers();
+
+            //Client Side (Render)
+            StateLayer stateLayer(window,engine.getState());
+            TextureManager *textureManager = textureManager->getInstance();
+            if (textureManager->load())
+            {
+                cout << "texuture manager ok!" << endl;
+            }
+            else
+            {
+                cout << "texuture manager loading failed!" << endl;
+                return EXIT_FAILURE;
+            }
+            //randomAi.initAi(1,engine);
+
+            StateLayer* ptr_stateLayer=&stateLayer;
+            engine.getState().registerObserver(ptr_stateLayer);
+
+            while (window.isOpen()){
+                sf::Event event;
+                bool booting = true;
+                //Initialize the scrren by drawing the default State
+                if(booting){
+                    // Draw all the display on the screen
+                    stateLayer.draw();
+                    cout << "Start of the game.\n" << endl;
+                    booting = false;
+                }
+
+                while (1){
+                    //engine.checkRoundStart();
+                    
+                    //RandomAI randomAi(2);
+                    //randomAi.run(engine);
+
+                    //Check if a fighter is dead or not
+                    if(engine.checkGameEnd()==true){
+                        window.close();
+                        cout<<"Game END"<<endl;
+                        break;
+                    }
+
+                    //Check if a fighter played
+                    if(engine.checkRoundEnd()){
+                        cout<<"round  change"<<endl;
+                        engine.checkRoundStart();
+                        StateEvent stateEvent(PLAYERCHANGED);
+                        engine.getState().notifyObservers(stateEvent, engine.getState());
+                    }
+
+                    window.pollEvent(event);
+                    if (event.type == sf::Event::Closed){
+                            window.close();
+                    }
+                    
+                   // stateLayer.inputManager(event, engine.getState());
+                    engine.screenRefresh();
+                    usleep(5);
+                }
+            }
+
 
         }
     }
