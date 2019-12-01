@@ -13,6 +13,8 @@ using namespace state;
 State::State(){
     level = 1;
     round = 1;
+    currentPlayerID = 0;
+    endFight=false;
 }
 
 Terrain State::getTerrain()

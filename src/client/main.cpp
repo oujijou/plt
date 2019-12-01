@@ -357,7 +357,7 @@ int main(int argc, char *argv[])
                         case sf::Event::Closed:
                             window.close();
                             break;
-                        case sf::Event::KeyPressed:
+                        case sf::Event::KeyPressed :
                             switch (event.key.code)
                             {
                             case sf::Keyboard::A:
@@ -375,14 +375,18 @@ int main(int argc, char *argv[])
             }
         }else if (strcmp(argv[1], "random_ai") == 0)
         {
+            
             cout << "--------------------random ai-------------------" << endl;
             sf::RenderWindow window(sf::VideoMode(640, 384), "Fighter Zone");
 
             Engine engine;
             engine.getState().initPlayers();
+            engine.getState().setTerrain(SekuTerrain);
 
             //Client Side (Render)
-            StateLayer stateLayer(window,engine.getState());
+            StateLayer stateLayer(window, engine.getState());
+            engine.getState().registerObserver(&stateLayer);
+            
             TextureManager *textureManager = textureManager->getInstance();
             if (textureManager->load())
             {
@@ -395,40 +399,42 @@ int main(int argc, char *argv[])
             }
             //randomAi.initAi(1,engine);
 
-            StateLayer* ptr_stateLayer=&stateLayer;
-            engine.getState().registerObserver(ptr_stateLayer);
+            // StateLayer* ptr_stateLayer= &stateLayer;
+            // engine.getState().registerObserver(ptr_stateLayer);
+            //cout <<"stateLayer ok!" <<endl;
 
             while (window.isOpen()){
+                
                 sf::Event event;
                 bool booting = true;
                 //Initialize the scrren by drawing the default State
                 if(booting){
                     // Draw all the display on the screen
                     stateLayer.draw();
-                    cout << "Start of the game.\n" << endl;
+                    
                     booting = false;
                 }
 
                 while (1){
                     //engine.checkRoundStart();
                     
-                    //RandomAI randomAi(2);
-                    //randomAi.run(engine);
+                    RandomAI randomAi(0);
+                    randomAi.run(engine);
 
                     //Check if a fighter is dead or not
-                    if(engine.checkGameEnd()==true){
-                        window.close();
-                        cout<<"Game END"<<endl;
-                        break;
-                    }
+                    // if(engine.checkGameEnd()==true){
+                    //     window.close();
+                    //     cout<<"Game END"<<endl;
+                    //     break;
+                    // }
 
-                    //Check if a fighter played
-                    if(engine.checkRoundEnd()){
-                        cout<<"round  change"<<endl;
-                        engine.checkRoundStart();
-                        StateEvent stateEvent(PLAYERCHANGED);
-                        engine.getState().notifyObservers(stateEvent, engine.getState());
-                    }
+                    // //Check if a fighter played
+                    // if(engine.checkRoundEnd()){
+                    //     cout<<"round  change"<<endl;
+                    //     engine.checkRoundStart();
+                    //     StateEvent stateEvent(PLAYERCHANGED);
+                    //     engine.getState().notifyObservers(stateEvent, engine.getState());
+                    // }
 
                     window.pollEvent(event);
                     if (event.type == sf::Event::Closed){

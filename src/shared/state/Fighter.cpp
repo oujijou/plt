@@ -33,7 +33,10 @@ namespace state{
 	int Fighter::damageCompute(int damage)
 	{	
 		healthPoints = healthPoints - damage;
-		if(healthPoints <0) healthPoints=0;
+		if(healthPoints <0) 
+		{
+			healthPoints=0;
+		}
 		return healthPoints;
 	}
 
@@ -172,7 +175,6 @@ namespace state{
 	{
 		status = RECHARGE;
 		mana += 20;
-		healthPoints +=10;
 	}
 
 	void Fighter::defend()

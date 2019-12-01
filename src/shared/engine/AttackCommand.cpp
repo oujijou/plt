@@ -20,11 +20,13 @@ AttackCommand::AttackCommand (state::Fighter attacker, state::Fighter target):at
 
 void AttackCommand::execute (state::State& state){
     //cout << "execution is coming" << endl;
+    int waitingTime = 5;
+    float oldTargetHealth=target.getHealthPoints();
     if(attacker.getStatus()!=DEAD){
-  
+        
         //Target
         //cout<<"Attack is coming!!"<<endl;
-        float oldTargetHealth=target.getHealthPoints();
+       
 
         //Fighting
         attacker.fight(target, COUPDEPOING);
@@ -82,6 +84,24 @@ void AttackCommand::execute (state::State& state){
     }
     else if(attacker.getStatus()==DEAD){
         cout<<"Already dead!"<<endl;
+    }else if(attacker.getStatus()==WAITING){
+        string attackerName = "";
+        switch(attacker.getName()){
+            case Flint: 
+                attackerName = "Flint";
+            break;
+            case Kuro:
+                attackerName = "Kuro";
+            break;
+            case Thork:
+                attackerName = "Thork";
+            break;
+            case Seku:
+                attackerName = "Seku";
+            break;       
+        }
+        cout<< attackerName << " cannot attack because his turn already ended.\n" << endl;
+        usleep(waitingTime);
     }
    
 }

@@ -15,10 +15,4 @@ void BackgroundManager::draw(sf::RenderWindow& window,  state::State& state)
     //cout << "Hey: " << &tileBackground->getTexture() << endl;
     
     window.draw(spriteBackground);
-    /*
-    {
-        sf::Texture t;
-        t.loadFromFile("./res/Terrains/seku_terrain.png");
-        window.draw(sf::Sprite {t});
-    }*/
 }

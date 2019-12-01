@@ -17,12 +17,13 @@ RechargeCommand::RechargeCommand (state::Fighter fighter):fighter(fighter)
 }
 //Functions
 void RechargeCommand::execute (state::State& state){
+    float oldMana=fighter.getMana();
+    
     
     if(fighter.getStatus()!=DEAD){
   
         //cout<<"Recharge is coming!!"<<endl;
-        float oldMana=fighter.getMana();
-        float oldHealthPoints = fighter.getHealthPoints();
+       
         
         int waitingTime=40000;
 		string entityNameRecharging = "";
@@ -47,10 +48,13 @@ void RechargeCommand::execute (state::State& state){
         cout<<"This fighter had "<<oldMana <<" mana points"<<endl;
         cout<<"this fighter has now "<<fighter.getMana()<<" mana points."<<endl;
 
-        cout<<"This fighter had "<<oldHealthPoints <<" health points"<<endl;
-        cout<<"This fighter has now "<<fighter.getHealthPoints()<<" healthpoints."<<endl;
 
-    }else if(fighter.getStatus()==DEAD){
+    }else if (fighter.getHealthPoints()>100)
+    {
+        
+    }
+    
+    else if(fighter.getStatus()==DEAD){
         cout<<"Already dead!"<<endl;
     }
 }
