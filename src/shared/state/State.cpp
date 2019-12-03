@@ -58,14 +58,7 @@ bool State::initPlayers(){
     playerList.push_back(ptrPlayer1);
 
 
-    // ptrFighter1->setX(ptrFighter1->getX());
-
-    //Player 2 
-    // shared_ptr<Player> ptrPlayer2(new Player(2));
-    // playerList.push_back(ptrPlayer2);
-
-    // shared_ptr<Fighter> ptrFighter2(new Fighter(ptrPlayer2->getID(), Kuro));
-
+   
 
     shared_ptr<Player> ptrPlayer2(new Player(2));
    
@@ -75,14 +68,7 @@ bool State::initPlayers(){
 
 
     playerList.push_back(ptrPlayer2);
-    // Player player2(2);
-    
-
-    // Fighter fighter2(Flint, 1, WAITING,100, 100, 50,0, COUPDEPOING,50); // Flint // Seku
-
-    // player2.setFighter(fighter2);
-    // // ptrFighter2->setX(ptrFighter2->getX());
-    // playerList.push_back(player2);
+   
 
     return true;
 }
