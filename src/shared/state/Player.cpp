@@ -22,19 +22,19 @@ Player::Player(int id, string name)
     this->playerName = name;
 }
 
-Player::Player(bool IA, std::string& playerName, Fighter fighter)
+Player::Player(bool IA, std::string& playerName, std::shared_ptr<Fighter> fighter)
 {
     this->IA = IA;
     this->playerName = playerName;
     this->fighter = fighter;
 }
 
-void Player::setFighter(Fighter fighter)
+void Player::setFighter(std::shared_ptr<Fighter> fighter)
 {
     this->fighter = fighter;
 }
 
-Fighter Player::getFighter()
+std::shared_ptr<Fighter> Player::getFighter()
 {
     return fighter;
 }

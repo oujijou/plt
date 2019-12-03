@@ -11,7 +11,7 @@ using namespace std;
 
 
 //Contructor
-AttackCommand::AttackCommand (state::Fighter attacker, state::Fighter target):attacker(attacker),target(target)
+AttackCommand::AttackCommand (std::shared_ptr<Fighter> attacker, std::shared_ptr<Fighter> target):attacker(attacker),target(target)
 {
 
 }
@@ -19,24 +19,24 @@ AttackCommand::AttackCommand (state::Fighter attacker, state::Fighter target):at
 //Functions
 
 void AttackCommand::execute (state::State& state){
-    //cout << "execution is coming" << endl;
+    cout << "execution is coming" << endl;
     int waitingTime = 5;
-    float oldTargetHealth=target.getHealthPoints();
-    if(attacker.getStatus()!=DEAD){
-        
+    
+    if(attacker->getStatus()!=DEAD){
+        float oldTargetHealth=target->getHealthPoints();
         //Target
         //cout<<"Attack is coming!!"<<endl;
        
-
+        //float targetHealthPoints = target.getHealthPoints();
         //Fighting
-        attacker.fight(target, COUPDEPOING);
+        attacker->fight(target, COUPDEPOING);
             //attacking animation
         //int waitingTime=40000;
-        float targetHealthPoints = target.getHealthPoints();
+        
         string attackerName = "";
         string targetName = "";
 
-        switch(attacker.getName()){
+        switch(attacker->getName()){
             case Flint: 
                 attackerName = "Flint";
             break;
@@ -51,7 +51,7 @@ void AttackCommand::execute (state::State& state){
             break;       
         }
 
-        switch(target.getName()){
+        switch(target->getName()){
             case Flint: 
                 targetName = "Flint";
             break;
@@ -66,27 +66,27 @@ void AttackCommand::execute (state::State& state){
             break;       
         }
 
-        cout << attackerName << " will attack or try to attack the " << targetName << "." << endl;
+        cout << attackerName << " will attack or try to attack " << targetName << "." << endl;
         cout<<targetName << " had "<<oldTargetHealth<<" health points."<<endl;
-        cout<<targetName<< " has " << targetHealthPoints <<" health points now."<<endl;
+        cout<<targetName<< " has " << target->getHealthPoints() <<" health points now."<<endl;
 
-        
+        target->setHealthPoints(target->getHealthPoints());
 
-        attacker.setStatus(WAITING);
+        attacker->setStatus(WAITING);
 
 
-         if(target.getHealthPoints()==0){
-            target.setStatus(DEAD);
+         if(target->getHealthPoints()==0){
+            target->setStatus(DEAD);
             // animation dead
             cout << "The opponent is dead. You win! " << endl;
             sleep(2);
         }
     }
-    else if(attacker.getStatus()==DEAD){
+    else if(attacker->getStatus()==DEAD){
         cout<<"Already dead!"<<endl;
-    }else if(attacker.getStatus()==WAITING){
+    }else if(attacker->getStatus()==WAITING){
         string attackerName = "";
-        switch(attacker.getName()){
+        switch(attacker->getName()){
             case Flint: 
                 attackerName = "Flint";
             break;

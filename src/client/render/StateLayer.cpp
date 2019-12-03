@@ -71,11 +71,17 @@ void StateLayer::draw()
     window.display();
 }
 
-void StateLayer::stateChanged(const state::StateEvent& stateEvent,
-                              const state::State &new_state)
+
+void StateLayer::stateChanged(const state::StateEvent& stateEvent, const state::State &new_state)
 {
     this->state = new_state;
     this->draw();
+
+    // if(stateEvent.getStateEventID() == FIGHTERCHANGED)
+    // {
+    //     state.getFighter();
+    //     draw();
+    // }
     //cout << "StateLayer::stateChanged" << endl; // pour debugger
 
 

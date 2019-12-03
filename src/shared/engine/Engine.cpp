@@ -8,14 +8,11 @@ using namespace std;
 using namespace engine;
 using namespace state;
 
-// Engine::Engine () : currentState(){
-// 	changeRound = false;
-// }
-
-Engine::Engine () : currentState()
-{
-    
+Engine::Engine () : currentState(){
+	changeRound = true;
 }
+
+
 
 Engine::~Engine()
 {
@@ -45,7 +42,7 @@ void Engine::update()
 		currentCommands[i]->execute(currentState);
 		//cout << "execution done" << endl;
 		currentState.notifyObservers(stateEvent, currentState); // Notify the state which will notify render
-	//	cout << "\n" <<endl;
+		cout << "\n" <<endl;
 		sleep(2);
 		
 	}
@@ -60,24 +57,20 @@ bool Engine::checkGameEnd(){
 
 	// For each player
 	for (unsigned int i = 0; i < currentState.getPlayerList().size(); i++){
-		// For each Fighter belonging to each player
-		
-			// As long as another player has a Fighter alive the game isn't finished
-			if(currentState.getPlayerList()[i].getFighter().getStatus()!=DEAD){
+		// For each Fighter belonging to each player	
+			// As long as another player has his Fighter alive the game isn't finished
+			if(currentState.getPlayerList()[i]->getFighter()->getStatus()==DEAD){
 
-				//cout<<"The player "<< currentState.getPlayerList()[i]->getName()<<" win the game!!!"<<endl;
+				cout<<"The player "<< currentState.getPlayerList()[i]->getPlayerName()<<" lost the game!!!"<<endl;
 				gameEnd=false;
 			}
-		
 	}
 	return gameEnd;
-
 }
 
 void Engine::screenRefresh(){
 	StateEvent stateEvent(PLAYERCHANGED);
 	currentState.notifyObservers(stateEvent, currentState); // Notify the state which will notify render
-
 }
 
 bool Engine::checkRoundEnd(){
@@ -86,48 +79,25 @@ bool Engine::checkRoundEnd(){
 	bool gameEnd = true;
 	int currentPlayerID=currentState.getCurrentPlayerID();
 
-	// For each player
-	for (unsigned int i = 0; i < currentState.getPlayerList().size(); i++){
-		// For each Fighter belonging to each player
-		
-			// As long as a player has his fighter in waiting status --> the round is not yet finished
-			if(currentState.getPlayerList()[i].getID() == currentState.getCurrentPlayerID()){
-				if (currentState.getPlayerList()[i].getFighter().getStatus()!= DEAD ){
-						playerChange = false;
-				}
-			}
-			if (currentState.getPlayerList()[i].getFighter().getStatus()!= DEAD ){
-					roundChange = false;
-			}
-			// As long as another player has a Fighter alive the game isn't finished
-			if(currentState.getPlayerList()[i].getID()!=currentPlayerID){
-				if(currentState.getPlayerList()[i].getFighter().getStatus()!=DEAD){
-					gameEnd=false;
-				}
-			}
+	if(playerChange && roundChange)
+	{
+		cout << "The player is  " << currentPlayerID << " playing."<< endl;
+		playerChange = false;
+		roundChange = false;
+		gameEnd = false;
 		
 	}
-
 	if(playerChange && !roundChange){
-		cout << "The player " << currentState.getCurrentPlayerID() << " ends his round.\n"<< endl;
-		currentState.setCurrentPlayerID(currentState.getCurrentPlayerID()+1);//Increase the Player ID
-		cout << "The player " << currentState.getCurrentPlayerID() << " starts his round.\n" << endl;
+		cout << "The player is  " << currentPlayerID << " playing."<< endl;
 
-	// If the round changes and the game has ended --> the actual player win the game because all ennemies Fighter are dead
-	} else if(roundChange && gameEnd){
+	}
+	if(gameEnd){
 		cout << "End of the game !" << endl;
-
 		for (unsigned int i = 0; i < currentState.getPlayerList().size(); i++){
-			if (currentState.getPlayerList()[i].getID() == currentState.getCurrentPlayerID()){
-				cout<<"The player "<< currentState.getPlayerList()[i].getPlayerName()<<" win the game!!!"<<endl;
+			if (currentState.getPlayerList()[i]->getFighter()->getHealthPoints() == 0){
+				cout<<"The player "<< currentState.getPlayerList()[i]->getPlayerName()<<" lost the game!!!"<<endl;
 			}
 		}
-		
-		roundChange=false;
-	}else if(roundChange && !gameEnd){
-		cout << "Round has ended.\n" << endl;
-		currentState.setRound(currentState.getRound() + 1);
-		changeRound=true;
 	}
 	
 	return roundChange;
@@ -143,9 +113,9 @@ void Engine::checkRoundStart(){
 		// For each player
 		for (unsigned int i = 0; i < currentState.getPlayerList().size(); i++){
 				// For all Fighter which do not belong to the currentPlayer and which are not DEAD
-				if (currentState.getPlayerList()[i].getFighter().getStatus()!= DEAD ){
+				if (currentState.getPlayerList()[i]->getFighter()->getStatus()!= DEAD ){
 					// Reset Status to Available
-					currentState.getPlayerList()[i].getFighter().setStatus(WAITING);
+					currentState.getPlayerList()[i]->getFighter()->setStatus(WAITING);
 	
 			}
 		}

@@ -7,10 +7,10 @@ using namespace state;
 
 
 
-void HealthBar::draw (sf::RenderWindow& window, state::Player player,float x, float y)
+void HealthBar::draw (sf::RenderWindow& window, std::shared_ptr<state::Player> player,float x, float y)
 {
     TextureManager *instance = TextureManager::getInstance();
-    TileSet *tileHpBar1 = instance->getTileHealthBar(player.getFighter().getHealthPoints());
+    TileSet *tileHpBar1 = instance->getTileHealthBar(player->getFighter()->getHealthPoints());
    
 
     sf::Sprite hpBar;

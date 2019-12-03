@@ -24,15 +24,15 @@ namespace state{
 		this->playerID = playerID;
 		this->status = status;
 		this->healthPointsMax = healthPointsMax;
-		this->healthPoints = healthPoints;
+		this->healthPoints = move(healthPoints);
 		this->combo=combo;
 		this->attack=attack;
-		this->mana = mana;
+		this->mana = move(mana);
 	}
 	
 	int Fighter::damageCompute(int damage)
 	{	
-		healthPoints = healthPoints - damage;
+		this->healthPoints = move(healthPoints - damage);
 		if(healthPoints <0) 
 		{
 			healthPoints=0;
@@ -42,64 +42,64 @@ namespace state{
 
 	
 
-	void Fighter::fight(Fighter& target, Attack attack)
+void Fighter::fight(std::shared_ptr<Fighter> target, Attack attack)
+{
+	int damage =0;
+	if(mana >=30)
 	{
-		int damage =0;
-		if(mana >=30)
+		//cout << "enough mana" << endl;
+		if(target->getStatus()!=DEFENSE)
 		{
-			//cout << "enough mana" << endl;
-			if(target.getStatus()!=DEFENSE)
+			if(attack==COUPDEPOING )
 			{
-				if(attack==COUPDEPOING )
-				{
-					damage = 20;		//for defining the variable
-					target.damageCompute(damage); // attack in Fighter
-					mana -= 30;
-					status = WAITING;
-				}
-				if(attack==COUPDEPIED )
-				{
-					damage = 30;
-					target.damageCompute(damage);
-					mana -= 40;
-					status = WAITING;
-				}
+				damage = 20;		//for defining the variable
+				target->damageCompute(damage); // attack in Fighter
+				mana -= 30;
+				status = WAITING;
 			}
-			else if(target.status == DEFENSE)
+			if(attack==COUPDEPIED )
 			{
-				if(attack == COUPDEPOING)
-				{
-					damage = 10;
-					target.damageCompute(damage);
-					mana -=30;
-					status = WAITING;
-				}
-				if(attack == COUPDEPIED )
-				{
-					damage = 20;
-					target.damageCompute(damage);
-					mana -=40;
-					status = WAITING;
-				}
-			} 
-			if(attack == SPECIAL)
-			{
-				if(mana >=60)
-				{
-					damage = 60;
-					target.damageCompute(damage);
-					mana -=70;
-					status = WAITING;
-				}else{
-					cout << "not enough mana for special attack. Peease recharge! ;) "<<endl; 
-					status = WAITING;
-				}
+				damage = 30;
+				target->damageCompute(damage);
+				mana -= 40;
+				status = WAITING;
 			}
-		}else{
-			cout << "Please recharge! ;)" << endl;
 		}
-		
+		else if(target->status == DEFENSE)
+		{
+			if(attack == COUPDEPOING)
+			{
+				damage = 10;
+				target->damageCompute(damage);
+				mana -=30;
+				status = WAITING;
+			}
+			if(attack == COUPDEPIED )
+			{
+				damage = 20;
+				target->damageCompute(damage);
+				mana -=40;
+				status = WAITING;
+			}
+		} 
+		if(attack == SPECIAL)
+		{
+			if(mana >=60)
+			{
+				damage = 60;
+				target->damageCompute(damage);
+				mana -=70;
+				status = WAITING;
+			}else{
+				cout << "not enough mana for special attack. Peease recharge! ;) "<<endl; 
+				status = WAITING;
+			}
+		}
+	}else{
+		cout << "Please recharge! ;)" << endl;
 	}
+	
+}
 
 	FighterName Fighter::getName()
 	{
@@ -175,6 +175,7 @@ namespace state{
 	{
 		status = RECHARGE;
 		mana += 20;
+		if(mana>manaMax) mana = manaMax;
 	}
 
 	void Fighter::defend()

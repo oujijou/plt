@@ -11,23 +11,23 @@ using namespace std;
 
 //Constructor
 
-RechargeCommand::RechargeCommand (state::Fighter fighter):fighter(fighter)
+RechargeCommand::RechargeCommand (std::shared_ptr<Fighter> fighter):fighter(fighter)
 {
 
 }
 //Functions
 void RechargeCommand::execute (state::State& state){
-    float oldMana=fighter.getMana();
+    float oldMana=fighter->getMana();
     
     
-    if(fighter.getStatus()!=DEAD){
+    if(fighter->getStatus()!=DEAD){
   
         //cout<<"Recharge is coming!!"<<endl;
        
         
         int waitingTime=40000;
 		string entityNameRecharging = "";
-		switch(fighter.getName()){
+		switch(fighter->getName()){
 			case Flint: 
 				entityNameRecharging = "Flint";
             break;
@@ -41,20 +41,20 @@ void RechargeCommand::execute (state::State& state){
 				entityNameRecharging = "Seku";
             break;       
         }
-        fighter.recharge();
+        fighter->recharge();
         
         cout << "This fighter " << entityNameRecharging << " is recharging " << endl;
 
         cout<<"This fighter had "<<oldMana <<" mana points"<<endl;
-        cout<<"this fighter has now "<<fighter.getMana()<<" mana points."<<endl;
+        cout<<"this fighter has now "<<fighter->getMana()<<" mana points."<<endl;
 
 
-    }else if (fighter.getHealthPoints()>100)
+    }else if (fighter->getHealthPoints()>100)
     {
-        
+       fighter->setHealthPoints(100);
     }
     
-    else if(fighter.getStatus()==DEAD){
+    else if(fighter->getStatus()==DEAD){
         cout<<"Already dead!"<<endl;
     }
 }

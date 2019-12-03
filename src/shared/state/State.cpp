@@ -46,15 +46,18 @@ void State::setLevel(int level){
 bool State::initPlayers(){
 
     //Associate a fighter to a player
+    //pointers are life!!!  <3 :) 03/12/2019
     //Player 1
-    Player player1(1);
+    shared_ptr<Player> ptrPlayer1(new Player(1));
+   
+    shared_ptr<Fighter> ptrFighter(new Fighter(Thork, ptrPlayer1->getID(), WAITING,100, 100, 50,0, COUPDEPOING,200));
     
+    ptrPlayer1->setFighter(ptrFighter);
 
-    Fighter fighter1(Thork, 1, WAITING,100, 100, 50,0, COUPDEPOING,50);//Tkork //Kuro
-    
-    player1.setFighter(fighter1);
 
-    playerList.push_back(player1);
+    playerList.push_back(ptrPlayer1);
+
+
     // ptrFighter1->setX(ptrFighter1->getX());
 
     //Player 2 
@@ -62,19 +65,29 @@ bool State::initPlayers(){
     // playerList.push_back(ptrPlayer2);
 
     // shared_ptr<Fighter> ptrFighter2(new Fighter(ptrPlayer2->getID(), Kuro));
-    Player player2(2);
+
+
+    shared_ptr<Player> ptrPlayer2(new Player(2));
+   
+    shared_ptr<Fighter> ptrFighter2(new Fighter(Flint, ptrPlayer2->getID(), WAITING,100, 100, 50,0, COUPDEPOING,100));
+    
+    ptrPlayer2->setFighter(ptrFighter2);
+
+
+    playerList.push_back(ptrPlayer2);
+    // Player player2(2);
     
 
-    Fighter fighter2(Flint, 1, WAITING,100, 100, 50,0, COUPDEPOING,50); // Flint // Seku
+    // Fighter fighter2(Flint, 1, WAITING,100, 100, 50,0, COUPDEPOING,50); // Flint // Seku
 
-    player2.setFighter(fighter2);
-    // ptrFighter2->setX(ptrFighter2->getX());
-    playerList.push_back(player2);
+    // player2.setFighter(fighter2);
+    // // ptrFighter2->setX(ptrFighter2->getX());
+    // playerList.push_back(player2);
 
     return true;
 }
 
-std::vector<Player> State::getPlayerList () //tableau de ref vers les players
+std::vector<std::shared_ptr<Player>> State::getPlayerList () //tableau de ref vers les players
 {
     return playerList;
 }

@@ -19,17 +19,16 @@ void RandomAI::run(engine::Engine engine)
 {
    if(engine.getState().getCurrentPlayerID()== ArtificialId)
    {
-      cout <<"in" <<endl;
       int randomAction;
-      while (engine.getState().getPlayerList()[ArtificialId].getFighter().getStatus()!=DEAD)
+      while (engine.getState().getPlayerList()[ArtificialId]->getFighter()->getStatus()!=DEAD)
       {
-         cout << "in 2" <<endl;
-         engine.getState().getPlayerList()[ArtificialId].getFighter().setStatus(WAITING);
+         engine.getState().getPlayerList()[ArtificialId]->getFighter()->setStatus(WAITING);
 
-         // initialize random seed: 
+         // initialize random seed:
+         srand(time(NULL)); 
          randomAction = rand()%3;
-         cout << "random action is " <<randomAction << endl;
-         srand(time(NULL));
+         //cout << "random action is " <<randomAction << endl;
+         
          int waitingTime = 3;
          Player ennemy;
          if(randomAction==0) //Attack
@@ -45,30 +44,34 @@ void RandomAI::run(engine::Engine engine)
             // }
             
             //AI is attacking
-            AttackCommand attack(engine.getState().getPlayerList()[ArtificialId].getFighter(),
-                                 engine.getState().getPlayerList()[1].getFighter());
+            AttackCommand attack(engine.getState().getPlayerList()[ArtificialId]->getFighter(),
+                                 engine.getState().getPlayerList()[1]->getFighter());
             unique_ptr<Command> ptr_attack (new AttackCommand(attack));
             engine.addCommand(0, move(ptr_attack));
             engine.update();
-            sleep(waitingTime);
+            // cout << "\n" <<endl;
+            // sleep(waitingTime);
+
 
          }
          else if(randomAction == 1) //Defense
          {
             cout << "IA is defending" <<endl;
-            DefenseCommand defense(engine.getState().getPlayerList()[ArtificialId].getFighter());
+            DefenseCommand defense(engine.getState().getPlayerList()[ArtificialId]->getFighter());
             unique_ptr<Command> ptr_defense (new DefenseCommand(defense));
             engine.addCommand(0, move(ptr_defense));
             engine.update();
-            sleep(waitingTime);
+            //cout << "\n" <<endl;
+            //sleep(waitingTime);
          }
          else{ //Recharging
             cout << "IA is recharging" <<endl;
-            RechargeCommand recharge(engine.getState().getPlayerList()[ArtificialId].getFighter());
+            RechargeCommand recharge(engine.getState().getPlayerList()[ArtificialId]->getFighter());
             unique_ptr<Command> ptr_recharge (new RechargeCommand(recharge));
             engine.addCommand(0, move(ptr_recharge));
             engine.update();
-            sleep(waitingTime);
+            //cout << "\n" <<endl;
+            //sleep(waitingTime);
          }
       }
    }

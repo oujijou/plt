@@ -9,12 +9,12 @@ using namespace render;
 using namespace state;
 
 
-void FighterRender::draw(sf::RenderWindow &window, float drawPositionX, float drawPositionY, state::Player player, int id)
+void FighterRender::draw(sf::RenderWindow &window, float drawPositionX, float drawPositionY, std::shared_ptr<state::Player> player, int id)
 {   
     //cout << "entry 1" << endl;
     TextureManager *instance = TextureManager::getInstance(); //recupère une instance de TextureManager
     // on recupère le tilefighter
-    TileSet *tileFighter = instance->getTileFighter(player.getFighter().getName()); //take Fighter's id from the phayer
+    TileSet *tileFighter = instance->getTileFighter(player->getFighter()->getName()); //take Fighter's id from the phayer
     //cout << "tileSet ok " << endl;
     sf::Sprite spriteFighter;                                             //creation d'une sprite
     spriteFighter.setPosition(sf::Vector2f(drawPositionX, drawPositionY));//postionnement d'un fighter

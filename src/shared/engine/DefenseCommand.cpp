@@ -11,7 +11,7 @@ using namespace state;
 
 //Constructor
 
-DefenseCommand::DefenseCommand(state::Fighter isDefending) : isDefending(isDefending)
+DefenseCommand::DefenseCommand(std::shared_ptr<Fighter> isDefending) : isDefending(isDefending)
 {
     
 }
@@ -19,13 +19,13 @@ DefenseCommand::DefenseCommand(state::Fighter isDefending) : isDefending(isDefen
 void DefenseCommand::execute(state::State &state)
 {
 
-    if(isDefending.getStatus() != DEAD)
+    if(isDefending->getStatus() != DEAD)
     {
         //cout << "Defense is coming!!" << endl;
-        isDefending.defend();
+        isDefending->defend();
 
         string defenderName = "";
-        switch(isDefending.getName())
+        switch(isDefending->getName())
         {
             case Flint: 
                 defenderName = "Flint";
@@ -43,7 +43,7 @@ void DefenseCommand::execute(state::State &state)
 
 
         string defenderStatus = "";
-        switch(isDefending.getStatus())
+        switch(isDefending->getStatus())
         {
             case DEFENSE: 
                 defenderStatus = "DEFENSE";
@@ -61,7 +61,7 @@ void DefenseCommand::execute(state::State &state)
 
         cout << defenderName << " status is "<< defenderStatus << endl; 
     }
-    else if(isDefending.getStatus()==DEAD){
+    else if(isDefending->getStatus()==DEAD){
         cout<<"Already dead!"<<endl;
     }
     
