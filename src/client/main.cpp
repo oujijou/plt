@@ -60,6 +60,11 @@ int main(int argc, char *argv[])
     // // put fighter on the left of the arena
     playerSprite2.setPosition(sf::Vector2f(500.f, 250.f));
 
+    Animation animation(&spriteSheet, sf::Vector2u(3,9), 0.3f);
+
+    float deltaTime = 0.0f;
+    sf::Clock clock;
+
     if (argc > 1)
     {
         if (strcmp(argv[1], "hello") == 0)
@@ -69,7 +74,7 @@ int main(int argc, char *argv[])
         if (strcmp(argv[1], "testSFML") == 0)
         {
             cout << "test sfml" << endl;
-
+            deltaTime = clock.restart().asSeconds();
             //size of image as input of VideoMode
             sf::VideoMode resolution;
 
@@ -139,18 +144,22 @@ int main(int argc, char *argv[])
 
                 if (attackPress)
                 {
-                    playerSprite.setTextureRect(sf::IntRect(100 * frame, 100 * row, 100, 100));
-                    playerSprite2.move(sf::Vector2f(50.f,250.f));
-                    if (frameCounter == 100)
-                    {
-                        frame = (frame + 1) % 3;
-                        frameCounter = 0;
-                    }
-                    frameCounter++;
+                    playerSprite.move(385,0);
+                    animation.Update(0, deltaTime);
+                    playerSprite.setTextureRect(animation.uvRect);
+                    
+                    // playerSprite.setTextureRect(sf::IntRect(100 * frame, 100 * row, 100, 100));
+                    // playerSprite2.move(sf::Vector2f(50.f,250.f));
+                    // if (frameCounter == 100)
+                    // {
+                    //     frame = (frame + 1) % 3;
+                    //     frameCounter = 0;
+                    // }
+                    // frameCounter++;
                 }
             
-                cout << "frame = " << frame << endl;
-                cout << "frame counter = " << frameCounter << endl;
+                //cout << "frame = " << frame << endl;
+                //cout << "frame counter = " << frameCounter << endl;
 
                 //playerSprite.setTextureRect(sf::IntRect(32*frame, row, 32,48));
 
@@ -292,9 +301,11 @@ int main(int argc, char *argv[])
     
         else if (strcmp(argv[1], "engine") == 0)
         {
-            cout << "------------------engine-----------------"<< endl;
+            cout<<"--- Moteur du jeu ---"<<endl;
+            
+            
             sf::RenderWindow window(sf::VideoMode(640, 384), "Fighter Zone");
-
+			
             Engine engine;
             engine.getState().setTerrain(SekuTerrain);
             engine.getState().initPlayers(); //getting the state by using engine
@@ -375,6 +386,16 @@ int main(int argc, char *argv[])
             while (window.isOpen())
             {
                 sf::Event event;
+                sf::Font font;
+				if (!font.loadFromFile("/home/ensea/plt/res/Fonts/FontFile.ttf"))
+				{
+					return false;
+				}
+				sf::Text text1;
+				text1.setFont(font);
+				text1.setString("Kuro attack Flint");
+				text1.setPosition(400.f, 0.f);
+				text1.setCharacterSize(60);		
                 while(window.pollEvent(event)){
                     switch (event.type)
                     {                                
