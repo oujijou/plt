@@ -34,7 +34,7 @@ void RandomAI::run(std::shared_ptr<engine::Engine> engine)
          if(randomAction==0) //Attack
          {
             cout << "IA is attacking" <<endl;
-           
+            
             
             //AI is attacking
             AttackCommand attack(engine->getState().getPlayerList()[ArtificialId]->getFighter(),

@@ -449,6 +449,9 @@ int main(int argc, char *argv[])
                 //     engine.screenRefresh();
                 // }   usleep(5);
                 
+        }else if(strcmp(argv[1], "heuristic_ai") == 0)
+        {
+            
         }
 
 
@@ -484,7 +487,6 @@ void handleInputs(sf::RenderWindow &window,  std::shared_ptr<Engine> engine){
                                                     engine->getState().getPlayerList()[1]->getFighter());
                         unique_ptr<Command> ptr_attack (new AttackCommand(attackCommand));
                         engine->addCommand(0, move(ptr_attack));
-                        engine->getState().setCurrentPlayerID(1);
 
                         engine->update();
                     }else if (engine->getState().getCurrentPlayerID()== 1)
@@ -494,7 +496,6 @@ void handleInputs(sf::RenderWindow &window,  std::shared_ptr<Engine> engine){
                                                     engine->getState().getPlayerList()[0]->getFighter());
                         unique_ptr<Command> ptr_attack (new AttackCommand(attackCommand));
                         engine->addCommand(0, move(ptr_attack));
-                        engine->getState().setCurrentPlayerID(0);
 
                         engine->update();
                     }
@@ -508,7 +509,6 @@ void handleInputs(sf::RenderWindow &window,  std::shared_ptr<Engine> engine){
                                                         ->getFighter());
                         unique_ptr<Command> ptr_recharge (new RechargeCommand(rechargeCommand));
                         engine->addCommand(0, move(ptr_recharge));
-                        engine->getState().setCurrentPlayerID(1);
 
                         engine->update();
                     }else if (engine->getState().getCurrentPlayerID()== 1)
@@ -518,7 +518,6 @@ void handleInputs(sf::RenderWindow &window,  std::shared_ptr<Engine> engine){
                                                         ->getFighter());
                         unique_ptr<Command> ptr_recharge (new RechargeCommand(rechargeCommand));
                         engine->addCommand(0, move(ptr_recharge));
-                        engine->getState().setCurrentPlayerID(0);
 
                         engine->update();
                     
@@ -533,7 +532,6 @@ void handleInputs(sf::RenderWindow &window,  std::shared_ptr<Engine> engine){
                                                         ->getFighter());
                         unique_ptr<Command> ptr_defense (new DefenseCommand(defenseCommand));
                         engine->addCommand(0, move(ptr_defense));
-                        engine->getState().setCurrentPlayerID(1);
 
                         engine->update();
                     }else if (engine->getState().getCurrentPlayerID()== 1)
@@ -543,7 +541,6 @@ void handleInputs(sf::RenderWindow &window,  std::shared_ptr<Engine> engine){
                                                         ->getFighter());
                         unique_ptr<Command> ptr_defense (new DefenseCommand(defenseCommand));
                         engine->addCommand(0, move(ptr_defense));
-                        engine->getState().setCurrentPlayerID(0);
 
                         engine->update();
                     }
