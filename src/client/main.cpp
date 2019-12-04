@@ -357,7 +357,7 @@ int main(int argc, char *argv[])
             TextureManager *textureManager = textureManager->getInstance();
             if (textureManager->load())
             {
-                cout << "texuture manager ok!" << endl;
+                cout << "texuture manager ok!\n" << endl;
             }
             else
             {
@@ -366,6 +366,10 @@ int main(int argc, char *argv[])
             }
             stateLayer.draw();
 
+            cout << " User plays first" << endl;
+            cout << "Use the following rules to play." << endl;
+            cout << "A : Attack, R: Recharge mana, D: Defend" << endl;
+            cout << "Press T : Turn Over, IA plays" << endl;
            
            
             while (window.isOpen()) {
