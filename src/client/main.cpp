@@ -17,6 +17,8 @@ using namespace ai;
 #include <SFML/Graphics.hpp>
 
 void handleInputs(sf::RenderWindow &window,  std::shared_ptr<Engine> engine);
+bool iaTurn = false;
+
 
 int main(int argc, char *argv[])
 {
@@ -447,7 +449,6 @@ int main(int argc, char *argv[])
         
     }
 }
-bool iaTurn = false;
 
 void handleInputs(sf::RenderWindow &window,  std::shared_ptr<Engine> engine){
     sf::Event event{};

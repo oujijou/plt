@@ -41,9 +41,15 @@ void RandomAI::run(std::shared_ptr<engine::Engine> engine)
                                  engine->getState().getPlayerList()[1]->getFighter());
             unique_ptr<Command> ptr_attack (new AttackCommand(attack));
             engine->addCommand(0, move(ptr_attack));
+
+            ChangeRound changeRound(engine->getState().getPlayerList()[0]->getFighter());
+            unique_ptr<Command> ptr_change (new ChangeRound(changeRound));
+            engine->addCommand(1, move(ptr_change));
+            
             engine->update();
             // cout << "\n" <<endl;
-            // sleep(waitingTime);
+            sleep(waitingTime);
+            break;
 
 
          }
@@ -53,18 +59,29 @@ void RandomAI::run(std::shared_ptr<engine::Engine> engine)
             DefenseCommand defense(engine->getState().getPlayerList()[ArtificialId]->getFighter());
             unique_ptr<Command> ptr_defense (new DefenseCommand(defense));
             engine->addCommand(0, move(ptr_defense));
+
+            ChangeRound changeRound(engine->getState().getPlayerList()[0]->getFighter());
+            unique_ptr<Command> ptr_change (new ChangeRound(changeRound));
+            engine->addCommand(1, move(ptr_change));
             engine->update();
             //cout << "\n" <<endl;
-            //sleep(waitingTime);
+            sleep(waitingTime);
+            break;
          }
          else{ //Recharging
             cout << "IA is recharging" <<endl;
             RechargeCommand recharge(engine->getState().getPlayerList()[ArtificialId]->getFighter());
             unique_ptr<Command> ptr_recharge (new RechargeCommand(recharge));
             engine->addCommand(0, move(ptr_recharge));
-            engine->update();
+            
             //cout << "\n" <<endl;
-            //sleep(waitingTime);
+            ChangeRound changeRound(engine->getState().getPlayerList()[0]->getFighter());
+            unique_ptr<Command> ptr_change (new ChangeRound(changeRound));
+            engine->addCommand(1, move(ptr_change));
+
+            engine->update();
+            sleep(waitingTime);
+            break;
          }
       }
    }
