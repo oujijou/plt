@@ -3,7 +3,7 @@
 using namespace std;
 using namespace ai;
 
-AI::AI()
+AI::AI():ArtificialId(ArtificialId)
 {
 
 }
