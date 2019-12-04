@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
     //display fighter1
     sf::Texture spriteSheet;
     //sf:: IntRect rectSourceSprite(0,100,100,100);
-    if (!spriteSheet.loadFromFile("/home/ensea/plt/res/Fighters/Kuro.png", sf::IntRect(0, 0, 100, 100))) //,rectSourceSprite));
+    if (!spriteSheet.loadFromFile("/home/ensea/plt/res/Fighters/Kuro.png")) //,rectSourceSprite));
     {
         std::cout << "Load Failed" << std::endl;
         system("Pause");
@@ -64,7 +64,7 @@ int main(int argc, char *argv[])
     // // put fighter on the left of the arena
     playerSprite2.setPosition(sf::Vector2f(500.f, 250.f));
 
-    Animation animation(&spriteSheet, sf::Vector2u(3,9), 0.3f);
+    Animation animation(&spriteSheet, sf::Vector2u(3,4), 0.3f);
 
     float deltaTime = 0.0f;
     sf::Clock clock;
@@ -78,7 +78,7 @@ int main(int argc, char *argv[])
         if (strcmp(argv[1], "testSFML") == 0)
         {
             cout << "test sfml" << endl;
-            deltaTime = clock.restart().asSeconds();
+            
             //size of image as input of VideoMode
             sf::VideoMode resolution;
 
@@ -86,6 +86,8 @@ int main(int argc, char *argv[])
 
             while (window.isOpen())
             {
+                deltaTime = clock.restart().asSeconds();
+
                 sf::Event event;
                 sf::Font font;
                 if (!font.loadFromFile("/home/ensea/plt/res/Fonts/FontFile.ttf"))
@@ -149,7 +151,7 @@ int main(int argc, char *argv[])
                 if (attackPress)
                 {
                     playerSprite.move(385,0);
-                    animation.Update(0, deltaTime);
+                    animation.Update(2, deltaTime);
                     playerSprite.setTextureRect(animation.uvRect);
                     
                     // playerSprite.setTextureRect(sf::IntRect(100 * frame, 100 * row, 100, 100));
