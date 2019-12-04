@@ -1,5 +1,7 @@
 #include "ChangeRound.h"
-#include "Fighter.h"
+#include <iostream>
+#include <unistd.h>
+#include <stdlib.h>
 
 using namespace std;
 using namespace engine;
@@ -30,13 +32,14 @@ void ChangeRound::execute(State& state)
             break;
     }
     
-	if (currentFighter->getStatus()!=WAITING && currentFighter->getStatus()!=DEAD){
+	if (currentFighter->getStatus()==WAITING && currentFighter->getStatus()!=DEAD){
 		currentFighter->setStatus(WAITING);
 		cout << fighterName << " finished his round.\n" << endl;
         usleep(waitingTime);
 	}
-	else if(currentFighter->getStatus()==WAITING){
-		cout <<  fighterName << " has already finished his round.\n" <<endl;
-        usleep(waitingTime);
-	}
+    
+	// else if(currentFighter->getStatus()==WAITING){
+	// 	cout <<  fighterName << " has already finished his round.\n" <<endl;
+    //     usleep(waitingTime);
+	// }
 }

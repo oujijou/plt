@@ -77,18 +77,22 @@ bool Engine::checkRoundEnd(){
 	bool playerChange = true;
 	bool roundChange = true;
 	bool gameEnd = true;
-	int currentPlayerID=currentState.getCurrentPlayerID();
+	int currentPlayerID;
 
 	if(playerChange && roundChange)
 	{
-		cout << "The player is  " << currentPlayerID << " playing."<< endl;
+		currentPlayerID=currentState.getCurrentPlayerID();
+		currentState.setCurrentPlayerID(currentPlayerID);
+		cout << "The player 0   " << currentPlayerID << " playing."<< endl;
 		playerChange = false;
 		roundChange = false;
 		gameEnd = false;
 		
 	}
-	if(playerChange && !roundChange){
-		cout << "The player is  " << currentPlayerID << " playing."<< endl;
+	else if(playerChange && !roundChange){
+		currentPlayerID=currentState.getCurrentPlayerID();
+		currentState.setCurrentPlayerID(!currentPlayerID);
+		cout << "The player   " << currentPlayerID << " playing."<< endl;
 
 	}
 	if(gameEnd){
@@ -121,4 +125,9 @@ void Engine::checkRoundStart(){
 		}
 		changeRound = !changeRound;
 	}
+}
+
+void Engine::runCommands()
+{
+
 }

@@ -24,13 +24,11 @@ void AttackCommand::execute (state::State& state){
     
     if(attacker->getStatus()!=DEAD){
         float oldTargetHealth=target->getHealthPoints();
-        //Target
-        //cout<<"Attack is coming!!"<<endl;
        
-        //float targetHealthPoints = target.getHealthPoints();
+       
         //Fighting
         attacker->fight(target, COUPDEPOING);
-            //attacking animation
+        
         //int waitingTime=40000;
         
         string attackerName = "";
@@ -67,8 +65,8 @@ void AttackCommand::execute (state::State& state){
         }
 
         cout << attackerName << " will attack or try to attack " << targetName << "." << endl;
-        cout<<targetName << " had "<<oldTargetHealth<<" health points."<<endl;
-        cout<<targetName<< " has " << target->getHealthPoints() <<" health points now."<<endl;
+        cout<< targetName << " had "<<oldTargetHealth<<" health points."<<endl;
+        cout<< targetName<< " has " << target->getHealthPoints() <<" health points now."<<endl;
 
         target->setHealthPoints(target->getHealthPoints());
 

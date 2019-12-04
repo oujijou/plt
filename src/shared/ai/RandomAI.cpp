@@ -34,14 +34,7 @@ void RandomAI::run(engine::Engine engine)
          if(randomAction==0) //Attack
          {
             cout << "IA is attacking" <<endl;
-            //Save the available fighter in a pointer
-            // for(auto i = 0; i<engine.getState().getPlayerList().size(); i++)
-            // {
-            //    if(engine.getState().getPlayerList()[i].getID()!=ArtificialId) //check whether the adversary is a AI or not
-            //    {
-            //       ennemy = engine.getState().getPlayerList()[i];       //store this one in a variable
-            //    }
-            // }
+           
             
             //AI is attacking
             AttackCommand attack(engine.getState().getPlayerList()[ArtificialId]->getFighter(),

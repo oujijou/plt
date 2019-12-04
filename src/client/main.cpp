@@ -16,6 +16,8 @@ using namespace ai;
 // Les lignes suivantes ne servent qu'à vérifier que la compilation avec SFML fonctionne
 #include <SFML/Graphics.hpp>
 
+void handleInputs(sf::RenderWindow &window,  std::shared_ptr<Engine> engine);
+
 int main(int argc, char *argv[])
 {
     //display arena
@@ -306,10 +308,10 @@ int main(int argc, char *argv[])
             
             sf::RenderWindow window(sf::VideoMode(640, 384), "Fighter Zone");
 			
-            Engine engine;
-            engine.getState().setTerrain(SekuTerrain);
-            engine.getState().initPlayers(); //getting the state by using engine
-            engine.getState().setRound(1);
+            std::shared_ptr<Engine> engine = make_shared<Engine>();
+            engine->getState().setTerrain(SekuTerrain);
+            engine->getState().initPlayers(); //getting the state by using engine
+            engine->getState().setRound(1);
            
 
             TextureManager *textureManager = textureManager->getInstance();
@@ -324,99 +326,82 @@ int main(int argc, char *argv[])
             }
 
             // //registering statelayer to observer
-            StateLayer stateLayer(window, engine.getState());
-            engine.getState().registerObserver(&stateLayer);
+            StateLayer stateLayer(window, engine->getState());
+            engine->getState().registerObserver(&stateLayer);
 
             stateLayer.draw();
+            while (window.isOpen()) {
+                handleInputs(window,engine);
+            }
 
-            engine.checkRoundStart();
+            //handleInputs(window,engine);
+
+            //Commands simulation
     
             //Kuro attacks 
-            AttackCommand attackCommand(engine.getState().getPlayerList()[0]->getFighter(), 
-                                        engine.getState().getPlayerList()[1]->getFighter());
-            unique_ptr<Command> ptr_attack (new AttackCommand(attackCommand));
-            engine.addCommand(0, move(ptr_attack));
-            engine.checkRoundEnd();
-
-            //Flint recharges
-            RechargeCommand rechargeCommand(engine.getState().getPlayerList()[1]->getFighter());
-            unique_ptr<Command> ptr_recharge (new RechargeCommand(rechargeCommand));
-            engine.addCommand(1, move(ptr_recharge));
-            engine.checkRoundEnd();
-
-            AttackCommand attackCommand1(engine.getState().getPlayerList()[0]->getFighter(), 
-                                        engine.getState().getPlayerList()[1]->getFighter());
-            unique_ptr<Command> ptr_attack1 (new AttackCommand(attackCommand1));
-            engine.addCommand(2, move(ptr_attack1));
-
-            AttackCommand attackCommand2(engine.getState().getPlayerList()[0]->getFighter(), 
-                                        engine.getState().getPlayerList()[1]->getFighter());
-            unique_ptr<Command> ptr_attack2 (new AttackCommand(attackCommand2));
-            engine.addCommand(3, move(ptr_attack2));
-
-            AttackCommand attackCommand3(engine.getState().getPlayerList()[0]->getFighter(), 
-                                        engine.getState().getPlayerList()[1]->getFighter());
-            unique_ptr<Command> ptr_attack3 (new AttackCommand(attackCommand3));
-            engine.addCommand(4, move(ptr_attack3));
-
-            AttackCommand attackCommand4(engine.getState().getPlayerList()[0]->getFighter(), 
-                                        engine.getState().getPlayerList()[1]->getFighter());
-            unique_ptr<Command> ptr_attack4 (new AttackCommand(attackCommand4));
-            engine.addCommand(5, move(ptr_attack4));
+            // AttackCommand attackCommand(engine.getState().getPlayerList()[0]->getFighter(), 
+            //                             engine.getState().getPlayerList()[1]->getFighter());
+            // unique_ptr<Command> ptr_attack (new AttackCommand(attackCommand));
+            // engine.addCommand(0, move(ptr_attack));          
 
 
-            
-            // engine.checkGameEnd();
-            // //Kuro recharges 
-            // DefenseCommand defenseCommand(engine.getState().getPlayerList()[0].getFighter());
-            // unique_ptr<Command> ptr_defense (new DefenseCommand(defenseCommand));
-            // engine.addCommand(2, move(ptr_defense));
+            // //Turn over
+            // ChangeRound changeRound(engine.getState().getPlayerList()[0]->getFighter());
+            // unique_ptr<Command> ptr_change (new ChangeRound(changeRound));
+            // engine.addCommand(1, move(ptr_change));
 
             // //Flint attacks
-            // AttackCommand attackCommand1(engine.getState().getPlayerList()[1].getFighter(), 
-            //                             engine.getState().getPlayerList()[0].getFighter());
+            // AttackCommand attackCommand1(engine.getState().getPlayerList()[1]->getFighter(), 
+            //                             engine.getState().getPlayerList()[0]->getFighter());
             // unique_ptr<Command> ptr_attack1 (new AttackCommand(attackCommand1));
-            // engine.addCommand(3, move(ptr_attack1));
+            // engine.addCommand(2, move(ptr_attack1));
 
-
-            engine.update();
-            engine.screenRefresh();
-        
             
-            while (window.isOpen())
-            {
-                sf::Event event;
-                sf::Font font;
-				if (!font.loadFromFile("/home/ensea/plt/res/Fonts/FontFile.ttf"))
-				{
-					return false;
-				}
-				sf::Text text1;
-				text1.setFont(font);
-				text1.setString("Kuro attack Flint");
-				text1.setPosition(400.f, 0.f);
-				text1.setCharacterSize(60);		
-                while(window.pollEvent(event)){
-                    switch (event.type)
-                    {                                
-                        case sf::Event::Closed:
-                            window.close();
-                            break;
-                        case sf::Event::KeyPressed :
-                            switch (event.key.code)
-                            {
-                            case sf::Keyboard::A:
-                                cout << " Attack is coming" << endl;
-                                break;
-                            default:
-                            break;
-                            }
-                        default:
-                        engine.getState().notifyObservers({StateEventID::ALLCHANGED}, engine.getState());
-                        break;
-                    }
-                }
-            }
+
+
+
+            // engine.checkRoundEnd();
+            // engine.checkGameEnd();
+            
+
+            // engine.update();
+           
+            
+            // while (window.isOpen())
+            // {
+            //     sf::Event event;
+            //     sf::Font font;
+			// 	if (!font.loadFromFile("/home/ensea/plt/res/Fonts/FontFile.ttf"))
+			// 	{
+			// 		return false;
+			// 	}
+			// 	sf::Text text1;
+			// 	text1.setFont(font);
+			// 	text1.setString("Kuro attack Flint");
+			// 	text1.setPosition(400.f, 0.f);
+			// 	text1.setCharacterSize(60);		
+            //     while(window.pollEvent(event)){
+            //         switch (event.type)
+            //         {                                
+            //             case sf::Event::Closed:
+            //                 window.close();
+            //                 break;
+            //             case sf::Event::KeyPressed :
+            //                 switch (event.key.code)
+            //                 {
+            //                 case sf::Keyboard::A:
+            //                     cout << " Attack is coming" << endl;
+                                
+            //                     break;
+            //                 default:
+            //                 break;
+            //                 }
+            //             default:
+            //             engine.getState().notifyObservers({StateEventID::ALLCHANGED}, engine.getState());
+            //             break;
+            //         }
+            //     }
+            // }
         }else if (strcmp(argv[1], "random_ai") == 0)
         {
             
@@ -514,217 +499,73 @@ int main(int argc, char *argv[])
         
     }
 }
-           // stateLayer.draw();
+bool iaTurn = false;
 
-            
-           
-            // // bool booting = true;
+void handleInputs(sf::RenderWindow &window,  std::shared_ptr<Engine> engine){
+    sf::Event event{};
+    while (window.pollEvent(event))
+    {
+        switch (event.type)
+        {
+            case sf::Event::Closed:
+                window.close();
+                break;
+            case sf::Event::KeyPressed:
+                if (event.key.code == sf::Keyboard::T)
+                {
+                    std::cout << "the T key was pressed, next player!" << std::endl;
+                    ChangeRound changeRound(engine->getState().getPlayerList()[0]->getFighter());
+                    unique_ptr<Command> ptr_change (new ChangeRound(changeRound));
+                    engine->addCommand(0, move(ptr_change));
+                    engine->update();
+                    iaTurn = true;
+                }
+                if(event.key.code == sf::Keyboard::A )
+                {
+                    if(engine->getState().getCurrentPlayerID()== 0)
+                    {
+                        std::cout << "Attack is coming for player 0" << std::endl;
+                        AttackCommand attackCommand(engine->getState().getPlayerList()[0]->getFighter(), 
+                                                    engine->getState().getPlayerList()[1]->getFighter());
+                        unique_ptr<Command> ptr_attack (new AttackCommand(attackCommand));
+                        engine->addCommand(0, move(ptr_attack));
+                        engine->getState().setCurrentPlayerID(1);
 
-            // bool start = true;
-            // while (window.isOpen())
-            // {
-            //     sf::Event event;
-            //     while(window.pollEvent(event)){
-            //         switch (event.type)
-            //         {                                
-            //             case sf::Event::Closed:
-            //                 window.close();
-            //                 break;
-            //             case sf::Event::KeyPressed:
-            //                 switch (event.key.code)
-            //                 {
-            //                 case sf::Keyboard::Q:
-            //                     cout << " touche Q ENCLENCHE" << endl;
-            //                     playerSprite.move(-200.f,0.0f);
-            //                     break;
-            //                 default:
-            //                 break;
-            //                 }
-            //             default:
-            //             break;
-            //         }
-            //     }
-            //   // Draw all the display on the screen
-            //         stateLayer.draw();
+                        engine->update();
+                    }else if (engine->getState().getCurrentPlayerID()== 1)
+                    {
+                        std::cout << "Attack is coming for player 1" << std::endl;
+                        AttackCommand attackCommand(engine->getState().getPlayerList()[1]->getFighter(), 
+                                                    engine->getState().getPlayerList()[0]->getFighter());
+                        unique_ptr<Command> ptr_attack (new AttackCommand(attackCommand));
+                        engine->addCommand(0, move(ptr_attack));
+                        engine->getState().setCurrentPlayerID(0);
 
-            
-                
-            
-            
+                        engine->update();
+                    }
+                }
+                if(event.key.code == sf::Keyboard::R)
+                {
+                    std::cout << "recharging is coming for player " << std::endl;
+                    RechargeCommand rechargeCommand(engine->getState().getPlayerList()[engine->getState().getCurrentPlayerID()]
+                                                    ->getFighter());
+                    unique_ptr<Command> ptr_recharge (new RechargeCommand(rechargeCommand));
+                    engine->addCommand(1, move(ptr_recharge));
 
-            
+                    engine->update();
+                }
+                if(event.key.code == sf::Keyboard::D)
+                {
+                    std::cout << "Defense is coming " << std::endl;
+                    DefenseCommand defenseCommand(engine->getState().getPlayerList()[engine->getState().getCurrentPlayerID()]
+                                                    ->getFighter());
+                    unique_ptr<Command> ptr_defense (new DefenseCommand(defenseCommand));
+                    engine->addCommand(0, move(ptr_defense));
 
-            //registering statelayer to observer
-            // StateLayer stateLayer(window, engine.getState());
-            // engine.getState().registerObserver(&stateLayer);
-            // cout << "stateLayer ok!" << endl;
-            // Engine* ptr_engine=&engine;
-            // stateLayer.registerRenderObserver(ptr_engine);
-//             bool booting = true;
-
-
-//             while (window.isOpen())
-//             {
-//                 sf::Event event;
-
-//                 // if (booting)
-//                 // {
-//                 //     // Draw all the display on the screen
-//                 //     stateLayer.draw();
-//                 //     cout << "Start of the game.\n"
-//                 //         << endl;
-//                 //     booting = false;
-//                 // }
-//                 // Close the window if the close button is pressed
-//                 /*move fighter*/
-//                 while(window.pollEvent(event)){
-                    
-//                     // else  if(event.type==sf::Event::KeyPressed && engine.getState().getRound()==1){
-//                     //     cout << "\t\t--- Round 1 ---\n" << endl;
-                    
-                        
-//                             switch (event.type)
-//                             {                                
-//                                 case sf::Event::Closed:
-//                                     window.close();
-//                                     break;
-//                                 case sf::Event::KeyPressed:
-//                                     switch (event.key.code)
-//                                     {
-//                                     case sf::Keyboard::Q:
-//                                         cout << " touche Q ENCLENCHE" << endl;
-//                                         playerSprite.move(-200.f,0.0f);
-//                                         break;
-//                                     case sf::Keyboard::D:
-//                                         cout << " touche D ENCLENCHE" << endl;
-//                                         //playerSprite.move(10.0f,0.0f);
-//                                         playerSprite.move(200.f,0.0f);
-//                                         break;
-//                                     case sf::Keyboard::Left:
-//                                         cout << " touche Left ENCLENCHE" << endl;
-//                                         //playerSprite.move(10.0f,0.0f);
-//                                         playerSprite2.move(-200.f,0.0f);
-//                                         break;
-//                                     case sf::Keyboard::Right:
-//                                         cout << " touche right ENCLENCHE" << endl;
-//                                         //playerSprite.move(10.0f,0.0f);
-//                                         playerSprite2.move(200.f,0.0f);
-//                                         break;
-//                                     default:
-//                                         engine.getState().notifyObservers({StateEventID::ALLCHANGED}, engine.getState());
-//                                         break;
-//                                     }
-//                                     break;
-//                                 case sf::Event::MouseMoved:
-//                                     break;
-//                                 default:
-//                                     //state.notifyObservers({StateEventID::ALLCHANGED}, state);
-//                                     break;
-//                             }//fin switch
-                        
-//                    // }
-// /*fin move fighter */          }//while(window.pollEvent(event))
-                    
-//                     // else if (engine.checkGameEnd() == true)
-//                     // {
-//                     //     window.close();
-//                     //     cout << "Game END" << endl;
-//                     //     break;
-//                     // }
-
-//                     // else if (!engine.getState().getEndFight() && engine.checkRoundEnd())
-//                     // {
-//                     //     engine.checkRoundStart();
-//                     //     StateEvent stateEvent(FIGHTERCHANGED);
-//                     //     engine.getState().notifyObservers(stateEvent, engine.getState());
-//                     // }
-                   
-//                         //Kuro attacks
-                    
-//                     // AttackCommand attackCommand(*engine.getState().getPlayerList()[0]->getFighterList()[1], *engine.getState().getPlayerList()[1]->getFighterList()[0]);
-//                     // cout << engine.getState().getPlayerList()[0]->getFighterList()[1]->getName() << endl;
-//                     // unique_ptr<Command> ptr_attack (new AttackCommand(attackCommand));
-//                     // engine.addCommand(1, move(ptr_attack));
-
-
-
-//                         //Seku attacks
-
-
-//                 window.clear();
-//                 window.draw(arenaSprite);
-//                 window.draw(playerSprite);
-//                 window.draw(playerSprite2);
-//                 window.display();  
-                    
-//             }
-
-                
-        
-                
-                // stateLayer.inputManager(event, engine.getState());
-                // engine.screenRefresh();
-                // usleep(5);
-                //stateLayer.initTextureAreas(engine.getState());
-
-                // StateLayer* ptr_stateLayer= &stateLayer;
-                // engine.getState().registerObserver(ptr_stateLayer);
-
-                // Engine* ptr_engine=&engine;
-                // stateLayer.registerRenderObserver(ptr_engine);
-
-                // StateLayer stateLayer(window,engine.getState());
-                // stateLayer.initTextureManagers(engine.getState());
-
-                // StateLayer* ptr_stateLayer=&stateLayer;
-                // engine.getState().registerObserver(ptr_stateLayer);
-
-                // stateLayer.getTextureManagers()[0]->setPosition(sf::Vector2f(50.f, 250.f));
-                // stateLayer.getTextureManagers()[1]->setPosition(sf::Vector2f(500.f, 250.f));
-
-                // while (window.isOpen()){
-                // 	sf::Event event;
-
-                //     // Draw all the display on the screen
-                //     stateLayer.draw();
-
-                //     while (window.pollEvent(event)){
-                // 		if (event.type == sf::Event::Closed){
-                // 			window.close();
-                //         }
-                //         else if(event.type==sf::Event::KeyPressed && engine.getState().getRound()==1)
-                //         {
-                //             // cout<<"in loop if" << endl;
-                //             // Attaq attaq(*engine.getState().getPlayerList()[0]->getFighter(),*engine.getState().getPlayerList()[1]->getFighter());
-                //             // unique_ptr<Command> ptr_attack (new Attaq(attaq));
-                //             // engine.addCommand(1, move(ptr_attack));
-
-                //             // engine.getState().setRound(2);
-                //             // engine.update();
-                //         }
-                //     }
-                //     //window.close();
-                // }
-
-                //Attaq attaq(*engine.getState().getPlayerList()[0]->getFighter(), *engine.getState().getPlayerList()[1]->getFighter());
-                // unique_ptr<Command> ptr_attack (new Attaq(attaq));
-                // engine.addCommand(1, move(ptr_attack));
-
-                // engine.update();
-
-                // if(clock.getElapsedTime().asSeconds()>1.0f)
-                // {
-                //     if(rectSourceSprite.left==300)
-                //         rectSourceSprite.left=0;
-                //     else
-                //     {
-                //         rectSourceSprite.left +=100;
-                //     }
-                // playerSprite.setTextureRect(rectSourceSprite);
-                // clock.restart();
-                //}
-            
-        
-    //}
-
-    // return 0;
+                    engine->update();
+                }
+            default:
+                break;
+        }
+    }
+}

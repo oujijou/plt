@@ -15,9 +15,9 @@ Animation::Animation(sf::Texture* texture, sf::Vector2u imageCount, float switch
 
 }
 
-Animation::~Animation()
-{
-}
+// Animation::~Animation()
+// {
+// }
 
 void Animation::Update(int row,float deltaTime)
 {
