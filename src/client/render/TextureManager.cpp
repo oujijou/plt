@@ -28,9 +28,13 @@ TextureManager::TextureManager(){
 	tiles_background.insert({ThorkTerrain, make_shared<TileSet>("./res/Terrains/thork_terrain.png")});
 
 	tiles_healthbar.insert({100, make_shared<TileSet>("./res/healthBar/100.png")});
+	tiles_healthbar.insert({90, make_shared<TileSet>("./res/healthBar/90.png")});
 	tiles_healthbar.insert({80, make_shared<TileSet>("./res/healthBar/80.png")});
+	tiles_healthbar.insert({70, make_shared<TileSet>("./res/healthBar/70.png")});
 	tiles_healthbar.insert({60, make_shared<TileSet>("./res/healthBar/60.png")});
+	tiles_healthbar.insert({50, make_shared<TileSet>("./res/healthBar/50.png")});
 	tiles_healthbar.insert({40, make_shared<TileSet>("./res/healthBar/40.png")});
+	tiles_healthbar.insert({30, make_shared<TileSet>("./res/healthBar/30.png")});
 	tiles_healthbar.insert({20, make_shared<TileSet>("./res/healthBar/20.png")});
 	tiles_healthbar.insert({10, make_shared<TileSet>("./res/healthBar/10.png")});
 	tiles_healthbar.insert({5, make_shared<TileSet>("./res/healthBar/5.png")});
@@ -53,6 +57,11 @@ TileSet* TextureManager::getTileFighter (state::FighterName fighter)
 TileSet* TextureManager::getTileBackground (state::Terrain bg)
 {	
 	return tiles_background.at(bg).get();
+}
+
+TileSet* TextureManager::getTileHealthBar(int healthPoints)
+{
+	return tiles_healthbar.at(healthPoints).get();
 }
 
 
@@ -80,7 +89,3 @@ bool TextureManager::load(){
 	return true;
 }
 
-TileSet* TextureManager::getTileHealthBar(int healthPoints)
-{
-	return tiles_healthbar.at(healthPoints).get();
-}

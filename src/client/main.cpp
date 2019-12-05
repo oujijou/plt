@@ -386,72 +386,54 @@ int main(int argc, char *argv[])
                     iaTurn =false;
                 }
             }
-
-
-            // while (window.isOpen()){
-                
-               
-            //     bool booting = true;
-            //     //Initialize the scrren by drawing the default State
-            //     if(booting){
-            //         // Draw all the display on the screen
-            //         stateLayer.draw();
-                    
-            //         booting = false;
-            //     }
-
-                
-            //         engine.checkRoundStart();
-                    
-            //         RandomAI randomAi(0);
-            //         randomAi.run(engine);
-
-            //         //Check if a fighter is dead or not
-            //         if(engine.checkGameEnd()==true){
-            //             window.close();
-            //             cout<<"Game END"<<endl;
-            //             break;
-            //         }
-
-            //         //Check if a fighter played
-            //         if(engine.checkRoundEnd()){
-            //             cout<<"round  change"<<endl;
-            //             engine.checkRoundStart();
-            //             StateEvent stateEvent(PLAYERCHANGED);
-            //             engine.getState().notifyObservers(stateEvent, engine.getState());
-            //         }
-
-            
-            //     sf::Event event;
-            //     while(window.pollEvent(event)){
-            //         switch (event.type)
-            //         {                                
-            //             case sf::Event::Closed:
-            //                 window.close();
-            //                 break;
-            //             case sf::Event::KeyPressed :
-            //                 switch (event.key.code)
-            //                 {
-            //                 case sf::Keyboard::A:
-            //                     cout << " Attack is coming" << endl;
-            //                     //engine.addCommand(0, move(ptr_attack));
-            //                     break;
-            //                 default:
-            //                 break;
-            //                 }
-            //             default:
-            //             engine.getState().notifyObservers({StateEventID::ALLCHANGED}, engine.getState());
-            //             break;
-            //         }
-            //     }
-        
-                //    // stateLayer.inputManager(event, engine.getState());
-                //     engine.screenRefresh();
-                // }   usleep(5);
                 
         }else if(strcmp(argv[1], "heuristic_ai") == 0)
         {
+            cout << "--------------------heuristic_ai-------------------" << endl;
+            sf::RenderWindow window(sf::VideoMode(640, 384), "Fighter Zone");
+
+
+            std::shared_ptr<Engine> engine = make_shared<Engine>();
+
+            engine->getState().setTerrain(SekuTerrain);
+            engine->getState().initPlayers(); //getting the state by using engine
+            engine->getState().setRound(1);
+
             
+            //Client Side (Render)
+            StateLayer stateLayer(window, engine->getState());
+            engine->getState().registerObserver(&stateLayer);
+            
+            TextureManager *textureManager = textureManager->getInstance();
+            if (textureManager->load())
+            {
+                cout << "texuture manager ok!\n" << endl;
+            }
+            else
+            {
+                cout << "texuture manager loading failed!" << endl;
+                return EXIT_FAILURE;
+            }
+            stateLayer.draw();
+
+            cout << " User plays first" << endl;
+            cout << "Use the following rules to play." << endl;
+            cout << "A : Attack, R: Recharge mana, D: Defend" << endl;
+            cout << "Press T : Turn Over, IA plays" << endl;
+           
+           
+            while (window.isOpen()) {
+                if(!iaTurn){
+                    // Manage user inputs
+                    handleInputs(window,engine);
+                    
+                } else {
+                    cout << "run ai" << endl;
+                    HeuristicAI heuristicAi(0); //AiID == 0
+                    heuristicAi.run(engine);
+                    iaTurn =false;
+                }
+            }
         }
 
 

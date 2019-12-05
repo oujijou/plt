@@ -55,14 +55,14 @@ void Fighter::fight(std::shared_ptr<Fighter> target, Attack attack)
 				damage = 20;		//for defining the variable
 				target->damageCompute(damage); // attack in Fighter
 				mana -= 30;
-				status = WAITING;
+				status = ATTACK;
 			}
 			if(attack==COUPDEPIED )
 			{
 				damage = 30;
 				target->damageCompute(damage);
 				mana -= 40;
-				status = WAITING;
+				//status = WAITING;
 			}
 		}
 		else if(target->status == DEFENSE)
@@ -72,14 +72,14 @@ void Fighter::fight(std::shared_ptr<Fighter> target, Attack attack)
 				damage = 10;
 				target->damageCompute(damage);
 				mana -=30;
-				status = WAITING;
+				status = ATTACK;
 			}
 			if(attack == COUPDEPIED )
 			{
 				damage = 20;
 				target->damageCompute(damage);
 				mana -=40;
-				status = WAITING;
+				//status = WAITING;
 			}
 		} 
 		if(attack == SPECIAL)
@@ -89,7 +89,7 @@ void Fighter::fight(std::shared_ptr<Fighter> target, Attack attack)
 				damage = 60;
 				target->damageCompute(damage);
 				mana -=70;
-				status = WAITING;
+				//status = WAITING;
 			}else{
 				cout << "not enough mana for special attack. Peease recharge! ;) "<<endl; 
 				status = WAITING;

@@ -70,7 +70,7 @@ void AttackCommand::execute (state::State& state){
 
         target->setHealthPoints(target->getHealthPoints());
 
-        attacker->setStatus(WAITING);
+        //attacker->setStatus(WAITING);
 
 
          if(target->getHealthPoints()==0){

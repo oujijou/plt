@@ -49,7 +49,7 @@ bool State::initPlayers(){
     //pointers are life!!!  <3 :) 03/12/2019
     //Player 1
     shared_ptr<Player> ptrPlayer1(new Player(1));
-    shared_ptr<Fighter> ptrFighter(new Fighter(Thork, ptrPlayer1->getID(), AVAILABLE,100, 100, 50,0, COUPDEPOING,200));
+    shared_ptr<Fighter> ptrFighter(new Fighter(Thork, ptrPlayer1->getID(), AVAILABLE,100, 100, 50,0, COUPDEPOING,100));
     ptrPlayer1->setFighter(ptrFighter);
 
     playerList.push_back(ptrPlayer1);
