@@ -33,7 +33,7 @@ void StateLayer::draw()
     //about the Font ...
     sf::Event event;
     sf::Font font;
-    if(!font.loadFromFile("/home/ensea/plt/res/Fonts/FontFile.ttf"))
+    if(!font.loadFromFile("../res/Fonts/FontFile.ttf"))
     {
         std::cout << "Load Failed" << std::endl;
         system("Pause");
@@ -50,7 +50,7 @@ void StateLayer::draw()
     text2.setPosition(530.f,0.f);
     
     // sf::Texture hpBarTexture;
-    // if(!hpBarTexture.loadFromFile("/home/ensea/plt/res/redBg.jpg",sf::IntRect(0,0,100,10)))
+    // if(!hpBarTexture.loadFromFile("../res/redBg.jpg",sf::IntRect(0,0,100,10)))
     // {
     //     std::cout << "Load Failed" << std::endl;
     //     system("Pause");

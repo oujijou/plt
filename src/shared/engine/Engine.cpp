@@ -43,8 +43,6 @@ void Engine::update()
 		//cout << "execution done" << endl;
 		currentState.notifyObservers(stateEvent, currentState); // Notify the state which will notify render
 		cout << "\n" <<endl;
-		sleep(2);
-		
 	}
 
     // Erase all the commands which were executed

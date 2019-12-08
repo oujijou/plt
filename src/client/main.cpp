@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
     int row = 1;
     int frameCounter = 0;
 
-    if (!arena.loadFromFile("/home/ensea/plt/res/Terrains/seku_terrain.png"))
+    if (!arena.loadFromFile("../res/Terrains/seku_terrain.png"))
     {
         std::cout << "Load Failed" << std::endl;
         system("Pause");
@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
     //display fighter1
     sf::Texture spriteSheet;
     //sf:: IntRect rectSourceSprite(0,100,100,100);
-    if (!spriteSheet.loadFromFile("/home/ensea/plt/res/Fighters/Kuro.png")) //,rectSourceSprite));
+    if (!spriteSheet.loadFromFile("../res/Fighters/Kuro.png")) //,rectSourceSprite));
     {
         std::cout << "Load Failed" << std::endl;
         system("Pause");
@@ -53,7 +53,7 @@ int main(int argc, char *argv[])
     //display fighter2
     sf::Texture spriteSheet2;
     sf::IntRect rectSourceSprite1(0, 0, 100, 100);
-    if (!spriteSheet2.loadFromFile("/home/ensea/plt/res/Fighters/Flint.png", rectSourceSprite1))
+    if (!spriteSheet2.loadFromFile("../res/Fighters/Flint.png", rectSourceSprite1))
     {
         std::cout << "Load Failed" << std::endl;
         system("Pause");
@@ -90,7 +90,7 @@ int main(int argc, char *argv[])
 
                 sf::Event event;
                 sf::Font font;
-                if (!font.loadFromFile("/home/ensea/plt/res/Fonts/FontFile.ttf"))
+                if (!font.loadFromFile("../res/Fonts/FontFile.ttf"))
                 {
                     return false;
                 }
@@ -106,7 +106,7 @@ int main(int argc, char *argv[])
                 text2.setPosition(530.f, 0.f);
 
                 sf::Texture hpBarTexture;
-                if (!hpBarTexture.loadFromFile("/home/ensea/plt/res/redBg.jpg", sf::IntRect(0, 0, 100, 10)))
+                if (!hpBarTexture.loadFromFile("../res/redBg.jpg", sf::IntRect(0, 0, 100, 10)))
                 {
                     return false;
                 }
@@ -232,7 +232,7 @@ int main(int argc, char *argv[])
                 // Close the window if the close button is pressed
                 sf::Event event;
                 sf::Font font;
-                if (!font.loadFromFile("/home/ensea/plt/res/Fonts/FontFile.ttf"))
+                if (!font.loadFromFile("../res/Fonts/FontFile.ttf"))
                 {
                     return false;
                 }
@@ -248,7 +248,7 @@ int main(int argc, char *argv[])
                 text2.setPosition(530.f, 0.f);
 
                 sf::Texture hpBarTexture;
-                if (!hpBarTexture.loadFromFile("/home/ensea/plt/res/redBg.jpg", sf::IntRect(0, 0, 100, 10)))
+                if (!hpBarTexture.loadFromFile("../res/redBg.jpg", sf::IntRect(0, 0, 100, 10)))
                 {
                     return false;
                 }
@@ -337,7 +337,6 @@ int main(int argc, char *argv[])
             while (window.isOpen()) {
                 handleInputs(window,engine);
             }
-
             
         }else if (strcmp(argv[1], "random_ai") == 0)
         {    
@@ -375,6 +374,12 @@ int main(int argc, char *argv[])
            
            
             while (window.isOpen()) {
+                if (engine->turnOperation >= 3)
+                {
+                    // If the player / IA already made 3 operations, switch turns.
+                    engine->turnOperation = 0;
+                    iaTurn = !iaTurn;
+                }
                 if(!iaTurn){
                     // Manage user inputs
                     handleInputs(window,engine);
@@ -383,65 +388,15 @@ int main(int argc, char *argv[])
                     cout << "run ai" << endl;
                     RandomAI randomAi(0); //AiID == 0
                     randomAi.run(engine);
-                    iaTurn =false;
+                    engine->turnOperation ++;
                 }
             }
                 
-        }else if(strcmp(argv[1], "heuristic_ai") == 0)
-        {
-            cout << "--------------------heuristic_ai-------------------" << endl;
-            sf::RenderWindow window(sf::VideoMode(640, 384), "Fighter Zone");
-
-
-            std::shared_ptr<Engine> engine = make_shared<Engine>();
-
-            engine->getState().setTerrain(SekuTerrain);
-            engine->getState().initPlayers(); //getting the state by using engine
-            engine->getState().setRound(1);
-
-            
-            //Client Side (Render)
-            StateLayer stateLayer(window, engine->getState());
-            engine->getState().registerObserver(&stateLayer);
-            
-            TextureManager *textureManager = textureManager->getInstance();
-            if (textureManager->load())
-            {
-                cout << "texuture manager ok!\n" << endl;
-            }
-            else
-            {
-                cout << "texuture manager loading failed!" << endl;
-                return EXIT_FAILURE;
-            }
-            stateLayer.draw();
-
-            cout << " User plays first" << endl;
-            cout << "Use the following rules to play." << endl;
-            cout << "A : Attack, R: Recharge mana, D: Defend" << endl;
-            cout << "Press T : Turn Over, IA plays" << endl;
-           
-           
-            while (window.isOpen()) {
-                if(!iaTurn){
-                    // Manage user inputs
-                    handleInputs(window,engine);
-                    
-                } else {
-                    cout << "run ai" << endl;
-                    HeuristicAI heuristicAi(0); //AiID == 0
-                    heuristicAi.run(engine);
-                    iaTurn =false;
-                }
-            }
         }
-
-
-        
     }
 }
 
-void handleInputs(sf::RenderWindow &window,  std::shared_ptr<Engine> engine){
+void handleInputs(sf::RenderWindow &window, std::shared_ptr<Engine> engine){
     sf::Event event{};
     while (window.pollEvent(event))
     {
@@ -451,6 +406,8 @@ void handleInputs(sf::RenderWindow &window,  std::shared_ptr<Engine> engine){
                 window.close();
                 break;
             case sf::Event::KeyPressed:
+                if (iaTurn)
+                    break;
                 if (event.key.code == sf::Keyboard::T)
                 {
                     std::cout << "the T key was pressed, next player!" << std::endl;
@@ -458,10 +415,11 @@ void handleInputs(sf::RenderWindow &window,  std::shared_ptr<Engine> engine){
                     unique_ptr<Command> ptr_change (new ChangeRound(changeRound));
                     engine->addCommand(0, move(ptr_change));
                     engine->update();
-                    iaTurn = true;
+                    engine->turnOperation = 3;
                 }
                 if(event.key.code == sf::Keyboard::A )
                 {
+                    engine->turnOperation ++;
                     if(engine->getState().getCurrentPlayerID()== 0)
                     {
                         std::cout << "Attack is coming for player 0" << std::endl;
@@ -484,6 +442,7 @@ void handleInputs(sf::RenderWindow &window,  std::shared_ptr<Engine> engine){
                 }
                 if(event.key.code == sf::Keyboard::R)
                 {
+                    engine->turnOperation ++;
                     if(engine->getState().getCurrentPlayerID()== 0)
                     {
                         std::cout << "recharging is coming for player 0" << std::endl;
@@ -507,6 +466,7 @@ void handleInputs(sf::RenderWindow &window,  std::shared_ptr<Engine> engine){
                 }
                 if(event.key.code == sf::Keyboard::D)
                 {
+                    engine->turnOperation ++;
                     if(engine->getState().getCurrentPlayerID()== 0)
                     {
                         std::cout << "Defense is coming for player 0" << std::endl;

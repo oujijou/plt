@@ -17,7 +17,7 @@ RandomAI::RandomAI (int AiID){
 
 void RandomAI::run(std::shared_ptr<engine::Engine> engine)
 {
-   if(engine->getState().getCurrentPlayerID()== ArtificialId)
+   //if(engine->getState().getCurrentPlayerID()== ArtificialId)
    {
       int randomAction;
       while (engine->getState().getPlayerList()[ArtificialId]->getFighter()->getStatus()!=DEAD)
@@ -25,9 +25,9 @@ void RandomAI::run(std::shared_ptr<engine::Engine> engine)
          engine->getState().getPlayerList()[ArtificialId]->getFighter()->setStatus(WAITING);
 
          // initialize random seed:
-         srand(time(NULL)); 
+         srand(time(NULL) + engine->turnOperation); 
          randomAction = rand()%3;
-         //cout << "random action is " <<randomAction << endl;
+         cout << "random action is " <<randomAction << endl;
          
          int waitingTime = 3;
          Player ennemy;
@@ -48,7 +48,6 @@ void RandomAI::run(std::shared_ptr<engine::Engine> engine)
             
             engine->update();
             // cout << "\n" <<endl;
-            sleep(waitingTime);
             break;
 
 
@@ -65,7 +64,6 @@ void RandomAI::run(std::shared_ptr<engine::Engine> engine)
             engine->addCommand(1, move(ptr_change));
             engine->update();
             //cout << "\n" <<endl;
-            sleep(waitingTime);
             break;
          }
          else{ //Recharging
@@ -80,7 +78,6 @@ void RandomAI::run(std::shared_ptr<engine::Engine> engine)
             engine->addCommand(1, move(ptr_change));
 
             engine->update();
-            sleep(waitingTime);
             break;
          }
       }
