@@ -338,9 +338,9 @@ int main(int argc, char *argv[])
                 handleInputs(window,engine);
             }
             
-        }else if (strcmp(argv[1], "random_ai") == 0)
+        }else if (strcmp(argv[1], "random_ai") == 0 || strcmp(argv[1], "heuristic_ai") == 0)
         {    
-            cout << "--------------------random ai-------------------" << endl;
+            cout << "--------------------random / heuristic ai-------------------" << endl;
             sf::RenderWindow window(sf::VideoMode(640, 384), "Fighter Zone");
 
 
@@ -379,6 +379,7 @@ int main(int argc, char *argv[])
                     // If the player / IA already made 3 operations, switch turns.
                     engine->turnOperation = 0;
                     iaTurn = !iaTurn;
+                    std::cout << "END OF TURN" << std::endl;
                 }
                 if(!iaTurn){
                     // Manage user inputs
@@ -386,8 +387,16 @@ int main(int argc, char *argv[])
                     
                 } else {
                     cout << "run ai" << endl;
-                    RandomAI randomAi(0); //AiID == 0
-                    randomAi.run(engine);
+                    if (strcmp(argv[1], "random_ai") == 0)
+                    {
+                        RandomAI randomAi(0); //AiID == 0
+                        randomAi.run(engine);
+                    }
+                    else if (strcmp(argv[1], "heuristic_ai") == 0)
+                    {
+                        HeuristicAI heuristicAi(0); //AiID == 0
+                        heuristicAi.run(engine);
+                    }
                     engine->turnOperation ++;
                 }
             }

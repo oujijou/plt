@@ -31,6 +31,11 @@ void Engine::addCommand(int priority, std::unique_ptr<Command> ptr_cmd)
 
 void Engine::update()
 {
+	if (checkGameEnd())
+	{
+		std::cout << "ENDING GAME !" << std::endl;
+		exit(1);
+	}
     StateEvent stateEvent(FIGHTERCHANGED);
     //cout << "stateEvent ok"<< endl;
 
@@ -51,7 +56,7 @@ void Engine::update()
 }
 
 bool Engine::checkGameEnd(){
-	bool gameEnd = true;
+	bool gameEnd = false;
 
 	// For each player
 	for (unsigned int i = 0; i < currentState.getPlayerList().size(); i++){
@@ -60,7 +65,7 @@ bool Engine::checkGameEnd(){
 			if(currentState.getPlayerList()[i]->getFighter()->getStatus()==DEAD){
 
 				cout<<"The player "<< currentState.getPlayerList()[i]->getPlayerName()<<" lost the game!!!"<<endl;
-				gameEnd=false;
+				gameEnd=true;
 			}
 	}
 	return gameEnd;

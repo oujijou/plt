@@ -1,3 +1,4 @@
 Added changes :
 
 Engine.h : turnOperation, indicates the current player / IA operation. If this number reaches 3, the turn changes.
+DefenseCommand.cpp : Defense command now also regens some HP.

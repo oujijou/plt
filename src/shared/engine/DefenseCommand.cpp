@@ -21,8 +21,8 @@ void DefenseCommand::execute(state::State &state)
 
     if(isDefending->getStatus() != DEAD)
     {
-        //cout << "Defense is coming!!" << endl;
-        isDefending->defend();
+        //isDefending->defend();
+        isDefending->setHealthPoints(std::min(isDefending->getHealthPointsMax(), isDefending->getHealthPoints() + 5));
 
         string defenderName = "";
         switch(isDefending->getName())

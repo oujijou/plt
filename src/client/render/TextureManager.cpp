@@ -61,7 +61,7 @@ TileSet* TextureManager::getTileBackground (state::Terrain bg)
 
 TileSet* TextureManager::getTileHealthBar(int healthPoints)
 {
-	return tiles_healthbar.at(healthPoints).get();
+	return tiles_healthbar.at(100).get();
 }
 
 
