@@ -91,7 +91,7 @@ void Fighter::fight(std::shared_ptr<Fighter> target, Attack attack)
 				mana -=70;
 				//status = WAITING;
 			}else{
-				cout << "not enough mana for special attack. Peease recharge! ;) "<<endl; 
+				cout << "not enough mana for special attack. Please recharge! ;) "<<endl; 
 				status = WAITING;
 			}
 		}
@@ -173,7 +173,6 @@ void Fighter::fight(std::shared_ptr<Fighter> target, Attack attack)
 
 	void Fighter::recharge()
 	{
-		status = RECHARGE;
 		mana += 20;
 		if(mana>manaMax) mana = manaMax;
 	}
@@ -183,4 +182,21 @@ void Fighter::fight(std::shared_ptr<Fighter> target, Attack attack)
 		status = DEFENSE;
 	}
 	
+}
+
+std::shared_ptr<state::Fighter> state::Fighter::copy()
+{
+	std::shared_ptr<Fighter> result = std::make_shared<Fighter>();
+	result->status = status;
+	result->x = x;
+	result->y = y;
+	result->name = name;
+	result->status = status;
+	result->healthPointsMax = healthPointsMax;
+	result->healthPoints = healthPoints;
+	result->manaMax = manaMax;
+	result->mana = mana;
+	result->combo = combo;
+	result->attack = attack;
+	return result;
 }

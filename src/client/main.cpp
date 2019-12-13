@@ -338,9 +338,9 @@ int main(int argc, char *argv[])
                 handleInputs(window,engine);
             }
             
-        }else if (strcmp(argv[1], "random_ai") == 0 || strcmp(argv[1], "heuristic_ai") == 0)
+        }else if (strcmp(argv[1], "random_ai") == 0 || strcmp(argv[1], "heuristic_ai") == 0 || strcmp(argv[1], "deep_ai") == 0)
         {    
-            cout << "--------------------random / heuristic ai-------------------" << endl;
+            cout << "--------------------random / heuristic / deep ai-------------------" << endl;
             sf::RenderWindow window(sf::VideoMode(640, 384), "Fighter Zone");
 
 
@@ -386,18 +386,24 @@ int main(int argc, char *argv[])
                     handleInputs(window,engine);
                     
                 } else {
-                    cout << "run ai" << endl;
                     if (strcmp(argv[1], "random_ai") == 0)
                     {
                         RandomAI randomAi(0); //AiID == 0
                         randomAi.run(engine);
+                        engine->turnOperation ++;
                     }
                     else if (strcmp(argv[1], "heuristic_ai") == 0)
                     {
                         HeuristicAI heuristicAi(0); //AiID == 0
                         heuristicAi.run(engine);
+                        engine->turnOperation ++;
                     }
-                    engine->turnOperation ++;
+                    else if (strcmp(argv[1], "deep_ai") == 0)
+                    {
+                        DeepAI deepAI(0); //AiID == 0
+                        deepAI.run(engine);
+                        engine->turnOperation += 3;
+                    }
                 }
             }
                 
@@ -419,83 +425,42 @@ void handleInputs(sf::RenderWindow &window, std::shared_ptr<Engine> engine){
                     break;
                 if (event.key.code == sf::Keyboard::T)
                 {
-                    std::cout << "the T key was pressed, next player!" << std::endl;
-                    ChangeRound changeRound(engine->getState().getPlayerList()[0]->getFighter());
-                    unique_ptr<Command> ptr_change (new ChangeRound(changeRound));
-                    engine->addCommand(0, move(ptr_change));
-                    engine->update();
                     engine->turnOperation = 3;
                 }
                 if(event.key.code == sf::Keyboard::A )
                 {
                     engine->turnOperation ++;
-                    if(engine->getState().getCurrentPlayerID()== 0)
-                    {
-                        std::cout << "Attack is coming for player 0" << std::endl;
-                        AttackCommand attackCommand(engine->getState().getPlayerList()[0]->getFighter(), 
-                                                    engine->getState().getPlayerList()[1]->getFighter());
-                        unique_ptr<Command> ptr_attack (new AttackCommand(attackCommand));
-                        engine->addCommand(0, move(ptr_attack));
-
-                        engine->update();
-                    }else if (engine->getState().getCurrentPlayerID()== 1)
-                    {
-                        std::cout << "Attack is coming for player 1" << std::endl;
-                        AttackCommand attackCommand(engine->getState().getPlayerList()[1]->getFighter(), 
-                                                    engine->getState().getPlayerList()[0]->getFighter());
-                        unique_ptr<Command> ptr_attack (new AttackCommand(attackCommand));
-                        engine->addCommand(0, move(ptr_attack));
-
-                        engine->update();
-                    }
+                    if (engine->realEngine)
+                    std::cout << "Attack is coming for player 0" << std::endl;
+                    AttackCommand attackCommand(engine->getState().getPlayerList()[1]->getFighter(), 
+                                                engine->getState().getPlayerList()[0]->getFighter());
+                    unique_ptr<Command> ptr_attack (new AttackCommand(attackCommand));
+                    engine->addCommand(0, move(ptr_attack));
+                    engine->update();
                 }
                 if(event.key.code == sf::Keyboard::R)
                 {
                     engine->turnOperation ++;
-                    if(engine->getState().getCurrentPlayerID()== 0)
-                    {
-                        std::cout << "recharging is coming for player 0" << std::endl;
-                        RechargeCommand rechargeCommand(engine->getState().getPlayerList()[engine->getState().getCurrentPlayerID()]
+                    if (engine->realEngine)
+                    std::cout << "recharging is coming for player 1" << std::endl;
+                    RechargeCommand rechargeCommand(engine->getState().getPlayerList()[1]
                                                         ->getFighter());
-                        unique_ptr<Command> ptr_recharge (new RechargeCommand(rechargeCommand));
-                        engine->addCommand(0, move(ptr_recharge));
+                    unique_ptr<Command> ptr_recharge (new RechargeCommand(rechargeCommand));
+                    engine->addCommand(0, move(ptr_recharge));
 
-                        engine->update();
-                    }else if (engine->getState().getCurrentPlayerID()== 1)
-                    {
-                       std::cout << "recharging is coming for player 1" << std::endl;
-                        RechargeCommand rechargeCommand(engine->getState().getPlayerList()[engine->getState().getCurrentPlayerID()]
-                                                        ->getFighter());
-                        unique_ptr<Command> ptr_recharge (new RechargeCommand(rechargeCommand));
-                        engine->addCommand(0, move(ptr_recharge));
-
-                        engine->update();
-                    
-                    }
+                    engine->update();
                 }
                 if(event.key.code == sf::Keyboard::D)
                 {
                     engine->turnOperation ++;
-                    if(engine->getState().getCurrentPlayerID()== 0)
-                    {
-                        std::cout << "Defense is coming for player 0" << std::endl;
-                        DefenseCommand defenseCommand(engine->getState().getPlayerList()[engine->getState().getCurrentPlayerID()]
+                    if (engine->realEngine)
+                    std::cout << "Defense is coming for player 1 " << std::endl;
+                    DefenseCommand defenseCommand(engine->getState().getPlayerList()[1]
                                                         ->getFighter());
-                        unique_ptr<Command> ptr_defense (new DefenseCommand(defenseCommand));
-                        engine->addCommand(0, move(ptr_defense));
+                    unique_ptr<Command> ptr_defense (new DefenseCommand(defenseCommand));
+                    engine->addCommand(0, move(ptr_defense));
 
-                        engine->update();
-                    }else if (engine->getState().getCurrentPlayerID()== 1)
-                    {
-                        std::cout << "Defense is coming for player 1 " << std::endl;
-                        DefenseCommand defenseCommand(engine->getState().getPlayerList()[engine->getState().getCurrentPlayerID()]
-                                                        ->getFighter());
-                        unique_ptr<Command> ptr_defense (new DefenseCommand(defenseCommand));
-                        engine->addCommand(0, move(ptr_defense));
-
-                        engine->update();
-                    }
-                    
+                    engine->update();
                 }
             default:
             break;

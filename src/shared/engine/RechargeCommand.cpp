@@ -47,8 +47,6 @@ void RechargeCommand::execute (state::State& state){
 
         cout<<"This fighter had "<<oldMana <<" mana points"<<endl;
         cout<<"this fighter has now "<<fighter->getMana()<<" mana points."<<endl;
-
-        fighter->setHealthPoints(fighter->getMana());
         //fighter->setStatus(WAITING);
 
     }

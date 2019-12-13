@@ -68,7 +68,7 @@ void AttackCommand::execute (state::State& state){
         cout<< targetName << " had "<<oldTargetHealth<<" health points."<<endl;
         cout<< targetName<< " has " << target->getHealthPoints() <<" health points now."<<endl;
 
-        target->setHealthPoints(target->getHealthPoints());
+        //target->setHealthPoints(target->getHealthPoints());
 
         //attacker->setStatus(WAITING);
 

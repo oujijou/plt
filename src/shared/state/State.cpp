@@ -88,3 +88,14 @@ State::~State(){
     
 }
 
+State State::copy()
+{
+    State result = State(*this);
+    result.playerList.clear();
+    for (auto& p : playerList)
+    {
+        result.playerList.push_back(p->copy());
+    }
+
+    return result;
+}

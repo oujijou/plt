@@ -11,6 +11,8 @@ using namespace std;
 using namespace render;
 using namespace state;
 
+bool StateLayer::realEngine = true;
+
 
 StateLayer::StateLayer(sf::RenderWindow& window, const state::State& state): window(window)
 {   
@@ -19,6 +21,10 @@ StateLayer::StateLayer(sf::RenderWindow& window, const state::State& state): win
 
 void StateLayer::draw()
 {
+    if (!StateLayer::realEngine)
+    {
+        return;
+    }
     //cout << "enter in draw from statelayer" << endl;
     window.clear();
 

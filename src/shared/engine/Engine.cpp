@@ -3,6 +3,7 @@
 #include <iostream>
 #include <unistd.h>
 #include "../state.h"
+#include "../../client/render/StateLayer.h"
 
 using namespace std;
 using namespace engine;
@@ -31,10 +32,10 @@ void Engine::addCommand(int priority, std::unique_ptr<Command> ptr_cmd)
 
 void Engine::update()
 {
-	if (checkGameEnd())
+	if (checkGameEnd() && realEngine)
 	{
 		std::cout << "ENDING GAME !" << std::endl;
-		exit(1);
+		exit(0);
 	}
     StateEvent stateEvent(FIGHTERCHANGED);
     //cout << "stateEvent ok"<< endl;
@@ -46,6 +47,7 @@ void Engine::update()
 		//cout << "inside loop" << endl;
 		currentCommands[i]->execute(currentState);
 		//cout << "execution done" << endl;
+		render::StateLayer::realEngine = realEngine;
 		currentState.notifyObservers(stateEvent, currentState); // Notify the state which will notify render
 		cout << "\n" <<endl;
 	}
@@ -73,6 +75,7 @@ bool Engine::checkGameEnd(){
 
 void Engine::screenRefresh(){
 	StateEvent stateEvent(PLAYERCHANGED);
+	if (realEngine)
 	currentState.notifyObservers(stateEvent, currentState); // Notify the state which will notify render
 }
 
@@ -133,4 +136,14 @@ void Engine::checkRoundStart(){
 void Engine::runCommands()
 {
 
+}
+
+std::shared_ptr<Engine> Engine::copy()
+{
+	std::shared_ptr<Engine> result = std::make_shared<Engine>();
+	result->currentState = currentState.copy();
+	result->turnOperation = turnOperation;
+	result->stop = stop;
+	result->turnOperation = turnOperation;
+	return result;
 }
