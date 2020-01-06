@@ -13,7 +13,7 @@ using namespace std;
 //Contructor
 AttackCommand::AttackCommand (std::shared_ptr<Fighter> attacker, std::shared_ptr<Fighter> target):attacker(attacker),target(target)
 {
-
+    type = "attack";
 }
 
 //Functions
@@ -101,4 +101,9 @@ void AttackCommand::execute (state::State& state){
         usleep(waitingTime);
     }
    
+}
+
+std::string AttackCommand::toJSON()
+{
+    return (std::string("\"command\":{\n\"attacker\":") + std::to_string((int) attacker->getName())) + ",\n\"targed\":" + std::to_string((int) target->getName()) + "\n}";
 }

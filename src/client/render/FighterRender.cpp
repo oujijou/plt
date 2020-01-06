@@ -10,7 +10,8 @@ using namespace state;
 
 
 void FighterRender::draw(sf::RenderWindow &window, float drawPositionX, float drawPositionY, std::shared_ptr<state::Player> player, int id)
-{   
+{
+    cout << "ok" << endl;
     //cout << "entry 1" << endl;
     TextureManager *instance = TextureManager::getInstance(); //recupère une instance de TextureManager
     // on recupère le tilefighter

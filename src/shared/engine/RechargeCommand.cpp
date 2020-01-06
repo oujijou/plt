@@ -13,7 +13,7 @@ using namespace std;
 
 RechargeCommand::RechargeCommand (std::shared_ptr<Fighter> fighter):fighter(fighter)
 {
-
+    type = "recharge";
 }
 //Functions
 void RechargeCommand::execute (state::State& state){
@@ -53,4 +53,9 @@ void RechargeCommand::execute (state::State& state){
     else if(fighter->getStatus()==DEAD){
         cout<<"Already dead!"<<endl;
     }
+}
+
+std::string RechargeCommand::toJSON()
+{
+    return "";
 }

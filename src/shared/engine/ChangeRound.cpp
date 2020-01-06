@@ -10,7 +10,7 @@ using namespace state;
 
 ChangeRound::ChangeRound(std::shared_ptr<Fighter> currentFighter):currentFighter(currentFighter)
 {
-
+    type = "change";
 }
 
 void ChangeRound::execute(State& state)
@@ -53,4 +53,9 @@ void ChangeRound::execute(State& state)
 	// 	cout <<  fighterName << " has already finished his round.\n" <<endl;
     //     usleep(waitingTime);
 	// }
+}
+
+std::string ChangeRound::toJSON()
+{
+    return "";
 }

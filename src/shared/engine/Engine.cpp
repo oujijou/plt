@@ -28,6 +28,10 @@ State& Engine::getState()
 void Engine::addCommand(int priority, std::unique_ptr<Command> ptr_cmd)
 {
     currentCommands[priority] = move(ptr_cmd);
+	if (dumpJSONCommands)
+	{
+		cout << jsonCommands.toJSON(ptr_cmd) << endl;
+	}
 }
 
 void Engine::update()

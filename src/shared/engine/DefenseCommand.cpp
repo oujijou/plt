@@ -13,7 +13,7 @@ using namespace state;
 
 DefenseCommand::DefenseCommand(std::shared_ptr<Fighter> isDefending) : isDefending(isDefending)
 {
-    
+    type = "defense";
 }
 //Functions
 void DefenseCommand::execute(state::State &state)
@@ -65,4 +65,9 @@ void DefenseCommand::execute(state::State &state)
         cout<<"Already dead!"<<endl;
     }
     
+}
+
+std::string DefenseCommand::toJSON()
+{
+    return "";
 }

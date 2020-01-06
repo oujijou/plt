@@ -329,7 +329,7 @@ int main(int argc, char *argv[])
                 return EXIT_FAILURE;
             }
 
-            // //registering statelayer to observer
+            //registering statelayer to observer
             StateLayer stateLayer(window, engine->getState());
             engine->getState().registerObserver(&stateLayer);
 
@@ -381,32 +381,208 @@ int main(int argc, char *argv[])
                     iaTurn = !iaTurn;
                     std::cout << "END OF TURN" << std::endl;
                 }
-                if(!iaTurn){
+                if(!iaTurn)
+                {
                     // Manage user inputs
-                    handleInputs(window,engine);
-                    
+                    handleInputs(window,engine); 
                 } else {
                     if (strcmp(argv[1], "random_ai") == 0)
                     {
                         RandomAI randomAi(0); //AiID == 0
+                        randomAi.aiID = 0;
+                        randomAi.plID = 1;
                         randomAi.run(engine);
                         engine->turnOperation ++;
                     }
                     else if (strcmp(argv[1], "heuristic_ai") == 0)
                     {
                         HeuristicAI heuristicAi(0); //AiID == 0
+                        heuristicAi.aiID = 0;
+                        heuristicAi.plID = 1;
                         heuristicAi.run(engine);
                         engine->turnOperation ++;
                     }
                     else if (strcmp(argv[1], "deep_ai") == 0)
                     {
                         DeepAI deepAI(0); //AiID == 0
+                        deepAI.aiID = 0;
+                        deepAI.plID = 1;
                         deepAI.run(engine);
                         engine->turnOperation += 3;
                     }
+                    sf::sleep(sf::milliseconds(1000 / 60));
                 }
+                engine->update();
             }
                 
+        }else if(strcmp(argv[1], "threads") == 0)
+        {
+            bool engineInit = false;
+            bool engineWaiting = false;
+            sf::RenderWindow window(sf::VideoMode(640, 384), "Fighter Zone");
+            std::shared_ptr<Engine> engine = make_shared<Engine>();
+            auto engineThreadFunction = [&]()
+            {
+                engine->getState().setTerrain(SekuTerrain);
+                engine->getState().initPlayers(); //getting the state by using engine
+                engine->getState().setRound(1);
+                
+                cout << "Engine OK" << endl;
+                engineInit = true;
+                
+                while (window.isOpen())
+                {
+                    while (engineWaiting)
+                    {
+
+                    }
+                    engine->update();
+                }
+            };
+
+            sf::Thread  engineThread(engineThreadFunction);
+            engineThread.launch();
+
+            while (!engineInit)
+            {
+                cout << "Waiting for engine initialization..." << endl;
+            }
+
+            cout << "Thread OK" << endl;
+
+            //Client Side (Render)
+            StateLayer stateLayer(window, engine->getState());
+            engine->getState().registerObserver(&stateLayer);
+            
+            TextureManager *textureManager = textureManager->getInstance();
+            if (textureManager->load())
+            {
+                cout << "texture manager ok!\n" << endl;
+            }
+            else
+            {
+                cout << "texuture manager loading failed!" << endl;
+                return EXIT_FAILURE;
+            }
+            
+            stateLayer.draw();
+
+            engineWaiting = true;
+            while (window.isOpen())
+            {
+                if (engine->turnOperation >= 3)
+                {
+                    // If the player / IA already made 3 operations, switch turns.
+                    engine->turnOperation = 0;
+                    iaTurn = !iaTurn;
+                    std::cout << "END OF TURN" << std::endl;
+                }
+                if(!iaTurn)
+                {
+                    DeepAI deepAI(1);
+                    deepAI.aiID = 1;
+                    deepAI.plID = 0;
+                    deepAI.run(engine);
+                    engine->turnOperation += 3;
+                    engineWaiting = false;
+                    sf::sleep(sf::milliseconds(1000));
+                    engineWaiting = true;
+                } else {
+                    DeepAI deepAI(0);
+                    deepAI.aiID = 0;
+                    deepAI.plID = 1;
+                    deepAI.run(engine);
+                    engine->turnOperation += 3;
+                    engineWaiting = false;
+                    sf::sleep(sf::milliseconds(1000));
+                    engineWaiting = true;
+                }
+            }
+        }
+        else if(strcmp(argv[1], "record") == 0)
+        {
+            bool engineInit = false;
+            bool engineWaiting = false;
+            sf::RenderWindow window(sf::VideoMode(640, 384), "Fighter Zone");
+            std::shared_ptr<Engine> engine = make_shared<Engine>();
+            auto engineThreadFunction = [&]()
+            {
+                engine->getState().setTerrain(SekuTerrain);
+                engine->getState().initPlayers(); //getting the state by using engine
+                engine->getState().setRound(1);
+                engine->dumpJSONCommands = true;
+                
+                cout << "Engine OK" << endl;
+                engineInit = true;
+                
+                while (window.isOpen())
+                {
+                    while (engineWaiting)
+                    {
+
+                    }
+                    engine->update();
+                }
+            };
+
+            sf::Thread  engineThread(engineThreadFunction);
+            engineThread.launch();
+
+            while (!engineInit)
+            {
+                cout << "Waiting for engine initialization..." << endl;
+            }
+
+            cout << "Thread OK" << endl;
+
+            //Client Side (Render)
+            StateLayer stateLayer(window, engine->getState());
+            engine->getState().registerObserver(&stateLayer);
+            
+            TextureManager *textureManager = textureManager->getInstance();
+            if (textureManager->load())
+            {
+                cout << "texture manager ok!\n" << endl;
+            }
+            else
+            {
+                cout << "texuture manager loading failed!" << endl;
+                return EXIT_FAILURE;
+            }
+            
+            stateLayer.draw();
+
+            engineWaiting = true;
+            while (window.isOpen())
+            {
+                if (engine->turnOperation >= 3)
+                {
+                    // If the player / IA already made 3 operations, switch turns.
+                    engine->turnOperation = 0;
+                    iaTurn = !iaTurn;
+                    std::cout << "END OF TURN" << std::endl;
+                }
+                if(!iaTurn)
+                {
+                    DeepAI deepAI(1);
+                    deepAI.aiID = 1;
+                    deepAI.plID = 0;
+                    deepAI.run(engine);
+                    engine->turnOperation += 3;
+                    engineWaiting = false;
+                    sf::sleep(sf::milliseconds(1000));
+                    engineWaiting = true;
+                } else {
+                    DeepAI deepAI(0);
+                    deepAI.aiID = 0;
+                    deepAI.plID = 1;
+                    deepAI.run(engine);
+                    engine->turnOperation += 3;
+                    engineWaiting = false;
+                    sf::sleep(sf::milliseconds(1000));
+                    engineWaiting = true;
+                }
+            }
         }
     }
 }

@@ -59,7 +59,7 @@ float evaluateSituation(std::shared_ptr<engine::Engine> engine, int aiPlayer, in
     return score;
 }
 
-comb getChoiceComb(std::shared_ptr<engine::Engine> engine, int deepness)
+comb getChoiceComb(std::shared_ptr<engine::Engine> engine, int deepness, int aiID, int plID)
 {
     // Calculate every possible combination for the AI
     bool firstRunB = true;
@@ -75,37 +75,37 @@ comb getChoiceComb(std::shared_ptr<engine::Engine> engine, int deepness)
                 switch (a)
                 {
                 case 0:
-                    attack(engineCopy, 0, 1);
+                    attack(engineCopy, aiID, plID);
                     break;
                 case 1:
-                    defend(engineCopy, 0);
+                    defend(engineCopy, aiID);
                     break;
                 case 2:
-                    recharge(engineCopy, 0);
+                    recharge(engineCopy, aiID);
                     break;
                 }
                 switch (b)
                 {
                 case 0:
-                    attack(engineCopy, 0, 1);
+                    attack(engineCopy, aiID, plID);
                     break;
                 case 1:
-                    defend(engineCopy, 0);
+                    defend(engineCopy, aiID);
                     break;
                 case 2:
-                    recharge(engineCopy, 0);
+                    recharge(engineCopy, aiID);
                     break;
                 }
                 switch (c)
                 {
                 case 0:
-                    attack(engineCopy, 0, 1);
+                    attack(engineCopy, aiID, plID);
                     break;
                 case 1:
-                    defend(engineCopy, 0);
+                    defend(engineCopy, aiID);
                     break;
                 case 2:
-                    recharge(engineCopy, 0);
+                    recharge(engineCopy, aiID);
                     break;
                 }
 
@@ -123,50 +123,50 @@ comb getChoiceComb(std::shared_ptr<engine::Engine> engine, int deepness)
                             switch (a)
                             {
                             case 0:
-                                attack(engineCopy, 1, 0);
+                                attack(engineCopy, plID, aiID);
                                 break;
                             case 1:
-                                defend(engineCopy, 1);
+                                defend(engineCopy, plID);
                                 break;
                             case 2:
-                                recharge(engineCopy, 1);
+                                recharge(engineCopy, plID);
                                 break;
                             }
                             switch (b)
                             {
                             case 0:
-                                attack(engineCopy, 1, 0);
+                                attack(engineCopy, plID, aiID);
                                 break;
                             case 1:
-                                defend(engineCopy, 1);
+                                defend(engineCopy, plID);
                                 break;
                             case 2:
-                                recharge(engineCopy, 1);
+                                recharge(engineCopy, plID);
                                 break;
                             }
                             switch (c)
                             {
                             case 0:
-                                attack(engineCopy, 1, 0);
+                                attack(engineCopy, plID, aiID);
                                 break;
                             case 1:
-                                defend(engineCopy, 1);
+                                defend(engineCopy, plID);
                                 break;
                             case 2:
-                                recharge(engineCopy, 1);
+                                recharge(engineCopy, plID);
                                 break;
                             }
                             
-                            if (evaluateSituation(engineCopy2, 0, 1) < worstCaseScenario.score && !firstRunW)
+                            if (evaluateSituation(engineCopy2, aiID, plID) < worstCaseScenario.score && !firstRunW)
                             {
                                 continue;
                             }
                             float score;
                             if (deepness <= 0)
-                                score = evaluateSituation(engineCopy2, 0, 1);
+                                score = evaluateSituation(engineCopy2, aiID, plID);
                             else
                             {
-                                score = getChoiceComb(engineCopy2, deepness - 1).score;
+                                score = getChoiceComb(engineCopy2, deepness - 1, aiID, plID).score;
                             }
                             
                             if (firstRunW)
@@ -208,17 +208,17 @@ void DeepAI::run(std::shared_ptr<engine::Engine> engine)
     int deepness = 1;
     std::cout << "Calculating combinations, please wait (this may take a long time)." << std::endl;
     std::cout.setstate(std::ios_base::failbit);
-    comb todo = getChoiceComb(engine, deepness);
+    comb todo = getChoiceComb(engine, deepness, aiID, plID);
     std::cout.clear();
-    std::cout << evaluateSituation(engine, 0, 1) << std::endl;
+    std::cout << evaluateSituation(engine, aiID, plID) << std::endl;
     std::cout << todo.firstChoice << " " << todo.secondChoice << " " << todo.thirdChoice << std::endl;
     switch (todo.firstChoice)
     {
     case 0:
-        attack(engine, 0, 1);
+        attack(engine, aiID, plID);
         break;
     case 1:
-        defend(engine, 0);
+        defend(engine, aiID);
         break;
     case 2:
         recharge(engine, 0);
@@ -230,10 +230,10 @@ void DeepAI::run(std::shared_ptr<engine::Engine> engine)
         attack(engine, 0, 1);
         break;
     case 1:
-        defend(engine, 0);
+        defend(engine, aiID);
         break;
     case 2:
-        recharge(engine, 0);
+        recharge(engine, plID);
         break;
     }
     switch (todo.thirdChoice)
@@ -242,10 +242,10 @@ void DeepAI::run(std::shared_ptr<engine::Engine> engine)
         attack(engine, 0, 1);
         break;
     case 1:
-        defend(engine, 0);
+        defend(engine, aiID);
         break;
     case 2:
-        recharge(engine, 0);
+        recharge(engine, plID);
         break;
     }
 
