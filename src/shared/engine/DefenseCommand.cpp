@@ -69,5 +69,5 @@ void DefenseCommand::execute(state::State &state)
 
 std::string DefenseCommand::toJSON()
 {
-    return "";
+    return "\"command\":{\"target\":" + std::to_string((int) isDefending->getName()) + "}";
 }

@@ -57,5 +57,5 @@ void RechargeCommand::execute (state::State& state){
 
 std::string RechargeCommand::toJSON()
 {
-    return "";
+    return "\"command\":{\"target\":" + std::to_string((int) fighter->getName()) + "}";
 }

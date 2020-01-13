@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include "../state.h"
 #include "../../client/render/StateLayer.h"
+#include "../../replayDumper.h"
 
 using namespace std;
 using namespace engine;
@@ -27,11 +28,11 @@ State& Engine::getState()
 
 void Engine::addCommand(int priority, std::unique_ptr<Command> ptr_cmd)
 {
-    currentCommands[priority] = move(ptr_cmd);
 	if (dumpJSONCommands)
 	{
-		cout << jsonCommands.toJSON(ptr_cmd) << endl;
+		dumpresult += jsonCommands.toJSON(ptr_cmd) + "\n";
 	}
+    currentCommands[priority] = move(ptr_cmd);
 }
 
 void Engine::update()
@@ -39,6 +40,7 @@ void Engine::update()
 	if (checkGameEnd() && realEngine)
 	{
 		std::cout << "ENDING GAME !" << std::endl;
+		logReplay("replay.txt", dumpresult);
 		exit(0);
 	}
     StateEvent stateEvent(FIGHTERCHANGED);

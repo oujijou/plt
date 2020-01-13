@@ -57,5 +57,5 @@ void ChangeRound::execute(State& state)
 
 std::string ChangeRound::toJSON()
 {
-    return "";
+    return "\"command\":{}";
 }

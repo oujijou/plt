@@ -105,5 +105,5 @@ void AttackCommand::execute (state::State& state){
 
 std::string AttackCommand::toJSON()
 {
-    return (std::string("\"command\":{\n\"attacker\":") + std::to_string((int) attacker->getName())) + ",\n\"targed\":" + std::to_string((int) target->getName()) + "\n}";
+    return (std::string("\"command\":{\n\"attacker\":") + std::to_string((int) attacker->getName())) + ",\n\"target\":" + std::to_string((int) target->getName()) + "\n}";
 }
