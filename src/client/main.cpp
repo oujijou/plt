@@ -4,6 +4,8 @@
 #include "render.h"
 #include "engine.h"
 #include <unistd.h>
+#include <fstream>
+#include <streambuf>
 #include <ai.h>
 
 
@@ -582,6 +584,83 @@ int main(int argc, char *argv[])
                     sf::sleep(sf::milliseconds(1000));
                     engineWaiting = true;
                 }
+            }
+        }
+        else if(strcmp(argv[1], "play") == 0)
+        {
+            bool engineInit = false;
+            bool engineWaiting = false;
+            sf::RenderWindow window(sf::VideoMode(640, 384), "Fighter Zone");
+            std::shared_ptr<Engine> engine = make_shared<Engine>();
+            auto engineThreadFunction = [&]()
+            {
+                engine->getState().setTerrain(SekuTerrain);
+                engine->getState().initPlayers(); //getting the state by using engine
+                engine->getState().setRound(1);
+                
+                cout << "Engine OK" << endl;
+                engineInit = true;
+                
+                while (window.isOpen())
+                {
+                    while (engineWaiting)
+                    {
+
+                    }
+                    engine->update();
+                }
+            };
+
+            sf::Thread  engineThread(engineThreadFunction);
+            engineThread.launch();
+
+            while (!engineInit)
+            {
+                cout << "Waiting for engine initialization..." << endl;
+            }
+
+            cout << "Thread OK" << endl;
+
+            //Client Side (Render)
+            StateLayer stateLayer(window, engine->getState());
+            engine->getState().registerObserver(&stateLayer);
+            
+            TextureManager *textureManager = textureManager->getInstance();
+            if (textureManager->load())
+            {
+                cout << "texture manager ok!\n" << endl;
+            }
+            else
+            {
+                cout << "texuture manager loading failed!" << endl;
+                return EXIT_FAILURE;
+            }
+            
+            stateLayer.draw();
+
+            engineWaiting = true;
+            std::ifstream t("replay.txt");
+            std::string str((std::istreambuf_iterator<char>(t)),
+                std::istreambuf_iterator<char>());
+            std::vector<std::shared_ptr<Command>> commands = engine->jsonCommands.toCommands(str, engine);
+            int i = 0;
+            while (window.isOpen())
+            {
+                if (engine->turnOperation >= 3)
+                {
+                    // If the player / IA already made 3 operations, switch turns.
+                    engine->turnOperation = 0;
+                    iaTurn = !iaTurn;
+                    std::cout << "END OF TURN" << std::endl;
+
+                    engine->addCommand(0, std::unique_ptr<Command>(commands[i].get()));
+                    
+                    engineWaiting = false;
+                    sf::sleep(sf::milliseconds(1000));
+                    engineWaiting = true;
+                    i++;
+                }
+                
             }
         }
     }

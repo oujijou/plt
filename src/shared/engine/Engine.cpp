@@ -30,7 +30,7 @@ void Engine::addCommand(int priority, std::unique_ptr<Command> ptr_cmd)
 {
 	if (dumpJSONCommands)
 	{
-		dumpresult += jsonCommands.toJSON(ptr_cmd) + "\n";
+		dumpresult += jsonCommands.toJSON(ptr_cmd) + "," + "\n";
 	}
     currentCommands[priority] = move(ptr_cmd);
 }
@@ -40,7 +40,7 @@ void Engine::update()
 	if (checkGameEnd() && realEngine)
 	{
 		std::cout << "ENDING GAME !" << std::endl;
-		logReplay("replay.txt", dumpresult);
+		logReplay("replay.txt", "[" + dumpresult + "{}]");
 		exit(0);
 	}
     StateEvent stateEvent(FIGHTERCHANGED);
