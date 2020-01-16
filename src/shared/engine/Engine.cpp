@@ -12,6 +12,7 @@ using namespace state;
 
 Engine::Engine () : currentState(){
 	changeRound = true;
+	jsonCommands = new JSONCommands();
 }
 
 
@@ -26,11 +27,11 @@ State& Engine::getState()
     return currentState;
 }
 
-void Engine::addCommand(int priority, std::unique_ptr<Command> ptr_cmd)
+void Engine::addCommand(int priority, std::shared_ptr<Command> ptr_cmd)
 {
 	if (dumpJSONCommands)
 	{
-		dumpresult += jsonCommands.toJSON(ptr_cmd) + "," + "\n";
+		dumpresult += jsonCommands->toJSON(ptr_cmd) + "," + "\n";
 	}
     currentCommands[priority] = move(ptr_cmd);
 }
@@ -41,6 +42,7 @@ void Engine::update()
 	{
 		std::cout << "ENDING GAME !" << std::endl;
 		logReplay("replay.txt", "[" + dumpresult + "{}]");
+		delete jsonCommands;
 		exit(0);
 	}
     StateEvent stateEvent(FIGHTERCHANGED);

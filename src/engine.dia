@@ -247,10 +247,10 @@
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
-            <dia:boolean val="true"/>
+            <dia:boolean val="false"/>
           </dia:attribute>
           <dia:attribute name="inheritance_type">
-            <dia:enum val="0"/>
+            <dia:enum val="1"/>
           </dia:attribute>
           <dia:attribute name="query">
             <dia:boolean val="false"/>
@@ -764,7 +764,7 @@
             <dia:string>#jsonCommands#</dia:string>
           </dia:attribute>
           <dia:attribute name="type">
-            <dia:string>#JSONCommands#</dia:string>
+            <dia:string>#JSONCommands*#</dia:string>
           </dia:attribute>
           <dia:attribute name="value">
             <dia:string>##</dia:string>
@@ -978,7 +978,7 @@
                 <dia:string>#ptr_cmd#</dia:string>
               </dia:attribute>
               <dia:attribute name="type">
-                <dia:string>#std::unique_ptr&lt;Command&gt;#</dia:string>
+                <dia:string>#std::shared_ptr&lt;Command&gt;#</dia:string>
               </dia:attribute>
               <dia:attribute name="value">
                 <dia:string>##</dia:string>
@@ -1277,17 +1277,17 @@
         <dia:boolean val="false"/>
       </dia:attribute>
       <dia:attribute name="obj_pos">
-        <dia:point val="66.7513,23.4074"/>
+        <dia:point val="66.7513,23.4073"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="45.2061,22.6574;67.5013,36.8052"/>
+        <dia:rectangle val="45.2061,22.6573;67.5013,36.8052"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
       </dia:attribute>
       <dia:attribute name="orth_points">
-        <dia:point val="66.7513,23.4074"/>
-        <dia:point val="55.6537,23.4074"/>
+        <dia:point val="66.7513,23.4073"/>
+        <dia:point val="55.6537,23.4073"/>
         <dia:point val="55.6537,35.9502"/>
         <dia:point val="45.2561,35.9502"/>
       </dia:attribute>
@@ -2901,7 +2901,7 @@
                 <dia:string>#command#</dia:string>
               </dia:attribute>
               <dia:attribute name="type">
-                <dia:string>#std::unique_ptr&lt;Command&gt;&amp;#</dia:string>
+                <dia:string>#std::shared_ptr&lt;Command&gt;&amp;#</dia:string>
               </dia:attribute>
               <dia:attribute name="value">
                 <dia:string>##</dia:string>
@@ -3130,7 +3130,7 @@
         <dia:point val="60.9092,20.2177"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="60.8592,16.3574;67.2013,20.2677"/>
+        <dia:rectangle val="60.8592,16.3573;67.2013,20.2677"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>

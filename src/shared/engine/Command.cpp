@@ -11,3 +11,8 @@ std::string Command::toJSON()
 {
     return "";
 }
+
+void Command::execute (state::State& state)
+{
+
+}

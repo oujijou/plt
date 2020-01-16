@@ -2,6 +2,7 @@
 #include <state.h>
 #include "string.h"
 #include "render.h"
+#define _JSON_H_INCOMPLETE 
 #include "engine.h"
 #include <unistd.h>
 #include <fstream>
@@ -611,6 +612,7 @@ int main(int argc, char *argv[])
                 }
             };
 
+            std::cout << "SEG OK" << std::endl;
             sf::Thread  engineThread(engineThreadFunction);
             engineThread.launch();
 
@@ -642,25 +644,16 @@ int main(int argc, char *argv[])
             std::ifstream t("replay.txt");
             std::string str((std::istreambuf_iterator<char>(t)),
                 std::istreambuf_iterator<char>());
-            std::vector<std::shared_ptr<Command>> commands = engine->jsonCommands.toCommands(str, engine);
+            std::vector<std::shared_ptr<Command>> commands = engine->jsonCommands->toCommands(str, engine);
+            
             int i = 0;
             while (window.isOpen())
             {
-                if (engine->turnOperation >= 3)
-                {
-                    // If the player / IA already made 3 operations, switch turns.
-                    engine->turnOperation = 0;
-                    iaTurn = !iaTurn;
-                    std::cout << "END OF TURN" << std::endl;
-
-                    engine->addCommand(0, std::unique_ptr<Command>(commands[i].get()));
-                    
-                    engineWaiting = false;
-                    sf::sleep(sf::milliseconds(1000));
-                    engineWaiting = true;
-                    i++;
-                }
-                
+                engine->addCommand(0, commands[i]);
+                engineWaiting = false;
+                sf::sleep(sf::milliseconds(1000));
+                engineWaiting = true;
+                i++;
             }
         }
     }
