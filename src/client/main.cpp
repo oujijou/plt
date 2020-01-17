@@ -589,39 +589,11 @@ int main(int argc, char *argv[])
         }
         else if(strcmp(argv[1], "play") == 0)
         {
-            bool engineInit = false;
-            bool engineWaiting = false;
             sf::RenderWindow window(sf::VideoMode(640, 384), "Fighter Zone");
             std::shared_ptr<Engine> engine = make_shared<Engine>();
-            auto engineThreadFunction = [&]()
-            {
-                engine->getState().setTerrain(SekuTerrain);
-                engine->getState().initPlayers(); //getting the state by using engine
-                engine->getState().setRound(1);
-                
-                cout << "Engine OK" << endl;
-                engineInit = true;
-                
-                while (window.isOpen())
-                {
-                    while (engineWaiting)
-                    {
-
-                    }
-                    engine->update();
-                }
-            };
-
-            std::cout << "SEG OK" << std::endl;
-            sf::Thread  engineThread(engineThreadFunction);
-            engineThread.launch();
-
-            while (!engineInit)
-            {
-                cout << "Waiting for engine initialization..." << endl;
-            }
-
-            cout << "Thread OK" << endl;
+            engine->getState().setTerrain(SekuTerrain);
+            engine->getState().initPlayers(); //getting the state by using engine
+            engine->getState().setRound(1);
 
             //Client Side (Render)
             StateLayer stateLayer(window, engine->getState());
@@ -640,7 +612,6 @@ int main(int argc, char *argv[])
             
             stateLayer.draw();
 
-            engineWaiting = true;
             std::ifstream t("replay.txt");
             std::string str((std::istreambuf_iterator<char>(t)),
                 std::istreambuf_iterator<char>());
@@ -650,9 +621,8 @@ int main(int argc, char *argv[])
             while (window.isOpen())
             {
                 engine->addCommand(0, commands[i]);
-                engineWaiting = false;
-                sf::sleep(sf::milliseconds(1000));
-                engineWaiting = true;
+                engine->update();
+                sf::sleep(sf::seconds(1));
                 i++;
             }
         }
